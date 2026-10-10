@@ -2217,7 +2217,7 @@ without leaving the page:
 
 | | |
 | --- | --- |
-| `空格 s` | the sidebar, opened straight onto the outline — Helix puts "the symbols in this file" on this key too |
+| `空格 s` | the sidebar, opened straight onto the outline — Helix puts "the symbols in this file" on this key too. In a file that is code the outline **is** those symbols: its functions and its classes, read off the syntax tree |
 | `空格 f` | open a file: a panel in the middle, the list on the left and the preview on the right (see "Picking a file"); searches the **project path** |
 | `空格 F` | the same, but searches the **working path** (`:cd` changes it, `:pwd` shows it) |
 | `空格 b` | switch buffer |
