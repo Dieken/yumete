@@ -2233,6 +2233,8 @@ without leaving the page:
 | `空格 K` | the same, but opened into the sidebar — room to read a long one |
 | `空格 d` | what is wrong on this line: the server's errors and warnings (a float). After helix's `space d` |
 | `空格 D` | the same, but opened into the sidebar |
+| `空格 x` | **what this change replaced**: the lines `HEAD` has here and the lines you have now, marked `-` and `+` (a float). In that panel, `u` puts the block back the way git has it and `y` copies what it said. `]g`/`[g` step between changes, as in Helix |
+| `空格 X` | the same, but opened into the sidebar |
 | `空格 i` `空格 I` | this row's record (float / sidebar) — aliases for `空格 t i`/`空格 t I` |
 | `空格 "` | paste something taken earlier — the last 16 yanks and deletes, and the named registers (`:clipboard` too) |
 | `空格 c` `空格 C` | comment out by the line / in a block, press again to take it back (see below) |
