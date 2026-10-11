@@ -3880,13 +3880,21 @@ the file changed on disk — `:reload!` takes its version, `:w!` keeps yours
 - `:reload!` re-reads and **throws away** the changes here
 - `:w!` writes over what is outside with what is here
 
-**`:reload-auto on` lets it read by itself.** Once it is on, the disk is asked every two
+**It reads by itself, and that is the factory setting.** The disk is asked every two
 seconds (the cheap question is one `stat`): the file changed outside and you are
 **clean** here, it reads it straight in and the status line says so. When you **have
 changes** it keeps its hands off and only tells you once — merging is not a decision an
-editor should make for you.
+editor should make for you. A file that was **deleted** is not read either: you keep the
+text from before it went.
 
-`:reload-auto` with no word asks whether it is on or off.
+vim ships `'autoread'` off and Helix has no such setting at all, which is worth saying
+because this editor does not follow them here. Off was the right default when a file
+changing underneath you meant *somebody else* on a shared machine; today it almost always
+means you — a branch switched, a formatter run, the same project open in another window.
+The three cases above are what makes reading safe enough to be the default.
+
+`:reload-auto off` turns it off for this run, `[editor] reload_auto = false` for good, and
+the switch is in `:settings` under 文件. `:reload-auto` with no word asks which it is.
 
 **Touched is not changed.** Size and time are only a cheap question — "could this have
 changed?" — and it answers "could" far more often than anything really changed: a sync
