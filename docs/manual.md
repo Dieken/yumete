@@ -2228,7 +2228,7 @@ without leaving the page:
 | `空格 空格` | turn the IME on or off — on lands you in 中文, and a Shift tap crosses to ABC from there |
 | `空格 y` | copy the selection to the system clipboard (`:clipboard-yank`) |
 | `空格 p` `空格 P` | paste from the system clipboard / paste before |
-| `空格 n` | the dictionary: the 拆分 and the code of this character (a float; press again to fold it) |
+| `空格 n` | the dictionary: the 拆分, the reading and the 字集 of this character (a float; press again to fold it) |
 | `空格 N` | the same, but opened into the sidebar — room to read a long one |
 | `空格 k` | what this spot is: the language server in code, the wiki in prose (a float) |
 | `空格 K` | the same, but opened into the sidebar — room to read a long one |
@@ -2524,17 +2524,27 @@ when the page is vertical, so it never covers the start of the line you are on),
 all**, pressing again folds it away, and it is gone the moment the caret leaves. If
 the answer is too long to read, press the upper case one — the same answer goes into
 the right sidebar, the keys go with it, and `j`/`k` get you to the bottom. Everything
-宇浩's 拆分 table knows about the character under the caret: the 拆分, the code, the
-code by segment, the reading, the annotation, the 字集, the Unicode code point, and
-the full 拆分 that has not been cut short. The mainland, Taiwan and Hong Kong take
+宇浩's 拆分 table knows about the character under the caret, in two layers.
+
+**The lower layer needs no scheme.** The 拆分表 is the same one for every scheme, it
+is built into the binary, and the four things it alone knows — 宇浩全息拆分, 讀音,
+注釋, 字集 and the Unicode code point — are there from the first keystroke of a fresh
+install, before `:yume-scheme` has loaded anything. **The upper layer is the scheme's**:
+方案拆分 (the roots its 字根表 actually encoded with), 編碼 and 分節編碼 join at the
+top of the list once a scheme is in.
+
+**The character is a grapheme cluster, not a code point.** `㐂` and `㐂󠄁` (the same
+character with an 異體字選擇符 after it) are two rows in the table and are taken apart
+differently, so the one you are standing on is the one you are asked about, and the
+code point field names every code point in it. The mainland, Taiwan and Hong Kong take
 several thousand characters apart differently, so **a character with several 拆分 gets
 one paragraph for each**, with whose it is written at the head, rather than quietly
 taking the first as the answer. You can ask while typing too: with the candidate panel
 open, press `Tab` and it asks about the highlighted row (for a word, its first
 character) — a row in the candidate bar is only one line, with room for the 拆分 and
 one code, and all the rest is here. When the 拆分 table does not have the character
-(or the current scheme is pure 音碼 and has no 拆分 layer at all), it says so straight
-out, "not in the decomposition table", instead of handing you an empty field.
+— a letter, an emoji, a character outside 宇浩's coverage — it says so straight out,
+"not in the decomposition table", instead of handing you an empty field.
 
 The dictionary is one of the five kinds of content in the "Info" slot (see below). **Ask once and it is there; the moment the caret leaves that
 character it is gone** — that entry was something you asked for, and the question has
