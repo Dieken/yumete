@@ -1079,6 +1079,7 @@ language name on the fence's first line decides which grammar is used:
 | Pascal | `pascal` `delphi` `pas` |
 | Java | `java` `jav` |
 | R | `r` |
+| Mojo | `mojo` |
 
 | What | Colour |
 | --- | --- |
@@ -2233,7 +2234,7 @@ without leaving the page:
 | `空格 K` | the same, but opened into the sidebar — room to read a long one |
 | `空格 d` | what is wrong on this line: the server's errors and warnings (a float). After helix's `space d` |
 | `空格 D` | the same, but opened into the sidebar |
-| `空格 x` | **what this change replaced**: the lines `HEAD` has here and the lines you have now, marked `-` and `+` (a float). In that panel, `u` puts the block back the way git has it and `y` copies what it said. `]g`/`[g` step between changes, as in Helix |
+| `空格 x` | **what this change replaced**: the lines `HEAD` has here and the lines you have now, marked `-` and `+`. Across the page it is a band; set vertically it is a float. `u` puts the block back the way git has it, `y` copies what it said; `]g`/`[g` step between changes, as in Helix |
 | `空格 X` | the same, but opened into the sidebar |
 | `空格 i` `空格 I` | this row's record (float / sidebar) — aliases for `空格 t i`/`空格 t I` |
 | `空格 "` | paste something taken earlier — the last 16 yanks and deletes, and the named registers (`:clipboard` too) |
@@ -5633,12 +5634,6 @@ is noise and is cut. The better you type the question, the shorter the list.
   the letters only have to be in **order**, not next to each other. A slip like
   `laoyut` still lands (command names only, English of three letters or more, two
   letters of slack).
-- **`↑` `↓` to pick, `⇥` to take it.**
-
-**`⇥` runs nothing.** It writes the whole command **back onto the `:` line** with the
-cursor after it, and then you press Enter yourself. So Enter always runs the line you
-can **see**, not something it guessed — `:q!` cannot be undone.
-
 `::` and `:` are two modes and you can walk between them: a second `:` on an empty
 line goes in, backspacing until it is empty comes back to `:`, and one `Esc` returns
 to the text.
@@ -5794,7 +5789,7 @@ for**, so searching for the same thing again is `/` and a Tab.
 | `:write-as` *path* | Save under a new name, and **edit that one** |
 | `:quit` `:q` (`:q!`) | Close this file; it leaves only when this was the last one. `!` throws the changes away |
 | `:quit-all` `:qa` (`:qa!`) | Leave everything, however many are open |
-| `:w!` | When the file was changed outside, write over it with yours |
+| `:w!` | Save over what is there; make the path when there is none |
 | `:reload` (`:reload!`) | Read the file again; `!` throws away what you changed here |
 | `:reload-auto on`｜`off` | Re-read by itself when the file changes outside — only a warning when you have changes of your own |
 | `:readonly` `:ro` `on`｜`off` | Read-only: lock this one against editing |
