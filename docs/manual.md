@@ -1476,7 +1476,13 @@ address, and a way to stop it.
 
 ## 6. Vertical layout (縱書)
 
-`:layout vertical`, or `yumete --vertical`, or `layout = "vertical"` in the config.
+`:layout vertical`, or `:vertical`, or `yumete --vertical`, or `layout = "vertical"` in
+the config. `:horizontal` and `:layout horizontal` turn it back.
+
+(**Two spellings, where the rule above asks for one** — see "the old name is deleted
+outright". These two came back because `:vertical-keys` below owns the prefix
+otherwise: `:vertical` on its own would resolve to *that*, so a hand meaning "turn the
+page" would quietly have flipped a key setting instead.)
 
 **Program files are not set vertically.** Open a `.rs`, a `.py`, a `.js` and the page
 is always drawn across; `:layout vertical` and `-v` both answer with one line, "a
@@ -1496,17 +1502,31 @@ decision (somewhere around 32 characters is the comfortable ceiling for prose).
 
 ### 6.1 Moving
 
-`h j k l` keep their **screen directions**. `j` and `k` read down and up along the
-column, which is forward and backward in the text; `h` and `l` move to the column on
-the left and on the right. A long paragraph carries on from the bottom of one column
-to the top of the next by itself, with nothing for you to do.
+`h j k l` **mean the same four things they mean across the page**: `h` and `l` a
+character back and on, `j` and `k` a line down and up. A line here is a column, so `j`
+and `k` step to the column on the left and on the right, and `h` and `l` run up and
+down inside one. Every count and every operator therefore says the same thing in
+either layout — `3j` is three lines and `d2l` is two characters, wherever the page is
+pointing — which is the point: a macro, a `[keys.normal]` line and this manual do not
+change meaning when you turn the page. A long paragraph carries on from the bottom of
+one column to the top of the next by itself, with nothing for you to do.
 
-**The four `g` keys turn with it.** In horizontal layout `gh` `gl` run along the line
-to its ends, and along the line in vertical layout means downwards, so they become
-`gk` (start of this paragraph) and `gj` (end of it); in horizontal layout `gj` `gk`
-move to the next line and the previous one, and in vertical layout lines stack
-leftwards, so they become `gh` (next paragraph — leftwards is forwards) and `gl`
-(previous paragraph). The menu `g` pops up is written for vertical layout too.
+**The other way round is a setting.** `:vertical-keys visual` (or `[editor]
+vertical_keys = "visual"`) makes the four point where they look: `j` down the column,
+`h` leftward to the next one. It is the same four motions wearing different letters —
+nothing else about the editor changes. `:vertical-keys` on its own flips between them.
+
+**The arrow keys always point where they point**, under either setting: `↓` a
+character down the column, `←` to the column on its left. A letter is a word and an
+arrow is a picture of a direction, which is the split Emacs settled on for `C-f`
+against `→` and the CSS writing-modes spec for `forward`/`backward` against
+`left`/`right`.
+
+**`j` walks a column, `gj` walks a paragraph.** As across the page, the plain key
+moves by what is *drawn* — a paragraph soft-wrapped into three columns takes three
+`j` — and the `g` pair moves by the lines of the file. `gh` and `gl` are the start and
+the end of the paragraph either way. The menu `g` pops up is written for vertical
+layout too.
 
 **The mouse wheel** turns pages: one notch is three columns. yumete takes over the
 mouse for this, so the terminal's own drag-to-copy needs a modifier held down (Option
@@ -5354,7 +5374,6 @@ outright** — keeping two spellings would mean this philosophy was only talk:
 |---|---|
 | `:yume-scheme 靈明` `:yume-chaifen` | `:scheme` `:chaifen` `:cf` |
 | `:ruby-render full/off` `:ruby-html on` `:ruby-format typst` | `:ruby-on` `:ruby-off` `:render-ruby-html` … |
-| `:layout vertical` | `:vertical` `:horizontal` |
 | `:view-wrap off` | `:nowrap` |
 | `:render off/basic/full` | `:markup` `:wysiwyg` `:source` |
 | `:buffer` `:buffer-next/previous/close` | `:buffers` `:ls` `:bd` |
@@ -5519,6 +5538,10 @@ line will tell you itself.
 - `:layout`（lay） — flip horizontal and vertical
   - `vertical` — vertical, 縱 running from the right
   - `horizontal` — horizontal
+- `:vertical` / `:horizontal` — the same two, in one word
+- `:vertical-keys`（vk） — flip what `hjkl` mean on a vertical page
+  - `logical` — `h` `l` by character, `j` `k` by line, exactly as across
+  - `visual` — each of the four goes where it points
 - `:theme` — theme: which set of inks (light or dark is `:theme-mode`)
   - `ink` — moxiang: black, white-gold, gold and red ink; every other shade computed
   - `bw` — heibai: black, white and grey only — weight says it, colour says nothing
