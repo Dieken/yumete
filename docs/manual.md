@@ -1477,13 +1477,15 @@ address, and a way to stop it.
 ## 6. Vertical layout (縱書)
 
 `:vertical`, or `yumete --vertical`, or `layout = "vertical"` in the config.
-`:horizontal` turns it back, and `:layout` on its own flips between them.
+`:horizontal` turns it back.
 
-(**It used to be `:layout vertical`**, an argument under `:layout`, and that spelling
-is gone — one act, one way to say it, as above. It moved out because `:vertical-keys`
-below would otherwise own the prefix: `:vertical` was not a command, so it would have
-resolved to *that*, and a hand meaning "turn the page" would quietly have flipped a
-key setting. Naming the two directions outright is what keeps that word spoken for.)
+(**It used to be `:layout vertical`**, and `:layout` with nothing after it flipped
+between the two. Both spellings are gone: one act, one way to say it, as above. They
+moved out because `:vertical-keys` below would otherwise own the prefix — `:vertical`
+was not a command, so it would have resolved to *that*, and a hand meaning "turn the
+page" would quietly have flipped a key setting. Naming the two directions outright is
+what keeps that word spoken for. Nobody reaches for "flip", either: what a hand wants
+is "make this page vertical".)
 
 **Program files are not set vertically.** Open a `.rs`, a `.py`, a `.js` and the page
 is always drawn across; `:vertical` and `-v` both answer with one line, "a
@@ -2079,7 +2081,7 @@ really has to be typed. Failing all that, the command line still takes a paste.
 
 **Opening any prompt line clears the composition first**, because there is nothing on
 that line that could finish it. `:` and `::` also **borrow** Insert's 中/英: what you
-type at the start of those lines is a command name, and typing `:layout` right after
+type at the start of those lines is a command name, and typing `:vertical` right after
 writing Chinese would have it eaten one letter at a time, so they always open in ABC and
 hand Insert's side back on the way out. `/`, Ruby and the pickers **do not borrow** — a
 search term or `第三章.md` is mostly Chinese to begin with, and forcing ABC on them would
@@ -5536,7 +5538,6 @@ line will tell you itself.
   - `level` ｜ `off` `strict` `balanced` `full` — word level: how many characters make a word
   - `discover` — mine this book's own words: names of people and places no dictionary has
   - `habit` — habit words: what this one says far more than others do
-- `:layout`（lay） — flip horizontal and vertical
 - `:vertical` — vertical, 縱 running from the right
 - `:horizontal` — horizontal
 - `:vertical-keys`（vk） — flip what `hjkl` mean on a vertical page
@@ -5659,7 +5660,6 @@ command called" into "what does the command do":
 ```
 ::竖排           → :vertical           turn the page vertical, 縱 from the right
 ::排序           → :table-sort         sort by these columns
-::互換           → :layout             horizontal or vertical
 ::合併行         → J                   join with the line below
 ```
 
@@ -5919,8 +5919,7 @@ for**, so searching for the same thing again is `/` and a Tab.
 | `:shot` `:shot screen` | Photograph the window onto the clipboard |
 | `:shot png` [*filename*] | The same picture, saved as a PNG (the downloads folder by default, with the date and time in the name) |
 | `:shot html`/`txt` [*filename*] | Draw this page out: coloured HTML / plain text |
-| `:layout` `:lay` | Flip horizontal and vertical |
-| `:vertical` `:horizontal` | Say which outright |
+| `:vertical` `:horizontal` | Turn this page down / across |
 | `:view-hanging` | Hung punctuation on or off |
 | `:syntax` `:syn` [`markdown`｜`typst`｜`text`] | Which markup this file is written in; `text` = no markup |
 | `:render off`/`basic`/`full` | How much of the result the page shows: the source / coloured / WYSIWYG (it sets rendering, tables and readings; the indent is not its business) |
