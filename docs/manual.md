@@ -521,6 +521,28 @@ capital is how you say 「find this one literally」. To turn it around once, wr
 `(?-i)` (`/(?-i)todo` finds only the lower-case one); to turn it around for good,
 `[editor] smart_case = false`.
 
+**`A-j` on the search line widens the match to 繁簡 and pinyin.** The prompt says which
+it is — `搜索:` plain, `通配搜索:` widened — because a switch you cannot see is a switch
+you cannot trust. Widened, `/書` finds 书 as well, and `/shuzhai` finds 書齋: the pattern
+is still a regular expression, with the glyph variants folded into it and the readings
+asked as a second question. It starts off, and stays however you left it, because a
+manuscript with English in it is full of `de`, `shi` and `an`, and every one of them is
+also a syllable.
+
+`:s` has flags for the same two, separately: **`y` for the readings and `j` for the glyph
+variants**.
+
+```
+:%s/書/X/gj              # 书 is replaced too
+:%s/shuzhai/書屋/gy      # 書齋 becomes 書屋
+```
+
+A reading is matched against characters, not against regex syntax, so a pattern with
+brackets in it (`(shu)zhai`) matches no reading at all — the regular expression half of
+the same command goes on working, and `$1` expands for whatever that half matched. The
+search panel (`空格 /`) keeps the two as separate boxes, and is where to go when you want
+one without the other on a search rather than a substitution.
+
 The price is that `.` `*` `(` `[` now mean something — to find a full stop itself you
 have to write `\.`. In the replacement, `\n` and `\t` are a newline and a tab, and `$$`
 is a real dollar sign. `g/` (search for the selected piece) takes the **text as it
