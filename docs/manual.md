@@ -1476,16 +1476,17 @@ address, and a way to stop it.
 
 ## 6. Vertical layout (縱書)
 
-`:layout vertical`, or `:vertical`, or `yumete --vertical`, or `layout = "vertical"` in
-the config. `:horizontal` and `:layout horizontal` turn it back.
+`:vertical`, or `yumete --vertical`, or `layout = "vertical"` in the config.
+`:horizontal` turns it back, and `:layout` on its own flips between them.
 
-(**Two spellings, where the rule above asks for one** — see "the old name is deleted
-outright". These two came back because `:vertical-keys` below owns the prefix
-otherwise: `:vertical` on its own would resolve to *that*, so a hand meaning "turn the
-page" would quietly have flipped a key setting instead.)
+(**It used to be `:layout vertical`**, an argument under `:layout`, and that spelling
+is gone — one act, one way to say it, as above. It moved out because `:vertical-keys`
+below would otherwise own the prefix: `:vertical` was not a command, so it would have
+resolved to *that*, and a hand meaning "turn the page" would quietly have flipped a
+key setting. Naming the two directions outright is what keeps that word spoken for.)
 
 **Program files are not set vertically.** Open a `.rs`, a `.py`, a `.js` and the page
-is always drawn across; `:layout vertical` and `-v` both answer with one line, "a
+is always drawn across; `:vertical` and `-v` both answer with one line, "a
 program file is always laid out across" — indentation and alignment are part of that
 language's syntax and turning the page loses them, and the line numbers and the
 diagnostics lane are both built on "one line, one row". **This is said about
@@ -3482,7 +3483,7 @@ table is on at once and `空格 t t` need not be pressed (`.tsv`/`.tab` likewise
 inside a `.md` are not like this — those are just a part of the text.
 
 **Vertical layout and the CSV grid are mutually exclusive.** A grid is read across, so
-`:layout vertical` is refused (rather than drawing something that makes no sense), and
+`:vertical` is refused (rather than drawing something that makes no sense), and
 `-t` overrides `-v` too. `|` tables inside a document are not governed by this — a table
 is part of the page, and whatever layout the page is in, it is in.
 
@@ -5536,9 +5537,8 @@ line will tell you itself.
   - `discover` — mine this book's own words: names of people and places no dictionary has
   - `habit` — habit words: what this one says far more than others do
 - `:layout`（lay） — flip horizontal and vertical
-  - `vertical` — vertical, 縱 running from the right
-  - `horizontal` — horizontal
-- `:vertical` / `:horizontal` — the same two, in one word
+- `:vertical` — vertical, 縱 running from the right
+- `:horizontal` — horizontal
 - `:vertical-keys`（vk） — flip what `hjkl` mean on a vertical page
   - `logical` — `h` `l` by character, `j` `k` by line, exactly as across
   - `visual` — each of the four goes where it points
@@ -5657,9 +5657,9 @@ type does not exist.
 command called" into "what does the command do":
 
 ```
-::竖排           → :layout vertical    turn the page vertical, 縱 running from the right
+::竖排           → :vertical           turn the page vertical, 縱 from the right
 ::排序           → :table-sort         sort by these columns
-::lyt            → :layout             horizontal or vertical
+::互換           → :layout             horizontal or vertical
 ::合併行         → J                   join with the line below
 ```
 
@@ -5805,7 +5805,7 @@ conditions are **written next to the command**, so all three places can say them
 - pressing it does not quietly set a flag nobody reads either; it says "not yet —
   this needs vertical layout, a margin (not never)";
 - **add `!` to the command's name** and they come on with it: `:view-hanging! on`
-  equals `:layout vertical` + `:view-margin dense` + `:view-hanging on`.
+  equals `:vertical` + `:view-margin dense` + `:view-hanging on`.
 
 It is the same bang as `:w!` and `:q!`, and it says the same thing: do it anyway.
 
@@ -5920,7 +5920,7 @@ for**, so searching for the same thing again is `/` and a Tab.
 | `:shot png` [*filename*] | The same picture, saved as a PNG (the downloads folder by default, with the date and time in the name) |
 | `:shot html`/`txt` [*filename*] | Draw this page out: coloured HTML / plain text |
 | `:layout` `:lay` | Flip horizontal and vertical |
-| `:layout vertical`/`horizontal` | Say which outright |
+| `:vertical` `:horizontal` | Say which outright |
 | `:view-hanging` | Hung punctuation on or off |
 | `:syntax` `:syn` [`markdown`｜`typst`｜`text`] | Which markup this file is written in; `text` = no markup |
 | `:render off`/`basic`/`full` | How much of the result the page shows: the source / coloured / WYSIWYG (it sets rendering, tables and readings; the indent is not its business) |
