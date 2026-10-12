@@ -810,6 +810,22 @@ the left side may be a run of keys: `"dj" = "xxd"`.
 **`A-d` and `C-o` are written that way on either side**, chord and all — `"A-d" = …`
 binds the one chord, not the three keys `A`, `-`, `d`.
 
+**A key with a name goes in angle brackets**: `<tab>` `<S-tab>` `<enter>` `<space>`
+`<backspace>` `<delete>` `<up>` `<down>` `<left>` `<right>` `<home>` `<end>`
+`<pageup>` `<pagedown>`. The brackets are there because the left side is a *run* of
+keys — `"dj"` is `d` then `j` — so a bare `tab` would be the three keys `t` `a` `b`.
+Case does not matter inside them, `S-` is Shift, and a `<` the editor does not
+recognise is left alone.
+
+```toml
+[keys.normal]
+"<tab>"   = ":bn"     # Tab switches to the next file
+"<S-tab>" = ":bp"     # and Shift-Tab back
+```
+
+**`Esc` cannot be bound**, on purpose: a run of keys half pressed is let go with it,
+and a keymap that took it away would have no way out.
+
 ### Prefix keys rebind too
 
 The menu `空格` opens, and the groups opened by `g` `m` `t` — **write that prefix key
