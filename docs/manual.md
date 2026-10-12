@@ -1519,6 +1519,13 @@ vertical_keys = "visual"`) makes the four point where they look: `j` down the co
 `h` leftward to the next one. It is the same four motions wearing different letters —
 nothing else about the editor changes. `:vertical-keys` on its own flips between them.
 
+**A key list you write means the logical four, whichever setting is on.** `"x" = "dl"`
+in `[keys.normal]` deletes a character, and the `+` the vim preset is made of still
+walks a line, because the person who wrote them meant what `l` and `j` mean everywhere
+else. Only the keys **your own hand** presses are turned, which is vim's rule for its
+right-to-left mode, in its own words: "only when typed by the user directly, not when
+the result of a mapping".
+
 **The arrow keys always point where they point**, under either setting: `↓` a
 character down the column, `←` to the column on its left. A letter is a word and an
 arrow is a picture of a direction, which is the split Emacs settled on for `C-f`
