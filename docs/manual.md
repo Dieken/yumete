@@ -1543,6 +1543,13 @@ three lines and `d2l` is two characters, wherever the page is pointing — so a 
 is what the setting buys, and it is the only thing it changes: the same four motions
 wearing different letters. `:vertical-keys` on its own flips between them.
 
+**Under that setting the two presets part company over `j`, exactly as they do across
+the page.** A column is to a vertical page what a screen row is to a horizontal one,
+so under the helix keys `j` walks the column and `gj` the paragraph, and under the vim
+keys `j` walks the paragraph and `gj` the column. `h` and `l` stop at the two ends of
+a paragraph under the vim keys unless their letter is listed in `[editor] which_wrap`
+— vim's rule, and it is about the letters, not about which way the page points.
+
 **A key list you write means the logical four, whichever setting is on.** `"x" = "dl"`
 in `[keys.normal]` deletes a character, and the `+` the vim preset is made of still
 walks a line, because the person who wrote them meant what `l` and `j` mean everywhere
