@@ -1527,19 +1527,21 @@ decision (somewhere around 32 characters is the comfortable ceiling for prose).
 
 ### 6.1 Moving
 
-`h j k l` **mean the same four things they mean across the page**: `h` and `l` a
-character back and on, `j` and `k` a line down and up. A line here is a column, so `j`
-and `k` step to the column on the left and on the right, and `h` and `l` run up and
-down inside one. Every count and every operator therefore says the same thing in
-either layout — `3j` is three lines and `d2l` is two characters, wherever the page is
-pointing — which is the point: a macro, a `[keys.normal]` line and this manual do not
-change meaning when you turn the page. A long paragraph carries on from the bottom of
-one column to the top of the next by itself, with nothing for you to do.
+`h j k l` **go where they point**: `j` and `k` run down and up inside a column, `h`
+steps leftward to the next column and `l` rightward to the one before. The page has
+been turned ninety degrees and the four keys turn with it, so the hand that walked a
+paragraph across the page walks it down a column. A long paragraph carries on from the
+bottom of one column to the top of the next by itself, with nothing for you to do.
 
-**The other way round is a setting.** `:vertical-keys visual` (or `[editor]
-vertical_keys = "visual"`) makes the four point where they look: `j` down the column,
-`h` leftward to the next one. It is the same four motions wearing different letters —
-nothing else about the editor changes. `:vertical-keys` on its own flips between them.
+**The other way round is a setting.** `:vertical-keys logical` (or `[editor]
+vertical_keys = "logical"`) makes the four mean what they mean across the page
+instead: `h` and `l` a character back and on, `j` and `k` a line down and up — and a
+line here is a column, so those two step to the column on the left and on the right.
+Every count and every operator then says the same thing in either layout — `3j` is
+three lines and `d2l` is two characters, wherever the page is pointing — so a macro, a
+`[keys.normal]` line and this manual keep their meaning when you turn the page. That
+is what the setting buys, and it is the only thing it changes: the same four motions
+wearing different letters. `:vertical-keys` on its own flips between them.
 
 **A key list you write means the logical four, whichever setting is on.** `"x" = "dl"`
 in `[keys.normal]` deletes a character, and the `+` the vim preset is made of still
