@@ -5791,7 +5791,9 @@ the same character and deletes one of them. To sort by code point, write
 press it by mistake you can see what it is about to do**, and Esc backs out.
 A saved file ends the way its own lines do, as vim and helix both do: a file whose
 lines end `\r\n` gets a `\r\n`, one whose lines end `\n` gets a `\n`, and an empty
-file stays empty. What was already there is never rewritten — mixed endings and all.
+file stays empty. `[editor] insert_final_newline = false` turns that off and gives you
+the byte-for-byte round trip instead — for a data file that is meant to end without
+one. What was already there is never rewritten either way: mixed endings and all.
 
 **Four keys in all, following helix**:
 
