@@ -2307,7 +2307,7 @@ without leaving the page:
 | `空格 y` | copy the selection to the system clipboard (`:clipboard-yank`) |
 | `空格 p` `空格 P` | paste from the system clipboard / paste before |
 | `空格 n` | the dictionary: the 拆分, the reading and the 字集 of this character (a float; press again to fold it) |
-| `空格 N` | the same, but opened into the sidebar — room to read a long one |
+| `空格 N` | the same, but opened into the sidebar — room to read a long one; the keys stay in the text |
 | `空格 k` | what this spot is: the language server in code, the wiki in prose (a float) |
 | `空格 K` | the same, but opened into the sidebar — room to read a long one |
 | `空格 d` | what is wrong on this line: the server's errors and warnings (a float). After helix's `space d` |
@@ -2601,15 +2601,27 @@ when the page is vertical, so it never covers the start of the line you are on),
 **the sidebar does not move at
 all**, pressing again folds it away, and it is gone the moment the caret leaves. If
 the answer is too long to read, press the upper case one — the same answer goes into
-the right sidebar, the keys go with it, and `j`/`k` get you to the bottom. Everything
-宇浩's 拆分 table knows about the character under the caret, in two layers.
+the right sidebar, where there is room for all of it. Everything 宇浩's 拆分 table
+knows about the character under the caret, in two layers, plus the two things that
+are true of any character at all.
+
+**Neither key takes the keyboard.** The panel is there to be glanced at while the
+writing goes on, so after `空格 N` the caret is still in the text and you can keep
+typing. `C-w w` walks into the sidebar when an answer is long enough to need
+scrolling, and `q` comes back out.
 
 **The lower layer needs no scheme.** The 拆分表 is the same one for every scheme, it
 is built into the binary, and the four things it alone knows — 宇浩全息拆分, 讀音,
-注釋, 字集 and the Unicode code point — are there from the first keystroke of a fresh
-install, before `:yume-scheme` has loaded anything. **The upper layer is the scheme's**:
-方案拆分 (the roots its 字根表 actually encoded with), 編碼 and 分節編碼 join at the
-top of the list once a scheme is in.
+注釋 and 字集 — are there from the first keystroke of a fresh install, before
+`:yume-scheme` has loaded anything. **The upper layer is the scheme's**: 方案拆分
+(the roots its 字根表 actually encoded with), 編碼 and 分節編碼 join at the top of
+the list once a scheme is in.
+
+**統一碼 and 統一碼區塊 need no table at all**, and they are the last two rows of
+every answer. A code point and the Unicode block it falls in are computed from the
+character, so they stand under a symbol, a letter or an emoji exactly as they stand
+under a 漢字 — `※` is `U+203B`, General Punctuation. Block names are left in English,
+which is what Unicode calls them and what you would search for.
 
 **The character is a grapheme cluster, not a code point.** `㐂` and `㐂󠄁` (the same
 character with an 異體字選擇符 after it) are two rows in the table and are taken apart
@@ -2621,21 +2633,22 @@ taking the first as the answer. You can ask while typing too: with the candidate
 open, press `Tab` and it asks about the highlighted row (for a word, its first
 character) — a row in the candidate bar is only one line, with room for the 拆分 and
 one code, and all the rest is here. When the 拆分 table does not have the character
-— a letter, an emoji, a character outside 宇浩's coverage — it says so straight out,
-"not in the decomposition table", instead of handing you an empty field.
+— a letter, an emoji, a character outside 宇浩's coverage — the code point and the
+block still stand, and a line underneath them says, quietly, "not in the decomposition
+table". That is a different sentence from "no 碼表 loaded yet", which is a thing for
+you to go and do.
 
 The dictionary is one of the five kinds of content in the "Info" slot (see below). **Ask once and it is there; the moment the caret leaves that
 character it is gone** — that entry was something you asked for, and the question has
 passed. `空格 n` only floats a window and does not touch the sidebar at all; `空格 N`
 sends it into the sidebar.
 
-**It takes the keys**: after `空格 N` the keys are in that slot, `j`/`k` go up and
-down (the mainland, Taiwan and Hong Kong 拆分 listed one after another often do not
-fit a screen), and `C-w` gets out. While the keys are in there the caret does not
-move, so that character still holds and the panel will not vanish halfway through
-your reading. Pressing `Tab` mid-word to ask about a candidate **does not
-take the keys** — you are writing a word then, and the panel is only there for a
-glance.
+**Nothing here takes the keys.** `空格 N` opens the panel and leaves the caret in the
+text; `C-w w` walks in when you want to scroll (the mainland, Taiwan and Hong Kong
+拆分 listed one after another often do not fit a screen), and while the keys are in
+there the caret does not move, so the character still holds and the panel will not
+vanish halfway through your reading. `Tab` mid-word to ask about a candidate is the
+same: you are writing a word then, and the panel is only there for a glance.
 
 **`Tab` walks between the panels in one slot**: out of the box the left has the file
 tree, the open buffers, the outline and search, and the right has only "Info". The
