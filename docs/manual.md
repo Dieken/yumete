@@ -6006,25 +6006,29 @@ saying what it does; when you are done, `:w` saves — you don't have to know wh
 key is called, and you don't have to go looking up which keys exist.
 
 ```
- settings                               [global] ~/.config/yumete/config.toml (not there yet; saving makes it)
-──────────────┬─────────────────────────────────────────────────────────────────────────────────
-  layout      │ layout                  [across]         factory
-  marks       │ column length           0                factory
-  interface   │ column gap              0                factory
-  colours     │ bands                   1                factory
-  input       │ indent                  2                project ← factory 0
-  editing     │ measure                 36               global  ← factory 0
-  files       │ ruler                   0                factory
-  keys        │ soft wrap               [x]              factory
-              │ hanging punctuation     [ ]              factory
-              │ interlinear lane        [when dense]     factory
-              │ tatechuyoko             4                factory
-              │ paper ticks             0                factory
-              │
-──────────────┴─────────────────────────────────────────────────────────────────────────────────
-  whether the page runs across or down
-  hl panes  jk move  space toggle  i edit  d drop  Tab which file  :w save  q leave
+ settings [project]                    ~/book/.yumete/config.toml+
+──────────────┬──────────────────────────────────────────────────────────────
+  layout      │ layout                  [across]
+  marks       │ column length           0
+  interface   │ column gap              0
+  colours     │ bands                   1
+  input       │ indent                  2
+  editing     │ measure                 36
+  files       │ ruler                   0
+  keys        │ soft wrap               [x]
+              │ hanging punctuation     [ ]
+              ├──────────────────────────────────────────────────────────────
+              │  factory   0
+              │  global    36
+              │  project   unset              ← in force
+──────────────┴──────────────────────────────────────────────────────────────
+  how wide a line of prose is allowed to be
+──────────────────────────────────────────────────────────────────────────────
+  hl panes  jk move  space toggle  i edit  d drop  Tab which file  :w save
 ```
+
+The title says **which file an edit lands in**, and the name on the right is that file;
+a `+` after it means it is not there yet and saving will make it.
 
 | Key | |
 | --- | --- |
@@ -6034,13 +6038,15 @@ key is called, and you don't have to go looking up which keys exist.
 | `i` | type a number or a piece of text in; `Enter` lands it, `Esc` leaves it alone |
 | `d` | **drop this item from the file you are on**, and go back to following the layer below |
 | `Tab` | change which file the edit lands in: global ↔ project |
-| `:w` | save. `:q`/`q` leaves, `:wq` saves then leaves |
+| `:w` | save. `:q` leaves, `:wq` saves then leaves |
 
-**The third column says which layer this item comes from right now**, followed by the
-value it covers. Factory → global → project, each one covering the one before; the line
-in the picture above, "indent 2 project ← factory 0", means "this project sets it to 2,
-and the factory value is 0". **When there is no room for it the column is not
-drawn at all** (under 58 columns); the value column stays.
+**The block under the list is the three layers of the item you are standing on** —
+factory, global, project, each covering the one before, with a mark on the one in force
+and `unset` for a layer that says nothing. It used to be a third column on every row,
+which could only say where the winning value came from and squeezed the value itself
+into eighteen cells; down here there is room to say what each layer holds. **On a short
+window the block is the first thing to go**, then the list shrinks; the line of keys is
+the last to give way.
 
 **When the layer you are editing is covered by one above it, the line
 underneath says so.** The project sets `indent`, and you press space on it in global —
