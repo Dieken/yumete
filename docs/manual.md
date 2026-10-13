@@ -1543,12 +1543,14 @@ three lines and `d2l` is two characters, wherever the page is pointing — so a 
 is what the setting buys, and it is the only thing it changes: the same four motions
 wearing different letters. `:vertical-keys` on its own flips between them.
 
-**Under that setting the two presets part company over `j`, exactly as they do across
-the page.** A column is to a vertical page what a screen row is to a horizontal one,
-so under the helix keys `j` walks the column and `gj` the paragraph, and under the vim
-keys `j` walks the paragraph and `gj` the column. `h` and `l` stop at the two ends of
-a paragraph under the vim keys unless their letter is listed in `[editor] which_wrap`
-— vim's rule, and it is about the letters, not about which way the page points.
+**The setting moves those four letters and nothing else.** `gh` `gj` `gk` `gl` mean
+the same thing under either one, because what they name — a paragraph and its two ends
+— does not point anywhere. The two presets do part company over `gj`, exactly as they
+do across the page: a column is to a vertical page what a screen row is to a
+horizontal one, so `gj` walks the paragraph under the helix keys and the column under
+the vim keys. Under the vim keys `h` and `l` also stop at the two ends of a paragraph
+unless their letter is listed in `[editor] which_wrap` — vim's rule, and it is about
+the letters, not about which way the page points.
 
 **A key list you write means the logical four, whichever setting is on.** `"x" = "dl"`
 in `[keys.normal]` deletes a character, and the `+` the vim preset is made of still
@@ -1563,10 +1565,8 @@ arrow is a picture of a direction, which is the split Emacs settled on for `C-f`
 against `→` and the CSS writing-modes spec for `forward`/`backward` against
 `left`/`right`.
 
-**The `g` pair** is the other half of whichever pair the plain keys are: where `j`
-walks a column, `gj` walks a paragraph, and the other way round — see the two
-paragraphs above for which is which under your preset. `gh` and `gl` are the start and
-the end of the paragraph, whichever way the page is set; under the vim keys those two
+**`gh` and `gl`** are the start and the end of the paragraph, whichever way the page
+is set and whichever way the four letters are pointing; under the vim keys those two
 letters are not bound and `0` and `$` do it, there as here. The menu `g` pops up is
 written for vertical layout too.
 
