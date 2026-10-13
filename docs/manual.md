@@ -6018,13 +6018,13 @@ key is called, and you don't have to go looking up which keys exist.
   keys        │ soft wrap               [x]
               │ hanging punctuation     [ ]
               ├──────────────────────────────────────────────────────────────
+              │  how wide a line of prose is allowed to be
+              │
               │  factory   0
-              │  global    36
-              │  project   unset              ← in force
+              │  global    36              ← in force
+              │  project   unset
 ──────────────┴──────────────────────────────────────────────────────────────
-  how wide a line of prose is allowed to be
-──────────────────────────────────────────────────────────────────────────────
-  hl panes  jk move  space toggle  i edit  d drop  Tab which file  :w save
+  hl panes  jk move  space toggle  i edit  d drop  Tab which file  :w save  :q leave
 ```
 
 The title says **which file an edit lands in**, and the name on the right is that file;
@@ -6040,13 +6040,14 @@ a `+` after it means it is not there yet and saving will make it.
 | `Tab` | change which file the edit lands in: global ↔ project |
 | `:w` | save. `:q` leaves, `:wq` saves then leaves |
 
-**The block under the list is the three layers of the item you are standing on** —
-factory, global, project, each covering the one before, with a mark on the one in force
-and `unset` for a layer that says nothing. It used to be a third column on every row,
-which could only say where the winning value came from and squeezed the value itself
-into eighteen cells; down here there is room to say what each layer holds. **On a short
-window the block is the first thing to go**, then the list shrinks; the line of keys is
-the last to give way.
+**The block under the list is the item you are standing on**: what it does, then its
+three layers — factory, global, project, each covering the one before, the one in force
+in gold and `unset` for a layer that says nothing. The sentence and the layers are two
+halves of one question ("what is this, and what is it set to now"), so they share a
+block. The layers used to be a third column on every row, which could only say where the
+winning value came from and squeezed the value itself into eighteen cells. **On a short
+window the whole block goes** rather than leave the list two rows deep; the line of keys
+is the last to give way.
 
 **When the layer you are editing is covered by one above it, the line
 underneath says so.** The project sets `indent`, and you press space on it in global —
