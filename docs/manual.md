@@ -678,7 +678,7 @@ instead, and so is `:keymap`.
 | one character | `h` `l` | same | same |
 | one line (on screen) | `j` `k` | same | `gj` `gk` |
 | one line (in the file) | `gj` `gk` | same | `j` `k` |
-| start / end of line | `gh` `gl` | same | `0` `$` |
+| start / end of line | `gh` `gl` (the vim preset: `0` `$`, and those two letters are not bound there) | same | `0` `$` |
 | one word | `w` `b` `e` | same | same |
 | one paragraph | `{` `}` | `[p` `]p` | same |
 | **one sentence** | **`H` `L`** | none | `(` `)` |
@@ -752,7 +752,7 @@ on its own says which set is in force.
 | `X` | already there | cut the character before the cursor, as far as the start of the line (the old `X`, which grew the selection to whole lines, gave up the key; select lines with `V`) |
 | `s` | translated to `;c` | change the character under the cursor |
 | `V` | translated to `x` | select the whole line (the `x` here gave way to cutting a character) |
-| `^` `$` `0` | translated to `gs` `gl` `gh` | first character on the line / end of line / start of line |
+| `^` `$` `0` | **the three line keys of this side, under vim's names** | first character on the line / end of line / start of line. The letters `gh` and `gl` do nothing under this preset: vim spells these three `0` `^` `$`, and it keeps `gh` for Select mode — a mode this editor does not have, so the key is left free rather than given a second meaning |
 | `>` `<` | **operators too** | `>>` indents the line, `>j` two lines, `>ap` a paragraph |
 | `C-r` | already there | redo (normally `U` here) |
 | `U` | **new** | undo the whole run of recent changes on this line (as in vim; redo on this side is `C-r`) |
@@ -1563,11 +1563,12 @@ arrow is a picture of a direction, which is the split Emacs settled on for `C-f`
 against `→` and the CSS writing-modes spec for `forward`/`backward` against
 `left`/`right`.
 
-**`j` walks a column, `gj` walks a paragraph.** As across the page, the plain key
-moves by what is *drawn* — a paragraph soft-wrapped into three columns takes three
-`j` — and the `g` pair moves by the lines of the file. `gh` and `gl` are the start and
-the end of the paragraph either way. The menu `g` pops up is written for vertical
-layout too.
+**The `g` pair** is the other half of whichever pair the plain keys are: where `j`
+walks a column, `gj` walks a paragraph, and the other way round — see the two
+paragraphs above for which is which under your preset. `gh` and `gl` are the start and
+the end of the paragraph, whichever way the page is set; under the vim keys those two
+letters are not bound and `0` and `$` do it, there as here. The menu `g` pops up is
+written for vertical layout too.
 
 **The mouse wheel** turns pages: one notch is three columns. yumete takes over the
 mouse for this, so the terminal's own drag-to-copy needs a modifier held down (Option
