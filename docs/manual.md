@@ -5789,8 +5789,9 @@ the same character and deletes one of them. To sort by code point, write
 
 `|` only types the verb for you — it is not a second mechanism, and **if you
 press it by mistake you can see what it is about to do**, and Esc backs out.
-The trailing newline follows whatever the original had: none there, none added;
-one there, it is kept — it will not glue two lines into one.
+A saved file ends the way its own lines do, as vim and helix both do: a file whose
+lines end `\r\n` gets a `\r\n`, one whose lines end `\n` gets a `\n`, and an empty
+file stays empty. What was already there is never rewritten — mixed endings and all.
 
 **Four keys in all, following helix**:
 
