@@ -388,7 +388,7 @@ the rest is not done, and the status line says so.
 | `PageUp` `PageDown` | a whole page — the two keys the keyboard already has, in Insert too. **When "info" is floating they page through that** (see below) |
 | `gg` `ge` | the start of the file / the last line; `10gg` goes to line 10 |
 | `gt` `gc` `gb` | the cursor to the top, middle or bottom of the screen; `3gt` is the third row down. The `z` layer is the opposite: it moves the window |
-| `G` | the last line; `30G` (or `g30g`) goes to line 30 |
+| `G` | `30G` (or `g30g`) goes to line 30. **A bare `G` does nothing**, as in helix, where `ge` is the last line; under the vim keymap a bare `G` is the last line, as in vim |
 | (a half-typed command) | it shows both in the bottom right corner and beside the cursor (the one beside the cursor is `:view-hud`'s business); `g` `t` `m` `空格` also pop up a table |
 | `gn` `gp` | switch to the next / the previous open file |
 | `ga` | **switch back to the one just before** — back and forth, not a lap round the ring |
@@ -683,7 +683,7 @@ instead, and so is `:keymap`.
 | one paragraph | `{` `}` | `[p` `]p` | same |
 | **one sentence** | **`H` `L`** | none | `(` `)` |
 | half page / whole page | `C-d` `C-u` / `C-f` `C-b` | same as left | both sets the same; `C-n` `C-p` is two thirds |
-| start / end of file | `gg` `ge` / `G` | `gg` `ge` | `gg` `G` |
+| start / end of file | `gg` `ge` | same | `gg` `G` |
 | go to line n | `nG` / `:n` | `:n` | `nG` |
 | back where I was / forward again | `C-o` `C-i` | same | same |
 | find a character | `f` `t` | same | same |
@@ -3151,13 +3151,13 @@ column name is editing a column name.
 **The whole-window table is one window, opened onto one table, and there is no walking
 out of it.** `G`, `gg`, `g30g`, `:120`, search — these are ways of jumping around a
 whole file, and inside the window they are all **clamped inside the table**, with a word
-said: "the whole-window table holds this table". `gg` is this table's first row, `G` its
+said: "the whole-window table holds this table". `gg` is this table's first row, `ge` its
 last, and the scroll wheel stops at the end. There are only three ways out: `空格 t q`
 hands the window back (to whichever one you were in before),
 `空格 t o`/`空格 t b`/`空格 t f` change the surface, and `空格 t ]`/`空格 t [` go to
 the next table.
 
-**The window never ends unless you end it.** `G` cannot walk the cursor out into the
+**The window never ends unless you end it.** `ge` cannot walk the cursor out into the
 chapter below and leave the window with no table to draw, which is what buys the next
 paragraph.
 
