@@ -2825,6 +2825,13 @@ It answers in this order:
 `空格` and the picker are not on this line, because they have already opened a panel
 that lists their own keys — the same thing said in two places is worse than said once.
 
+**A count opens a panel too.** Type `10` and you get a small table of the keys where
+the number means something other than 「do it ten times」 — `J` welds ten lines into
+one, `gg` and `G` go to line ten, `gt`/`gc`/`gb` take the tenth row on the screen, and
+after an `f` or a `t`, `A-.` (`;` under the vim keymap) finds the tenth one. The last
+row says what every other key does with it: ten times. Fifty-seven keys take a count,
+so this panel lists the handful you could not have guessed rather than all of them.
+
 Items 3 and 4 list only the keys **you could not have guessed**. `hjkl`, `c`, `d`,
 `y`, `p` in a table are the same thing as in the text, and listing them only takes up
 room; the ones a table alone has are a whole chart away, at `空格 t`.
