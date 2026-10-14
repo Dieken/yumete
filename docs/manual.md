@@ -498,6 +498,15 @@ typing searches for something new — at the first character that does not match
 one, that grey line leaves by itself; backspace over what you typed and it comes back.
 `?` searches the other way and remembers the same one.
 
+**On either prompt, two pairs of keys and two different lists.** `C-p`/`C-n` — and
+`Up`/`Down`, which are the same thing — walk the **history**, newest first; `Tab`/
+`S-Tab` walk the **menu above the line**. This follows helix, where both pairs sit in
+one arm of the same prompt (`helix-term/src/ui/prompt.rs`), and it is also what vim
+does with `c_CTRL-P` and `c_<Up>`. The history is not filtered by what you have
+already typed: type a `c` on the command line, press `C-p`, and you get the last
+command you ran — not the last one beginning with that letter. Walk past the newest
+and the line comes back empty, which is where you started.
+
 What you found **is the selection** — so `c` right after `/她説` changes 「她説」. Every
 motion leaves a selection behind, and search is no exception; otherwise it would be the
 one motion where `d` deletes something other than what the screen is pointing at.
