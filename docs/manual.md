@@ -366,7 +366,7 @@ the rest is not done, and the status line says so.
 | `g/` `g?` | **where else is this word** — the selection (or the word under the cursor) across the whole manuscript. `/` looks here, `?` shows it in the other work area and leaves you where you are |
 | `n` `N` | the next place / the previous place. What `Esc` closes is the window, not the search: afterwards `n` goes to the next place and the window comes back by itself |
 | `gj` `gk` | the next line / the previous line **in the file**, staying in the same column — a paragraph is a line, so this is the next paragraph / the previous paragraph (as in helix; `j`/`k` walk the lines on the screen) |
-| `J` `gK` | join the next line / join up into the line above. **As many lines as you selected get joined** (select a paragraph and press `J` to make it one sentence); it takes a number too, and the number says **how many lines become one** (`3J` welds three lines into one, as in vi) |
+| `J` | join the next line. **As many lines as you selected get joined** (select a paragraph and press `J` to make it one sentence); it takes a number too, and the number says **how many lines become one** (`3J` welds three lines into one, as in vi). To join *upwards*, `kJ` — a step up and the ordinary join, as in vim and helix |
 | `A-J` | the same as `J`, **and the space it added stays selected** (as in Helix). The seam is worked out — nothing between 漢字, one space between Latin words — so selecting it is how you see what was decided, and typing replaces it on the spot |
 | `gw` | **Jump anywhere on this screen at a glance.** Press it and the first character of every short clause turns into a label; type that label and you fly there (`C-o` comes back). **When there are fewer than twenty-six landing spots the label is a single letter**, and only beyond that does it take two — a label together with the cell it borrows is exactly one 漢字 wide, so the layout does not shift by a cell. The landing spots are `e`'s units — 「那年冬天，雪下得早。」 is two of them, not six, so a screen holds sixty labels, not six hundred. Any wrong key only takes the labels away; it will not touch the manuscript. Vertical layout is the same: one column holds exactly one label. |
 | `gx` | **Type what is written there, and jump.** The other way round from `gw`: `gw` has the screen hand out numbers, this has you type the **two letters** the target **literally** spells. Press `do` and every `do…` on the screen turns into a label on the spot; type the label and you fly there (`C-o` comes back). **Fewer than twenty-six landing spots and one letter is enough**, which for this one is nearly every time. It only asks about Western text; Chinese goes through `gz`. A lone `a` is followed by a space, and **the space is the second letter**. |
@@ -6301,7 +6301,7 @@ preset = "helix"               # "helix" (factory) | "vim": vim's x s dd ^ $ tur
 [keys.normal]
 # Press the keys on the left, and it is as if you pressed the keys on the right.
 "，" = ","
-"z" = "gK"                     # join onto the line above — there is no single key for that, so one config line gives it one
+"z" = "kJ"                     # join onto the line above — two keys, so one config line puts it on one
 ```
 
 **Each kind of file says for itself what to run** (`[language.…]`). `tinymist` used to
