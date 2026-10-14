@@ -499,13 +499,21 @@ one, that grey line leaves by itself; backspace over what you typed and it comes
 `?` searches the other way and remembers the same one.
 
 **On either prompt, two pairs of keys and two different lists.** `C-p`/`C-n` — and
-`Up`/`Down`, which are the same thing — walk the **history**, newest first; `Tab`/
-`S-Tab` walk the **menu above the line**. This follows helix, where both pairs sit in
-one arm of the same prompt (`helix-term/src/ui/prompt.rs`), and it is also what vim
-does with `c_CTRL-P` and `c_<Up>`. The history is not filtered by what you have
-already typed: type a `c` on the command line, press `C-p`, and you get the last
-command you ran — not the last one beginning with that letter. Walk past the newest
-and the line comes back empty, which is where you started.
+`Up`/`Down`, which are the same thing — walk the **history**; `Tab`/`S-Tab` walk the
+**menu above the line**. This follows helix, where both pairs sit in one arm of the
+same prompt (`helix-term/src/ui/prompt.rs`), and it is also what vim does with
+`c_CTRL-P` and `c_<Up>`.
+
+**The two directions start at opposite ends.** On a prompt you have not walked yet,
+`C-p` gives you the newest command and keeps going back; `C-n` gives you the **oldest**
+and keeps coming forward. So either key alone reaches the whole list, from whichever
+end is nearer what you are looking for. Both stop when they get there — the list does
+not wrap round, and walking forward past the newest leaves it on the newest rather than
+emptying the line. `C-u` clears the line.
+
+The history is not filtered by what you have already typed: type a `c` on the command
+line, press `C-p`, and you get the last command you ran — not the last one beginning
+with that letter.
 
 What you found **is the selection** — so `c` right after `/她説` changes 「她説」. Every
 motion leaves a selection behind, and search is no exception; otherwise it would be the
