@@ -2649,7 +2649,9 @@ one paragraph for each**, with whose it is written at the head, rather than quie
 taking the first as the answer. You can ask while typing too: with the candidate panel
 open, press `Tab` and it asks about the highlighted row (for a word, its first
 character) — a row in the candidate bar is only one line, with room for the 拆分 and
-one code, and all the rest is here. When the 拆分 table does not have the character
+one code, and all the rest is here. **That one floats**: it never opens a sidebar on
+you in the middle of a word. If the sidebar is already showing info, the answer goes
+in there instead, because one place at a time. When the 拆分 table does not have the character
 — a letter, an emoji, a character outside 宇浩's coverage — the code point and the
 block still stand, and a line underneath them says, quietly, "not in the decomposition
 table". That is a different sentence from "no 碼表 loaded yet", which is a thing for
@@ -2665,7 +2667,8 @@ text; `C-w w` walks in when you want to scroll (the mainland, Taiwan and Hong Ko
 拆分 listed one after another often do not fit a screen), and while the keys are in
 there the caret does not move, so the character still holds and the panel will not
 vanish halfway through your reading. `Tab` mid-word to ask about a candidate is the
-same: you are writing a word then, and the panel is only there for a glance.
+same, and it does not open the sidebar either: you are writing a word then, and the
+panel is only there for a glance.
 
 **`Tab` walks between the panels in one slot**: out of the box the left has the file
 tree, the open buffers, the outline and search, and the right has only "Info". The
