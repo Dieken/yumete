@@ -5347,34 +5347,44 @@ selection — measuring one scene instead of a whole book.
 and a Chinese paragraph is one line: move one 「的」 inside five hundred characters and
 `git diff` wipes the paragraph out and draws it back again — not wrong, but the thing
 you wanted to know (**which word**) is buried in five hundred characters. `:diff`
-compares **by word**, using this editor's own segmentation, the same one `w` walks:
+compares **by word**, using this editor's own segmentation, the same one `w` walks.
 
-    ch01.txt:2: 那年冬天，雪下得很早極早。
-                              ▔▔▔▔▔▔▔▔
-                              紅底 綠底
+**Each change is the paragraph before and the paragraph after**, one row each:
 
-**Red is what came out, green is what went in** — the same sense as `git diff`, only
-by word instead of by line, with what was removed and what was added pressed
-together where they stand. `⏎` is a line break gained or lost: a change you cannot
-see is exactly the kind that most needs drawing, so it is drawn, in colour like the
-rest.
+    2-  她伸手去碰，指尖一涼。
+    2+  她伸手去碰了碰，指尖一涼，那朵花就化了。
+         ▔▔▔▔ 紅底／綠底，改過的詞又亮一層
 
-**The colour is painted on; in the file it reads `[-很早-]{+極早+}`.** Copy
-the listing out, search it with `/`, open it with something else, and those four
-marks are what you see — they are only kept off the screen, because the colour
-already says the same thing more plainly. `:render` has no say here: those four
-characters are **in no file at all**, this report writes them itself.
+The `-` row is the earlier draft and the `+` row is what stands there now, each on a
+faint ground — **red is what came out, green is what went in** — with the words that
+actually changed a shade brighter on top. This is the same four colours, and the same
+`537-` / `533+` shape, that `空格 x` draws over the page.
 
-The result is a listing `gf` can jump through, the same as `:check-usage`.
+**The number is that draft's own line.** The old row is numbered in the file as git
+has it, the new row in the file you are editing, so a passage that moved down four
+lines reads `537-` against `533+`. `gf` from **either** row goes to where that change
+is now — the old line no longer exists to go to.
+
+The filename is not on the rows. The whole report is about one file and the buffer is
+named for it; on a long filename, repeating it would cost twenty-five cells of every
+row.
+
+**The colour is painted on; in the file the changed words read `[-很早-]` and
+`{+極早+}`.** Copy the listing out, search it with `/`, open it with something else,
+and those four marks are what you see — they are only kept off the screen, because the
+colour already says the same thing more plainly. The `-` and `+` at the head of a row
+are **not** markers and stay on the page. `:render` has no say over either: they are
+in no file at all, this report writes them itself.
 
 With no argument it compares against **the copy on disk** — 「what have I changed this
 sitting」, the question with the shortest shelf life. With a path it compares against
 that file: yesterday's chapter, the draft you kept before the rewrite. The path is
 worked out against the directory **this file** is in.
 
-If the two are too far apart — more than twelve hundred changes — it does not list
-them word by word and says so instead; those are no longer two drafts of one
-manuscript, and word by word tells you nothing.
+A rewrite of the whole chapter still comes out as a diff. The lines are paired first
+and the words compared inside each pair, so the comparison does not depend on the two
+drafts being close — it only gives up when they differ by more than twelve hundred
+**lines**, which is a different file rather than another draft of this one.
 
 **To compare against what git has, `:git-diff`.** The same comparison
 and the same report, with only 「against what」 changed: `:git-diff` means `HEAD`, and
