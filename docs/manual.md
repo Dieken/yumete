@@ -2162,9 +2162,12 @@ how far to backspace.
 `:yume-chaifen` turns on the **double annotation** (拆分 plus code) for the highlighted
 candidate; written alone it flips, `:yume-chaifen on` / `off` pin it.
 
-**The commit method** is `:yume-commit delayed|unique|fluency` (with no mode it asks
-which one is in force):
+**The commit method** is `:yume-commit default|delayed|unique|fluency` (with no mode it
+asks which one is in force):
 
+- **`default`** 預設 — this scheme decides, which is what leaving `[ime] commit` out of
+  the config has always meant. It is the way back: the other three are each a
+  particular method, and once one is set nothing else takes it off again.
 - **`delayed`** 延遲上屏 (頂字) — a finished code waits, and the segment before it goes
   up only when the next key cannot continue it.
 - **`unique`** 唯一上屏 (`auto` also works) — a finished code with one candidate goes
@@ -2177,8 +2180,8 @@ inside yume's core, so the one you pick here is the same thing as the one in the
 method panel on macOS or Windows. Once picked it **survives a change of scheme**; 拼音 is
 the only exception — it has no 碼表 to look a segment up in, so it is always
 whole-sentence, and the command says so outright instead of pretending the setting took.
-`[ime] commit` in the config file is the same setting; leave it out and the input method
-decides it by scheme.
+`[ime] commit` in the config file is the same setting; leave it out, or write
+`"default"`, and the input method decides it by scheme.
 
 Note that `:yume-c` now looks like both `chaifen` and `commit`, so it is neither —
 `:yume-ch` and `:yume-co` are each unambiguous (type `:yume-c` and the menu lists them
@@ -6064,7 +6067,7 @@ for**, so searching for the same thing again is `/` and a Tab.
 | `:yume-scheme` [*scheme*] | Start typing: load a 碼表 (with no name, the one in the config) |
 | `:yume-installed` | Use the 碼表 the system has installed |
 | `:yume-builtin` | Force the built-in 靈明 table |
-| `:yume-commit` [*method*] | Commit method: `delayed`/`unique`/`fluency`, see 6 |
+| `:yume-commit` [*method*] | Commit method: `default` the scheme's own / `delayed`/`unique`/`fluency`, see 6 |
 | `:yume-panel` [*look*] | Where the candidate bar is: `box` by the caret / `bottom` the command row / `inline` under the line you are writing, see 6 |
 | `:yume-inline-preedit` [*look*] | Where what you are typing shows: `off` the candidate bar's head / `composition` the code in the text / `preview` the first candidate in the text, see 6 |
 | `:yume-menu-size` [*1–9*] | How many candidates a page of the panel holds (6 out of the box, the same as 宇浩) |
