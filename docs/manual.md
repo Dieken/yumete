@@ -398,7 +398,7 @@ the rest is not done, and the status line says so.
 | the rest of the `z` layer | `z C-d` `z空格` half a page, `z C-u` `z退格` half a page back, `z C-f` `z C-b` a whole page, `z/` `z?` `zn` `zN` search — each the same thing as the bare key, filled in after Helix's view mode |
 | `Z` | the same layer, **and it stays open**: `Zjjjj` scrolls all the way, `Esc` closes it (Helix's sticky view mode) |
 | a wrong key | press something unbound in any of these groups and the command line says `ze is not a key combination here — try again`, naming the whole run your fingers made rather than the last letter alone |
-| `gf` | open the `文件名:行號` written on this line (the listings from `:check-usage` and its kin jump with this) |
+| `gf` | go where this line of a listing points — `文件名:行號`, or just the line number in a report about one file (`:check-usage` and its kin) |
 | `gL` | follow the link under the cursor (see "Following a link"); Ctrl-click does the same |
 | `空格` | open the menu (see below)|
 | `gh` `gl` `gs` | the start of the line / the end of the line / the first character that is not whitespace (the line in the file, which is to say the whole paragraph) |
@@ -5113,10 +5113,16 @@ word said three times at three times the usual rate is not worth mentioning, whi
 yourself saying. 「的」 is frequent in every book, so its ratio is one, and not a single
 one of them is reported.
 
-    ch03.txt:12: 「然後」 47× — 4.2 times more often than prose
+    12: 「然後」 47× — 4.2 times more often than prose
 
 Like `:check-usage`'s, the result is a list you can `gf` your way through, and the line
 number is where that word **first** comes up.
+
+**A report about one file does not repeat the filename on every row.** The buffer is
+named for it and the status line says it again; a row carries the line number and what
+was found, and `gf` goes there. Only a report that spans files — `:grep`,
+`:diagnostics-all` — names one on each row, because there it is the thing that
+differs.
 
 **Three things it keeps quiet about on purpose.** A word the frequency table does not
 have is skipped — 「阿甯」 is not a tic, it is a person's name, and a book's own words are
@@ -5180,7 +5186,7 @@ gives where the character **first** comes up, how many places in all, and which 
 block it is in — the block is the answer to 「will a font have it」.
 
 ```
-書.txt:37: 「𠮷」 is in no standard (CJK-B), 412 times in all
+37: 「𠮷」 is in no standard (CJK-B), 412 times in all
 ```
 
 With no scheme loaded it says only 「no 字集 data」 and does not pretend to have looked.
