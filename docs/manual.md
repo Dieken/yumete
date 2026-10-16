@@ -2214,42 +2214,62 @@ the whole row is dropped before loading and the reply ends with "N over-long row
 skipped". A real 碼表 has nothing that long on either side, so when you see that line the
 path is probably pointing at some other file. If not one row is left, it says outright
 that it could not read a 碼表.
-### Nothing there at all — putting the candidate bar away
+### Where the candidate bar is — the box, or the foot of the window
 
-`:yume-panel full|off` (with no mode written, it tells you which one is on):
+`:yume-panel on|off` (with no mode written, it tells you which one is on):
 
-- **`full`** draws the candidate bar — the bordered list beside the caret, the way it
-  has always looked.
-- **`off`** draws nothing. **`Tab` summons it**, for this one word only; when the word
-  commits, it leaves with it.
+- **`on`** draws the bordered list beside the caret, the way it has always looked.
+- **`off`** moves it to the **command row** — the last row of the window, where a `:`
+  or a `/` is typed. The candidates run across it, left to right, in both writing
+  layouts.
 
 Yume's own IME panel already has a complete candidate bar; this sheet of paper you
-write a novel on does not need a second one. Nine key presses out of ten take the
-first candidate, and covering nine lines of manuscript for that is a bad trade. When
-you really do have to choose, press `Tab`.
+write a novel on does not need a second one hanging off the caret. Nine key presses
+out of ten take the first candidate, and covering nine lines of manuscript for that is
+a bad trade — the command row costs the manuscript nothing, because the row is
+reserved whether you are typing or not.
+
+**It is the same bar, moved.** The same `[panel] markers`, the same ink and paper, the
+same highlight; `1`–`9` pick, `=` and `-` page, and the arrow keys walk the list. What
+it leaves behind is the 拆分 and the 注解 that a bordered row has space for: a row at
+the foot carries the number and the character and nothing else. `Tab` is where the
+rest of it went — it asks the 字典 about the highlighted candidate.
+
+**How many fit is measured, not fixed.** The row holds as many candidates as the width
+allows, so a narrow window shows fewer and a wide one shows the lot.
+`[panel] page_size` is still the ceiling (1–9, six by factory), the same way it is a
+ceiling for a window too short to draw a tall box.
+
+When there is no command row — `[editor] command_line = false`, or a window too short
+for two rows at the foot — the candidates go on the status line while you are
+composing, which is where a `:`, a message and the sidebar's keys already go in that
+case.
+
+A `/` search, a `:` command and a picker take the command row for themselves, so while
+you are typing into one of those the bordered box comes back whatever this is set to.
 
 The config key is `[panel] display`.
 
 ### Where the preedit is written
 
-`:yume-preedit header|code|top` (with nothing written, it tells you which setting is
-on). **This and the one above are two different things**: whether the panel is drawn
-belongs to `:yume-panel`, where the preedit is written belongs here, and all four
-combinations can be pressed out.
+`:yume-inline-preedit off|composition|preview` (with nothing written, it tells you
+which setting is on). **This and the one above are two different things**: where the
+candidates are drawn belongs to `:yume-panel`, where the preedit is written belongs
+here, and all six combinations can be pressed out.
 
-- **`header`** writes it in the panel's first column. With the panel off, the code is
-  drawn on the line below the caret (if there is no room below, the line above; if
-  there is no room there either, only the copy at the right end of the status line is
-  left).
-- **`code`** writes it into the text — the **code** stands where it is going to
-  commit, and the panel stops writing it a second time.
-- **`top`** writes it into the text — the **first candidate** stands where it is going
-  to commit, with the caret at its end. What you are reading is the sentence, not the
-  code, so in this setting **the code is shown nowhere**; to see the code, pick
-  `code`.
+- **`off`** does not write it into the text at all. The code stands at the head of the
+  candidates — the box's first line, or the left end of the command row.
+- **`composition`** writes it into the text — the **code** stands where it is going to
+  commit, and the candidate bar stops writing it a second time.
+- **`preview`** writes it into the text — the **first candidate** stands where it is
+  going to commit, with the caret at its end. What you are reading is the sentence,
+  not the code, so in this setting **the code is shown nowhere**; to see the code,
+  pick `composition`.
 
-The old `bare` was these two together; today you write it as `:yume-panel off` plus
-`:yume-preedit top`.
+The three most-used combinations: `on` + `off` is the box, the way it has always
+looked. `off` + `composition` is the code in the sentence with the candidates along
+the foot. `off` + `preview` is the sentence itself in the sentence, with the
+candidates along the foot.
 
 Those few characters drawn into the text are **not in the file**, but they **are on
 the page**: the caret, `j`, the mouse, wrapping and the 禁則 line-break rules all
@@ -2257,13 +2277,13 @@ count the same page (this is what the #210 layer means), so it will not push the
 characters after it somewhere you cannot see, and it will not put the caret somewhere
 other than where you see it.
 
-`/` search is the exception: it composes on the status line, and there is no text
-there to draw into, so the search box keeps its candidate bar and the code goes back
-to the panel's first column.
+`/` search is the exception: it composes on the command row, and there is no text
+there to draw into, so the search keeps its bordered box and the code goes back to
+that box's first line.
 
-The config key is `[panel] preedit`. This and the **commit method** (`:yume-commit`)
-are two unrelated things as well — one is "when does a character land on the paper",
-the other is "where do you read what you are typing".
+The config key is `[panel] inline_preedit`. This and the **commit method**
+(`:yume-commit`) are two unrelated things as well — one is "when does a character land
+on the paper", the other is "where do you read what you are typing".
 
 ### The semicolon — 快捷符號, the quick symbols
 
@@ -6037,8 +6057,8 @@ for**, so searching for the same thing again is `/` and a Tab.
 | `:yume-installed` | Use the 碼表 the system has installed |
 | `:yume-builtin` | Force the built-in 靈明 table |
 | `:yume-commit` [*method*] | Commit method: `delayed`/`unique`/`fluency`, see 6 |
-| `:yume-panel` [*look*] | Whether the candidate bar is drawn: `full` draws it / `off` does not, see 6 |
-| `:yume-preedit` [*look*] | Where what you are typing shows: `header` the panel's first line / `code` the code in the text / `top` the first candidate in the text, see 6 |
+| `:yume-panel` [*look*] | Where the candidate bar is: `on` the box by the caret / `off` the command row, see 6 |
+| `:yume-inline-preedit` [*look*] | Where what you are typing shows: `off` the candidate bar's head / `composition` the code in the text / `preview` the first candidate in the text, see 6 |
 | `:yume-menu-size` [*1–9*] | How many candidates a page of the panel holds (6 out of the box, the same as 宇浩) |
 | `:yume-autocompletion` | Autocompletion: candidates before the code is finished |
 | `:ruby` and the rest | See 5.4 and 5.5 |
