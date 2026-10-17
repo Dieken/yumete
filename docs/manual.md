@@ -70,6 +70,11 @@ Here are the features Yumete has for people writing in 漢字:
   all of them: `mi m` takes the text inside, `ma m` takes the markup with it (under the
   vim keymap preset, `dim`/`dam`). It follows the file's syntax, so in a
   `:syntax text` file it takes nothing.
+- **`mi c` takes the table cell the cursor is in.** Replacing a whole cell is the
+  commonest thing there is to do to a table, and `mi c c` is it; `mi c d` empties the
+  cell and `mi c y` copies it. It works at every level a table is being read at, and
+  an empty cell is a place too, so `mi c c` fills one in. In a code file the same keys
+  still take the comment, as they do in Helix.
 - Vertical layout is supported (see section 5), punctuation turns with it, and readings
   can be set beside the characters.
 - The IME is part of the editor, not a layer stacked on top of it. Yumete carries the
