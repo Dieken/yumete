@@ -2001,14 +2001,36 @@ while yume holds the keyboard, it switches between 中文 and ABC.
 
 | State | How to get there | What the bottom line says |
 | --- | --- | --- |
-| 中文 | `空格 空格` / `:yume on` / a Shift tap (from ABC) | `[靈明]` |
+| 中文 | `空格 z z` / `:yume on` / a Shift tap (from ABC) | `[靈明]` |
 | ABC | a Shift tap | `[ABC]` |
-| off | `空格 空格` / `:yume off` | nothing at all |
+| off | `空格 z z` / `:yume off` | nothing at all |
 
-**Two axes, not three states.** `:yume` and `空格 空格` answer one question — is the
+**Two axes, not three states.** `:yume` and `空格 z z` answer one question — is the
 engine holding the keyboard at all — and a Shift tap answers the other, 中文 or ABC,
 while it is. The old third word did both at once and so could not say which of them
 it was turning off; it is gone.
+
+**`空格 z` is the IME's own menu**, and every other setting lives under it. The letter
+under `z` is **the letter Yume gives the same thing on its own ⌃⇧ chord**, so a hand
+that knows one knows the other:
+
+| Key | | Yume |
+| --- | --- | --- |
+| `空格 z z` | 中文 / ABC / off | a Shift tap |
+| `空格 z m` | when a word commits — `0` default, `d` delayed, `u` unique, `f` fluency | `⌃⇧M` |
+| `空格 z p` | where the candidates are drawn — `b` box, `m` bottom, `i` inline | |
+| `空格 z e` | where what you are typing is written — `o` off, `c` composition, `p` preview | |
+| `空格 z y` | prediction on or off | `⌃⇧Y` |
+| `空格 z i` | pick a scheme | `⌃⇧I` |
+| `空格 z n` | the next scheme | `⌃⇧N` |
+| `空格 z 3`–`9` | candidates on a page | `⌃⇧3`–`9` |
+| `空格 z /` | the 拆分 beside a candidate | `⌃⇧/` |
+| `空格 z t` | where the 碼表 comes from | |
+| `空格 z w` `W` | which scheme this is / where the data was found | |
+
+The letters Yume uses for things this editor has no answer for — `O U D L H K J A .`
+and `0` — are left empty on purpose: the day one of them arrives here, the key is
+already the same on both sides.
 
 **The sign is there in every mode**, not only where composition actually happens
 (Insert, `/`, the arguments of `:`). In Normal mode it is what tells you whether the
@@ -2356,7 +2378,7 @@ without leaving the page:
 | `C-w`/`空格 w` | the region group (see "One word: region") |
 | `空格 /` | the search panel: type what you are looking for in the box |
 | `空格 ?` | all the commands |
-| `空格 空格` | turn the IME on or off — on lands you in 中文, and a Shift tap crosses to ABC from there |
+| `空格 z` | the IME group: `z` turns it on or off (on lands you in 中文, and a Shift tap crosses to ABC from there), and every other setting is a letter under it — see "The IME's own menu" |
 | `空格 y` | copy the selection to the system clipboard (`:clipboard-yank`) |
 | `空格 p` `空格 P` | paste from the system clipboard / paste before |
 | `空格 n` | the dictionary: the 拆分, the reading and the 字集 of this character (a float; press again to fold it) |
