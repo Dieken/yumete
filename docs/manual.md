@@ -108,13 +108,13 @@ like a manuscript.
 ```
 yumete <file>...       open one file or several
 yumete                 a new blank document
-yumete --resume                carry on from last time — the files that were open, each at the line it was left on
+yumete -r                      carry on from last time — the files that were open, each at the line it was left on
 
       --vertical       open vertically (縱書) this run
       --horizontal     force the horizontal layout
       --table          read it as a grid (a CSV with no schema is fine; its header row names the columns)
       --readonly       lock every file this run opens against editing
-      --resume         carry on with the files that were open last time
+  -r, --resume         carry on with the files that were open last time
       --new            start a blank one even when session = true
       --preview        print the contents and do not enter the editor
       --shot[=WxH]     draw one frame as text, print it and exit (100x30 by default)
@@ -4692,7 +4692,7 @@ included), and `空格 F` only searches `卷一/`.
 
 #### Carrying on tomorrow: `--resume`
 
-**In the morning, carry on from yesterday.** `yumete --resume` reopens the files you
+**In the morning, carry on from yesterday.** `yumete -r` (or `--resume`) reopens the files you
 had open, each one at the line you left it on, and then says one line in the status bar:
 "picking up where you left off: opened 5 file(s)". With no `--resume` and no file name
 either, you get a blank new document. **`:resume` is the same thing from inside** — it
