@@ -108,13 +108,13 @@ like a manuscript.
 ```
 yumete <file>...       open one file or several
 yumete                 a new blank document
-yumete --continue              carry on from last time — the files that were open, each at the line it was left on
+yumete --resume                carry on from last time — the files that were open, each at the line it was left on
 
       --vertical       open vertically (縱書) this run
       --horizontal     force the horizontal layout
       --table          read it as a grid (a CSV with no schema is fine; its header row names the columns)
       --readonly       lock every file this run opens against editing
-      --continue       carry on with the files that were open last time
+      --resume         carry on with the files that were open last time
       --new            start a blank one even when session = true
       --preview        print the contents and do not enter the editor
       --shot[=WxH]     draw one frame as text, print it and exit (100x30 by default)
@@ -2009,6 +2009,24 @@ while yume holds the keyboard, it switches between 中文 and ABC.
 engine holding the keyboard at all — and a Shift tap answers the other, 中文 or ABC,
 while it is. The old third word did both at once and so could not say which of them
 it was turning off; it is gone.
+
+**`空格 o` opens something you had open before.** Three different lists, which is how
+every editor that has this splits it — VS Code's Open Recent lists folders and `⌘P`
+lists files; vim keeps one list of files and writes sessions out by hand, and they are two different commands there too.
+
+| Key | Command | |
+| --- | --- | --- |
+| `空格 o f` | `:recent-files` | the files you have opened under this project, newest first |
+| `空格 o g` | `:recent-files-global` | the same list with every project in it |
+| `空格 o p` | `:recent-projects` | the projects you have worked in; choosing one goes there and starts again, with that project's files already open |
+| `空格 o r` | `:resume` | take up this directory's last session — it **adds**, so nothing you have open is closed |
+
+Two pickers for the files rather than one with a switch, because a picker is in Insert
+from the moment it opens: a digit typed there is a digit in the query, not a key.
+
+Nothing new is written down for any of this. The file list is the one yumete has kept
+since it learned to put you back on the line you left; the project list is one line per
+directory, beside it.
 
 **`空格 z` is the IME's own menu**, and every other setting lives under it. The letter
 under `z` is **the letter Yume gives the same thing on its own ⌃⇧ chord**, so a hand
@@ -4672,16 +4690,17 @@ is what tells them apart —
 Typing `yumete 第一章.md` inside `卷一/`: `空格 f` searches all of `三體/` (`附録/`
 included), and `空格 F` only searches `卷一/`.
 
-#### Carrying on tomorrow: `--continue`
+#### Carrying on tomorrow: `--resume`
 
-**In the morning, carry on from yesterday.** `yumete --continue` reopens the files you
+**In the morning, carry on from yesterday.** `yumete --resume` reopens the files you
 had open, each one at the line you left it on, and then says one line in the status bar:
-"picking up where you left off: opened 5 file(s)". With no `-c` and no file name either,
-you get a blank new document.
+"picking up where you left off: opened 5 file(s)". With no `--resume` and no file name
+either, you get a blank new document. **`:resume` is the same thing from inside** — it
+adds what was open to what you have now, without closing anything.
 
 To carry on every time, write `[editor] session = true`; then no file name means
-carrying on, and `-n` opens a blank one. Which files were open **is recorded every
-time**, so on whatever day you want to pick up, `-c` always finds it.
+carrying on, and `--new` opens a blank one. Which files were open **is recorded every
+time**, so on whatever day you want to pick up, `--resume` always finds it.
 
 It is kept in the data directory (separate per working directory, so a novel and a code
 repository never share one) and leaves nothing in your project. Files moved or deleted
