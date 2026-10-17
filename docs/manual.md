@@ -2026,7 +2026,8 @@ that knows one knows the other:
 | `空格 z 3`–`9` | candidates on a page | `⌃⇧3`–`9` |
 | `空格 z /` | the 拆分 beside a candidate | `⌃⇧/` |
 | `空格 z t` | where the 碼表 comes from | |
-| `空格 z w` `W` | which scheme this is / where the data was found | |
+| `空格 z w` | which scheme source this is | |
+| `空格 z W` | where the data is | |
 
 The letters Yume uses for things this editor has no answer for — `O U D L H K J A .`
 and `0` — are left empty on purpose: the day one of them arrives here, the key is
