@@ -1805,7 +1805,7 @@ letter for rename-symbol, which stays):
 
 **Why a second-level key.** There are only a few readings on a page, and nothing has to
 happen the instant you press — first-level keys are kept for what cannot wait (`r` is
-one: see `docs/development.md` §5.1).
+one: see `local/development.md` §5.1).
 
 Split a reading with `|` into as many parts as there are base characters and you get
 one reading per character: `hàn|zì` gives 漢字 two groups, while `hàn zì` is one reading
