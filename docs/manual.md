@@ -919,14 +919,21 @@ guess — including the pairs helix spells with `_noyank`:
 "c" = "change_selection_noyank"
 ```
 
-**There is a switch for exactly this, and it is the better way**: `:yank-on-delete
-off` swaps the same two pairs, in a table's cells as well as in prose, and
-`yank_on_delete = false` under `[editor]` makes it the default. Prefer it over the
-four lines above: a **binding** goes on overriding whatever the defaults become,
-so those four lines would quietly outlive the reason you wrote them.
+**There is a switch for exactly this, and it is the better way**:
+`:keymap-yumete-flavor on` swaps the same two pairs, in a table's cells as well as
+in prose, and `flavor = true` under `[keys]` makes it the default. Prefer it over
+the four lines above: a **binding** goes on overriding whatever the defaults
+become, so those four lines would quietly outlive the reason you wrote them.
 
-The factory answer is `on`: `d` and `c` cut, as in helix and as in vi, and
+The factory answer is off: `d` and `c` cut, as in helix and as in vi, and
 `A-d`/`A-c` leave the register alone.
+
+The flavour is a short list of departures laid over whichever preset is in use,
+not a third preset — a preset is a whole table to keep level with helix's own,
+and the majority of either keymap is not what is in dispute. Today the list holds
+this one item. With no word, `:keymap-yumete-flavor` reports whether it is on and
+what is in it, and says so when a `[keys.normal]` line of yours binds a key the
+flavour would otherwise govern — that line wins, and the report names it.
 
 A misspelt name is **said out loud on the spot** instead of being typed into
 your text: a right side with an underscore in it that is not recognised is reported at
@@ -6083,7 +6090,7 @@ for**, so searching for the same thing again is `/` and a Tab.
 | `:export csv`/`tsv` [*filename*] | Save the table under the cursor as a file of its own; the manuscript does not move |
 | `:table-find row`/`column` *pattern* | Search row by row (`/`) / column by column (`空格 t/` in a table) |
 | `:clipboard-yank`/`paste` | Trade with the system clipboard (`空格 y`/`空格 p`) |
-| `:yank-on-delete` (`on`/`off`) | Whether `d` and `c` fill the register. Off swaps them with `A-d`/`A-c`; with no word it says which it is |
+| `:keymap-yumete-flavor` (`on`/`off`) | The Yumete keymap flavour over helix/vim. On, `d` and `c` stop filling the register and `A-d`/`A-c` cut; with no word it reports the state and what is in the set |
 | `:word-show` (`on`/`off`) | The word tint on or off |
 | `:word-show 色相`/`字色`/`底色`/`線` | The four ways of drawing it: the ink's colour (factory) / the ink's lightness / a faint colour on the paper / a rule under the word |
 | `:wiki` *name* | Look a name up in the book's wiki |
