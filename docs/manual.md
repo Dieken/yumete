@@ -2551,9 +2551,8 @@ nothing installed they are honestly unavailable, rather than quietly turning
 into 靈明.
 
 **Where it looks**: first where you pointed it yourself (`[ime] data_dirs`,
-`$YUMETE_DATA_DIR`), then yumete's own data directory (`scripts/build.sh`
-installs here; `brew install yume-data` lands here too,
-`<yumete 執行檔>/../../share/yumete`), and last **wherever yume itself is
+`$YUMETE_DATA_DIR`), then beside the binary (`brew install yume-data` lands
+there, `<yumete 執行檔>/../../share/yumete`), and last **wherever yume itself is
 installed** — each platform by that platform's own rules:
 
 - **macOS**: `~/Library/Application Support/Yume/data/compiled/` (a recompiled
@@ -2564,6 +2563,13 @@ installed** — each platform by that platform's own rules:
   machine).
 - **Windows**: `%APPDATA%\Yume\data\compiled\`, `%APPDATA%\Yume\`, and the
   `Resources\` beside the `.exe`.
+
+`~/.local/share/yumete` is **not** on that list, though it is yumete's own
+directory and your word list lives in it. A 碼表 left there is not read: to have
+a directory of your own searched, name it in `[ime] data_dirs`. Saying it out
+loud is the point — a directory that answers because files were dropped into it
+goes on answering with whatever is in it, long after the input method's own copy
+has moved ahead.
 - **Linux**: `$XDG_DATA_HOME/yume/data/compiled/`, `$XDG_DATA_HOME/yume/`,
   `$YUME_DATADIR`, and the `yume/` inside every one of `$XDG_DATA_DIRS` (with
   that variable unset it looks at the standard defaults, `/usr/local/share` and
