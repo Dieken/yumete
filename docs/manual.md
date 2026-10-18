@@ -2420,6 +2420,8 @@ without leaving the page:
 | `空格 c` `空格 C` | comment out by the line / in a block, press again to take it back (see below) |
 | `空格 m` | merge conflicts: `o` keeps ours, `t` keeps theirs, `b` keeps both |
 | `空格 t` | the table group (`空格 t t`, `空格 t f`, `空格 t r`…, see 3.4) |
+| `空格 空格` | turn the page: one whole screen down, the same step `C-f` and `PageDown` take. The space bar is what every reader pages with, and here the bar is this menu’s own leader, so the turn is the bar twice |
+| `空格 退格` | turn back: one whole screen up (`C-b`, `PageUp`). `J`/`K` are the half-page pair |
 
 **These two keys each ask for their own form, whatever the circumstances.** `空格 c`
 wants a **line** comment, `空格 C` wants a **block** comment; only a format that has
