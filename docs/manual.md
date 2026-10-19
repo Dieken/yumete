@@ -878,9 +878,9 @@ with space kept for walking:
 
 ```toml
 [keys.normal]
-";" = " "      # semicolon opens that menu
-" " = "l"      # space moves one cell right
-"" = "h"  # backspace moves left (a control character, written as its code point)
+";" = "@ "      # semicolon opens that menu
+" " = "@l"      # space moves one cell right
+"" = "@h"  # backspace moves left (a control character, written as its code point)
 ```
 
 **A prefix cannot be bound to an "action name"** — an action is one thing,
@@ -896,14 +896,19 @@ of the thing itself**:
 ```toml
 [keys.normal]
 x = "delete_selection"      # an action name
-"\\" = ":write"              # or a command
-"dj" = "xxd"                # or still a run of keys (the old spelling stands)
+"\\" = ":write"              # a command
+"dj" = "@xxd"               # or a run of keys, with an @ to say so
 ```
 
-Three kinds of right side, recognised in this order: anything starting with `:` is the
-command line; a **name** it knows is that action; the rest are keys. The good thing
-about a name is that it does not move when the defaults move — the day `d` goes
-somewhere else, `x = "delete_selection"` still deletes.
+Three kinds of right side, and **each says which it is**: a `:` in front is the command
+line, an `@` in front is keys, and a bare word is an action's name. The good thing about
+a name is that it does not move when the defaults move — the day `d` goes somewhere
+else, `x = "delete_selection"` still deletes.
+
+**A bare word that is not a name is refused**, and the line says so at start-up. That is
+what the `@` is for: keys used to be whatever was left over, so `zz = "save"` — a
+misspelling of `save_file` — was *pressed*, and `s` opened the search panel while `ave`
+went into it. helix marks keys the same way and for the same reason.
 
 **`:keymap-actions` lists them all** (eighty-odd), in three columns: name, what it
 does, which key it is on now. The names match helix, so anyone coming from there can
@@ -6418,9 +6423,10 @@ page = "a5"                    # a4 a5 a6 b5 b6 letter 16開 32開 大32開, or 
 preset = "helix"               # "helix" (factory) | "vim": vim's x s dd ^ $ turned around
 
 [keys.normal]
-# Press the keys on the left, and it is as if you pressed the keys on the right.
-"，" = ","
-"z" = "kJ"                     # join onto the line above — two keys, so one config line puts it on one
+# Press the keys on the left, and the right side happens: an action by name, a command
+# line beginning with `:`, or — with an `@` in front to say so — a run of keys.
+"，" = "@,"
+"z" = "@kJ"                    # join onto the line above — two keys, so one config line puts it on one
 ```
 
 **Each kind of file says for itself what to run** (`[language.…]`). `tinymist` used to
