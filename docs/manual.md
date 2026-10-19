@@ -6405,8 +6405,8 @@ ink = "#CFC6A9"                # ink: the colour of the candidate text
 paper = "#262A27"              # paper: the panel's ground
 page_size = 6                  # candidates to a page, 1–9 (:yume-menu-size changes it too)
 rounded = true                 # a rounded border
-display = "full"               # whether the candidate bar is drawn: full draws it, off does not (see § "Nothing there")
-preedit = "header"             # the piece you are typing: header = the panel's first column / code = the code goes in the text / top = the first candidate goes in the text
+display = "box"                # where the candidate bar goes: box = a bordered panel / bottom = the window's last row / inline = the row under the caret (see § "Nothing there")
+inline_preedit = "off"         # the piece you are typing: off = the panel shows it / composition = the code goes in the text / preview = the first candidate goes in the text
 
 [export]
 # How big the paper is for the printed version. Only the @media print half of `:export html` has
