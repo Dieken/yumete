@@ -2460,9 +2460,10 @@ mostly things like 《第三章 雪》, so the IME runs in that list as usual �
 panel hangs under the query line, a single Shift switches Chinese and English, the
 same machinery as `/` search.
 
-**`:sidebar-left`** opens the sidebar, and **lands straight on the file you are
-writing in** (with no argument it toggles, `:sidebar-left off` closes it,
-`:sidebar-left files` opens it on the file tree). Inside the sidebar you move with the
+**`:sidebar explorer`** opens the file tree, and **lands straight on the file you are
+writing in**. `:sidebar` on its own says which panels are open and moves nothing,
+`:sidebar off` closes both sides, and any of `explorer` `buffers` `outline` `search`
+`info` opens that one. Inside the sidebar you move with the
 same keys as in the text: `j` `k` up and down, `l` (or Enter) to go in — a directory
 expands, a file opens — and `h` folds up, or steps back out a level.
 
@@ -2471,11 +2472,15 @@ expands, a file opens — and `h` folds up, or steps back out a level.
 editor region — the same directions `hjkl` have in the text. **A region that is not
 open gets opened.** Two doors: `C-w` and `空格 w`, with the same letters after them.
 
-**`h`/`l` open "the first panel on that side"**, and which panels belong to
-which side is configurable (`:sidebar-left`, `:sidebar-right`), so what it asks is
-your configuration, not a hard-coded "left is the file tree". Out of the box the file
-tree is on the left and "Info" on the right (dictionary, wiki, record, docs and
-diagnostics share that slot, see below).
+**`h`/`l` open "the first panel on that side"**. **Which side a panel lives on is
+yumete's to decide and cannot be changed**: the file tree, the buffers, the outline
+and the search panel are on the left, "Info" is on the right (dictionary, wiki,
+record, docs and diagnostics share that slot, see below). Info sits across from the
+rest because it answers "what is this" about the word under the cursor, and an answer
+that pushed the manuscript rightwards every time you asked would be worse than no
+answer. One fixed layout means one thing to learn and one thing for the editor to get
+right — a panel that could be moved had to carry whatever was in the slot it landed
+in, hand back what it displaced, and take the keys with it if it had them.
 
 **The digits on the `空格` layer belong to the buffers**, not to the regions:
 naming a region and going there, and closing one from afar, are in the `C-w` group. Every
@@ -2789,22 +2794,9 @@ record, the docs and the diagnostics take it in turns; the title says whichever 
 sitting there at the moment, and "Info" when it is empty. `PageUp`/`PageDown` changes
 which one you are looking at.
 
-**`:panel-left` and `:panel-right` move a slot on the spot.** With no name written it
-is the slot you are in; written, it is that slot: `files` `buffers` `outline` `search`
-`info`. One that is already open moves along with it, and if that side already had
-something the two swap, so nothing is quietly closed. To make it stick, write it into
-the config:
-
-```toml
-[sidebar]
-outline = "right"   # the outline on the far side, in sight the whole time you write
-info    = "left"    # the Info slot over on the left
-```
-
-**`Tab` only cycles within one slot.** All three views on the left is the
-factory layout; move the outline to the right, and `Tab` on the left walks between
-files and buffers, while the right has only the outline, where `Tab` will say "this
-side has only this one panel".
+**`Tab` only cycles within one slot.** The file tree, the buffers, the outline and
+the search panel share the left, so `Tab` there walks the four of them; "Info" has
+the right to itself, where `Tab` says "this side has only this one panel".
 
 **`C-w` goes round the whole way**: left sidebar, text, (secondary editor region),
 right sidebar, skipping whatever is not open.
@@ -6142,8 +6134,7 @@ for**, so searching for the same thing again is `/` and a Tab.
 | `:theme-fill` (`on`/`off`) | Whether code and quotations sit on a ground (they do not out of the box) |
 | `:view-numbers-fill on`/`off` | Whether the line-number band has a ground of its own (no by default) |
 | `:view-diff on`/`off` | Change bar: the cell beside the line number says by its ground which lines differ from git's copy (on out of the box) |
-| `:panel-left`/`:panel-right` [*which one*] | Move a panel to the left / right sidebar. With nothing it is the one in hand; the names: `files` `buffers` `outline` `search` `info` |
-| `:sidebar-left`/`:sidebar-right` [`off`/*which one*] | That side's sidebar: bare toggles it, `off` closes it, a name opens that panel |
+| `:sidebar` [`off`/*which one*] | The sidebar: bare says what is open, `off` closes it, a name opens that panel — `explorer` `buffers` `outline` `search` `info`. Which side each one lives on is fixed |
 | `:shot` `:shot screen` | Photograph the window onto the clipboard |
 | `:shot png` [*filename*] | The same picture, saved as a PNG (the downloads folder by default, with the date and time in the name) |
 | `:shot html`/`txt` [*filename*] | Draw this page out: coloured HTML / plain text |
@@ -6375,16 +6366,6 @@ usage_groups = []            # more groups of spellings for `:check-usage` to ch
                              # <!-- verbatim -->裏/裡<!-- verbatim --> and the like; what you write here is
                              # this book's own names: ["阿嬌 阿姣"]
 show_chaifen = false         # the chaifen annotation beside the candidates
-
-[sidebar]                    # which pane on which side: "left" | "right", one pane to a line
-files = "left"               # the file tree (default left)
-buffers = "left"             # the open files (default left)
-outline = "left"             # the outline (default left)
-search = "left"              # search (default left)
-info = "right"               # info: dictionary / wiki / record / docs / diagnostics (default right)
-                             # two panes on the same side stack up, and the upper one does
-                             # not disappear; `Tab` only cycles within one slot.
-                             # try it on the spot: `:panel-left` / `:panel-right`
 
 [syntax]                     # which markup this file is: by extension, or by exact filename
 txt = "typst"                # every .txt in this project is Typst
