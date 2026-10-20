@@ -655,7 +655,7 @@ know, do it anyway」.
 | `ma` *c* | select the brackets along with it |
 | `mi w` / `mi p` | select the **word** / the **paragraph** under the cursor |
 | `mi f` / `mi t` | select the **function** / the **class** the cursor is in (only in a file that is code all through; the innermost one) |
-| `mi a` / `mi c` | select the **parameter** / the **comment** the cursor is in (same as above; seven languages: python rust go javascript c java r) |
+| `mi a` / `mi c` | select the **parameter** / the **comment** the cursor is in (same as above; eight languages: python rust go javascript c java r mojo) |
 | `ms` *c* | wrap the selection in *c* |
 | `md` *c* | take the *c* pair away; `md m` is 「whichever pair it is, take the innermost one away」 |
 | `mr` *c* *d* | turn the *c* pair into the *d* pair; `mr m` *d* turns the innermost one |
@@ -880,7 +880,7 @@ with space kept for walking:
 [keys.normal]
 ";" = "@ "      # semicolon opens that menu
 " " = "@l"      # space moves one cell right
-"" = "@h"  # backspace moves left (a control character, written as its code point)
+"<backspace>" = "@h"   # backspace moves left
 ```
 
 **A prefix cannot be bound to an "action name"** — an action is one thing,
@@ -2761,7 +2761,7 @@ block still stand, and a line underneath them says, quietly, "not in the decompo
 table". That is a different sentence from "no 碼表 loaded yet", which is a thing for
 you to go and do.
 
-The dictionary is one of the five kinds of content in the "Info" slot (see below). **Ask once and it is there; the moment the caret leaves that
+The dictionary is one of the six kinds of content in the "Info" slot (see below). **Ask once and it is there; the moment the caret leaves that
 character it is gone** — that entry was something you asked for, and the question has
 passed. `空格 n` only floats a window and does not touch the sidebar at all; `空格 N`
 sends it into the sidebar.
@@ -2789,9 +2789,9 @@ decided by the caret and the key you pressed (`空格 d`/`空格 k`/`空格 i`/
 the page, one panel to a slot — **you opened it, and `C-w q` is what makes it go**. There
 are five in all: the file tree, buffers, the outline, search, and **Info**.
 
-**"Info" is one panel, not five.** The dictionary, the wiki, the
-record, the docs and the diagnostics take it in turns; the title says whichever is
-sitting there at the moment, and "Info" when it is empty. `PageUp`/`PageDown` changes
+**"Info" is one panel, not six.** The dictionary, the wiki, the
+record, the docs, the diagnostics and the changes take it in turns; the title says
+whichever is sitting there at the moment, and "Info" when it is empty. `PageUp`/`PageDown` changes
 which one you are looking at.
 
 **`Tab` only cycles within one slot.** The file tree, the buffers, the outline and
@@ -3003,7 +3003,7 @@ not the same.
 | `(` and `,` | in Insert, the call's signature beside the caret, the parameter you are filling in gold |
 | `PageUp` `PageDown` `C-u` `C-d` | page whatever is floating — key for key helix's `ui/popup.rs` |
 | `:diagnostics-all` | every word from every file in one `path:line:` list, `gf` to jump |
-| `:instant-info <name>` | which of the five comes up by itself; bare, it decides by the manuscript |
+| `:instant-info <name>` | which of the six comes up by itself; bare, it decides by the manuscript |
 
 **The gutter costs a manuscript nothing.** That column is drawn only on files a server
 is attached to — a novel will never have one.
@@ -3022,10 +3022,11 @@ it either clips in half or shoves the line sideways.
 pair. What the server sends is Markdown and is drawn as Markdown: bold is bold, code
 takes the ink of code, headings are gold, exactly as in a manuscript.
 
-**One slot, five things, one of them automatic.** The dictionary, the wiki, the record,
-the docs and the diagnostics take turns in that one float (the right sidebar when it is
-open). Which one comes up unasked follows what you are writing — the wiki in prose, the
-diagnostics in code, the record on a table row — and the other four you press for. Only
+**One slot, six things, one of them automatic.** The dictionary, the wiki, the record,
+the docs, the diagnostics and the changes take turns in that one float (the right
+sidebar when it is open). Which one comes up unasked follows what you are writing — the
+wiki in prose, the diagnostics in code, the record on a table row — and the other five
+you press for. Only
 ever one is automatic: two would fight over the same patch of screen, and the question
 「docs if there are docs, diagnostics if there are none」 cannot be answered until the
 docs answer back.
@@ -3150,10 +3151,10 @@ panel gives is a place to **read a long annotation without letting it push the p
 apart**.
 
 The panel is one mechanism with three uses (**the record**, footnotes, annotations), and
-`空格 t i` toggles it. The record one is one of the five "info" things, so it
-shares that one square with the dictionary, the wiki, the docs and the diagnostics:
-drawn inside the right sidebar when that is open, floating beside the cursor when it is
-not. Footnotes and annotations are not among the five, and they still **float in the
+`空格 t i` toggles it. The record one is one of the six "info" things, so it
+shares that one square with the dictionary, the wiki, the docs, the diagnostics and the
+changes: drawn inside the right sidebar when that is open, floating beside the cursor
+when it is not. Footnotes and annotations are not among the six, and they still **float in the
 corner** — a note is a short piece of text, and cutting away any patch of paper for it
 is paying the wrong price.
 
@@ -6256,7 +6257,7 @@ That sounds like meddling, and it is really a repair: a key `RawConfig` does not
 **voids the whole config**, and not one of the correct settings in the same file takes
 effect. Once it is commented out the file works again, and not a character is lost.
 
-**Eight groups, fifty-four items**, one group to a page:
+**Eight groups, fifty-nine items**, one group to a page:
 
 | Group | What is in it |
 | --- | --- |
@@ -6350,7 +6351,7 @@ zong_gap = 0                 # half-width cells between columns, 0–4. 0 (defau
                              # against column; the ruby lane counts separately, see margin
 tatechuyoko = 4              # how many consecutive half-width characters go in one cell (tatechuyoko).
                              # 4 (default) holds a year and a chapter number; 0 = off, 2 is exactly one cell wide, up to 8
-code_highlight = true        # colour code blocks by syntax (sixteen languages); false paints the whole block one purple
+code_highlight = true        # colour code blocks by syntax (seventeen languages); false paints the whole block one purple
 hanging_punctuation = false  # 。，、？！：；「」 hang in the margin (hanging punctuation)
 soft_wrap = true             # set across, a long paragraph folds to the next line; off, it runs past the right edge out of sight
 autosave = true              # keep a rescue copy next to the file while it is unsaved
