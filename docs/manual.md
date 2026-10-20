@@ -6281,7 +6281,33 @@ menu.
 A config file that will not parse — a misspelled key, an unclosed quote — says so at
 startup, and says which key it was and which keys there are. A key it does not know is
 treated as an error: `zong_lenght = 24` should be reported, not look like a setting that
-does nothing.
+does nothing. **TOML is all or nothing**, so one unknown key means the whole file applies
+nowhere, and the message at startup says that too.
+
+**Open the config file in yumete and the same checks run on the page**, the way a
+language server's do — a mark in the gutter on every line with something wrong, and
+`空格 d` to read it:
+
+- an **error** on the one line that stops the whole file applying, which is the one
+  worth finding first;
+- a **warning** on a key that parses and is then never used — a count outside its
+  range, a value that is not one of the words, a binding whose right-hand side is not
+  an action.
+
+Nothing has to be installed and no language server is involved: these are the editor's
+own rules about its own file, so they are the same answers you got at startup, on the
+lines they belong to. They are rechecked as you type, so a line goes quiet the moment
+it is right.
+
+**`:check-config` asks the same question without opening anything**: it reads both
+files — the global one and this project's — and lists every complaint as
+`path:line: what`, which `Enter` walks the way it walks a search. A clean config says
+so in a line and opens no page.
+
+**`e` in the settings panel opens the file that page writes into.** `Tab` chooses
+global or project; `e` opens whichever one is showing. That is the way to reach the
+tables the panel does not draw — `[keys.normal]`, `[syntax]`, `[lsp.*]` — and there is
+no need to remember where they live.
 
 ```toml
 [editor]
