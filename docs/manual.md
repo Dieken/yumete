@@ -4579,6 +4579,10 @@ would flicker.
 `-buffers`/`-working`/`-project`/`:replace ../稿` are the same as the ones for
 finding; they say where to replace.
 
+A replacement that would change how many cells a table row has is refused, the way `:s`
+refuses one without its `t` flag — a 拆分表 whose rows stop lining up is no longer a
+table. `:replace!` (and `:replace-project!`, and the other two) means it anyway.
+
 When `Tab` drops from "search" to "replace with", **the keys stay in typing** — the two
 boxes sit one above the other and are filled one after the other.
 
@@ -5293,7 +5297,8 @@ With opencc not installed it says in one line how to install it and changes noth
 `:convert-opencc-install` will run `brew install opencc` for you on macOS; on other
 systems it only prints the command, because that needs sudo, and a full-screen editor is
 not the place to be asked for your password. Once it is installed, opencc has to be on
-`PATH` for `:convert` to find it.
+`PATH` for `:convert` to find it — `:convert-opencc` says whether it is there, where, and
+which version.
 
 Seven codes, the first five of them opencc's own configuration names:
 
@@ -6055,7 +6060,7 @@ for**, so searching for the same thing again is `/` and a Tab.
 | `:replace-working` | Search and replace: the working directory |
 | `:replace-project` | Search and replace: the project directory |
 | `:export` `:ex` `html`｜`typst` [*path*] | Export; if the target already holds something it takes `:export!` |
-| `:write` `:w` [*path*] | Save; with a path it writes **a copy** there and you stay with the original |
+| `:write` `:w` [*path*] | Save; with a path it writes **a copy** there and you stay with the original. Quote a path that has spaces in it, or put a `\` before each one |
 | `:write-as` *path* | Save under a new name, and **edit that one** |
 | `:quit` `:q` (`:q!`) | Close this file; it leaves only when this was the last one. `!` throws the changes away |
 | `:quit-all` `:qa` (`:qa!`) | Leave everything, however many are open |
@@ -6093,7 +6098,7 @@ for**, so searching for the same thing again is `/` and a Tab.
 | `:view-code` [`on`｜`off`] | Code in a fence coloured by its own grammar (sixteen grammars; with no argument it reports) |
 | `:view-focus` [`on`｜`off`] | Focus: the **paragraph** you are writing stays as it is and the rest of the page steps back one level. The paragraph, not the column — a wrap is not a unit of writing, and when one paragraph wraps into three columns all three are the paragraph you are writing |
 | `:view-margin always` | A margin beside every column and above every row |
-| `:table` [*rows* *columns*] | Write an empty table: `:table 3 4` is three rows by four columns, the first row the column names (the rule row does not count as a row), a blank line left above and below, the cursor waiting in the first column name ready to type. With no numbers it is 3×3. Only on a blank line: in the middle of a paragraph it refuses rather than guess where the paragraph ends |
+| `:table` [*rows* *columns*] | Write an empty table: `:table 3 4` is three rows by four columns (`3x4`, `3×4` and `3,4` say the same), the first row the column names (the rule row does not count as a row), a blank line left above and below, the cursor waiting in the first column name ready to type. With no numbers it is 3×3. Only on a blank line: in the middle of a paragraph it refuses rather than guess where the paragraph ends |
 | `:table-sort` *column* `a`｜`d` … | Sort by these columns; `空格 t1a2d8as` is the same thing from the keyboard |
 | `:table-numbers` [`on`｜`off`] | The row of column numbers above the header |
 | `:table-header` [`on`｜`off`] | Whether the table's first row names the columns (`空格 t H`) |
