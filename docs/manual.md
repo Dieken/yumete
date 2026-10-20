@@ -2405,6 +2405,8 @@ without leaving the page:
 | `空格 s` | the sidebar, opened straight onto the outline — Helix puts "the symbols in this file" on this key too. In a file that is code the outline **is** those symbols: its functions and its classes, read off the syntax tree |
 | `空格 f` | open a file: a panel in the middle, the list on the left and the preview on the right (see "Picking a file"); searches the **project path** |
 | `空格 F` | the same, but searches the **working path** (`:cd` changes it, `:pwd` shows it) |
+| `空格 e` | browse: the same panel over **one directory at a time**, `../` to go up (see "Browsing: `空格 e`"); starts at the **project path** |
+| `空格 E` | the same, starting in the directory the file you are writing in sits in |
 | `空格 b` | switch buffer |
 | `C-w`/`空格 w` | the region group (see "One word: region") |
 | `空格 /` | the search panel: type what you are looking for in the box |
@@ -5027,6 +5029,21 @@ The dotted line needs the terminal to support it (Ghostty, kitty, WezTerm,
 foot and iTerm2 all do; Apple's own Terminal does not). A terminal that cannot draw it
 **falls back to a solid line**, not to nothing at all.
 
+
+### Browsing: `空格 e`
+
+`空格 f` is for a name you can half spell. **`空格 e` is for a shelf you want to look
+along**: the same panel, but holding one directory, with `../` as its first row.
+Directories come before files, and `Enter` on one does not choose anything — it opens
+the same panel one level down, with the query cleared. `Enter` on a file opens it, as
+`空格 f` does. The preview on the right shows what a directory holds, so you can read
+a folder before you step into it.
+
+`空格 E` starts in the directory the file you are writing in sits in, rather than at
+the project path; a buffer with no file of its own starts at the working path.
+
+What the walk skips is what it skips for `空格 f` — hidden files, whatever `.gitignore`
+names, and build trees — so the two never disagree about whether a folder is there.
 
 ### Picking a file: `空格 f`
 
