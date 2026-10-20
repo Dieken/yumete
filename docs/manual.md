@@ -230,6 +230,10 @@ The switches carry `ripgrep`'s names: `--ignore-case`, `--case-sensitive`, `--wo
 `--chinese=off|glyphs|pinyin|both` (繁簡 and 拼音, both on from the factory).
 `ye --help` lists them all.
 
+The eight that **shape a pattern** — the five above plus `--fuzzy`, `--chinese` and
+`--heading` — belong to `--grep`. `--files` matches names by feel and has no pattern to
+shape, so it refuses them rather than taking them and quietly doing nothing.
+
 
 **The version number can say which build is running.** A dozen commits a day during
 development, and a bare `0.2.0` cannot answer that question — which is exactly the first
