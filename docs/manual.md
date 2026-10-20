@@ -5835,7 +5835,7 @@ line will tell you itself.
 - `:keymap` ｜ `helix` `vim` `actions` — keymap preset: vim's `x` `s` `dd` `^` `$` translated into the keys here; with no argument it reports
 - `:indent-hint` ｜ `none` `color` `symbol` — what is drawn in a paragraph's opening two squares
 - `:indent-tab` ｜ `spaces` `tab` — what Tab types in insert mode: spaces (the default, filling to the next indent stop) or a tab; Shift-Tab types the other
-- `:indent-width` ｜ `<1–8>` — indent width: how many spaces Tab types, and how far `>` `<` shift
+- `:indent-width` ｜ `<1–16>` — indent width: how many spaces Tab types, and how far `>` `<` shift
 - `:table` <rows> <columns> — an empty table: `:table 3 4` is three rows by four columns, the first row the headings. Only on a blank line, so it can never break a paragraph; with no numbers it is 3×3
   - `render` ｜ `off` `basic` `full` `window` — how much of a table is drawn: the source, basic, full, or window view; bare reports the mode. The same four as `空格 t o` `空格 t b` `空格 t f` `空格 t t`
   - `check` — look the whole table over: repeated row names, components with no row, rows of the wrong width, characters outside the 字集
