@@ -5661,6 +5661,10 @@ it used to guess the latter, and really did write a file called `all` into the c
 directory, while not one of the other changed buffers was saved. Now it says "no such
 command as 'write all' — it is spelled `:write-all`".
 If you really want a file called `all`, write `:write ./all`.
+Every command answers that way. Write a space where `:wiki-panel`, `:search-project`,
+`:table-check`, `:theme-mode`, `:indent-tab`, `:pipe-to`, `:replace-buffers` or
+`:view-wrap-vertical` has a hyphen and you are told the spelling, rather than having the
+word read as something the command takes.
 
 | short | is |
 | --- | --- |
