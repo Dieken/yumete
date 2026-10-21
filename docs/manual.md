@@ -2430,7 +2430,7 @@ without leaving the page:
 | `空格 "` | paste something taken earlier — the last 16 yanks and deletes, and the named registers (`:clipboard` too) |
 | `空格 c` `空格 C` | comment out by the line / in a block, press again to take it back (see below) |
 | `空格 m` | merge conflicts: `o` keeps ours, `t` keeps theirs, `b` keeps both |
-| `空格 t` | the table group (`空格 t t`, `空格 t f`, `空格 t r`…, see 3.4) |
+| `空格 t` | the table group (`空格 t t`, `空格 t b`, `空格 t r`…, see 3.4) |
 | `空格 空格` | turn the page: one whole screen down, the same step `C-f` and `PageDown` take. The space bar is what every reader pages with, and here the bar is this menu’s own leader, so the turn is the bar twice |
 | `空格 退格` | turn back: one whole screen up (`C-b`, `PageUp`). `J`/`K` are the half-page pair |
 
@@ -3177,7 +3177,7 @@ eyes. Table mode is that grid: another view of the same text, where the unit of 
 goes from the character to the cell.
 
 ```
-yumete --table 表.csv          # or :table-render full from inside
+yumete --table 表.csv          # or :table-render basic from inside
 ```
 
 #### Four surfaces
@@ -3189,39 +3189,40 @@ and whether that table is a `.csv` or three rows inside a chapter makes no diffe
 | | Original | Keys | Wrapping | Enter with |
 | --- | --- | --- | --- | --- |
 | **Source** | visible, `\|` is just a character | the text's own | as usual | `空格 t o` |
-| **Table keys** | visible (commas, tabs and `\|` all there) | the grid's own | the table's rows **do not wrap** | `空格 t b` |
-| **Drawn in place** | invisible, drawn as rules, **the text around it still there** | the grid's own | n/a | `空格 t f` |
+| **Table keys** | visible (commas, tabs and `\|` all there) | the page's own, plus `Tab` | the table's rows **do not wrap** | `空格 t b` |
 | **The whole window** | invisible, drawn as rules, **the window holds nothing but this table** | the grid's own | n/a | `空格 t t` |
 
-#### Four surfaces, item by item
+#### Three surfaces, item by item
 
 The table above says what they are; this one says what they do.
 
-| | **Source `空格 t o`** | **Table keys `空格 t b`** | **Drawn in place `空格 t f`** | **The whole window `空格 t t`** |
-| --- | --- | --- | --- | --- |
-| The level inside | `Off` | `Basic` | `Full` | `Basic` ＋ holds the window |
-| **Column alignment** (padding) | none | the drawn spaces line up | same | the pane lines them up itself |
-| Which rows the widths are measured from | — | **only the ones on screen** | same | only the ones on screen |
-| Do the widths change as you scroll | — | yes | yes | yes |
-| **Delimiter** | as written, just a character | as written, one square | drawn as `┆`; the rule row as `├┄┼┄┤` | the pane draws the rules itself |
-| Column ruler (hugging the heading row) | no | **yes** | yes | yes |
-| Column numbers ＋ names on top once the heading scrolls off | no | **yes** | yes | the pane freezes the heading itself |
-| Frozen line numbers | — | no | no | **yes** |
-| **Long cells folded by default** | not folded | **not folded** | **folded**, 32 squares at most | **folded**, 32 squares at most |
-| `空格 t w` fold/unfold | refused (it says to press `空格 t b`), but the answer is remembered | on/off | on/off | on/off |
-| The fold mark | — | `>` (only once folded) | `>` | `>` |
-| Cursor moves into a folded cell in Normal | — | — | **does not unfold** | **does not unfold** |
-| In Insert (press `i`) | — | — | **unfolds the cursor's cell** | unfolds the cursor's cell |
-| How to read a folded cell | — | — | `i`, `空格 t w` | the panel on the right (the whole cell, wrapped), `i`, `空格 t w` |
-| `空格 t a` wrapping inside the cell | — | refused: needs the whole window | refused: needs the whole window | **yes** |
-| **Soft wrap on table rows** | wraps as usual | **no wrap** (one row is one line) | no wrap | n/a |
-| The padding spaces the file itself carries | on the page | on the page | **taken off the page** while folded | — |
-| The cursor walking over those removed spaces | — | — | **steps across in one** | — |
-| `hjkl` | by character | **by cell** (a grid opens at its top layer) | same | same |
-| `Enter` / `Esc` go down into a cell and back out | — | yes | same | same |
-| `Tab` | the text's own | next cell | next cell | next cell |
-| The record panel on the right (the whole row in one column) | no | **not opened**, `空格 t i` opens it | same | open |
-| The text around it | there | there | there | not there |
+| | **Source `空格 t o`** | **Table keys `空格 t b`** | **The whole window `空格 t t`** |
+| --- | --- | --- | --- |
+| What it is | the file, as you typed it | **a document** whose columns line up | **a table interface**, not a document |
+| The level inside | `Off` | `Basic` | `Basic` ＋ holds the window |
+| **Column alignment** (padding) | none | the drawn spaces line up | the pane lines them up itself |
+| Which rows the widths are measured from | — | **only the ones on screen** | only the ones on screen |
+| Do the widths change as you scroll | — | yes | yes |
+| **Delimiter** | as written, just a character | as written, one square | the pane draws the rules itself |
+| Column ruler (hugging the heading row) | no | **yes** | yes |
+| Column numbers ＋ names on top once the heading scrolls off | no | **yes** | the pane freezes the heading itself |
+| Frozen line numbers | — | no | **yes** |
+| **Long cells folded by default** | not folded | **not folded** | **folded**, 32 squares at most |
+| `空格 t w` fold/unfold | refused (it says to press `空格 t b`), but the answer is remembered | on/off | on/off |
+| The fold mark | — | `>` (only once folded) | `>` |
+| Cursor moves into a folded cell in Normal | — | — | **does not unfold** |
+| In Insert (press `i`) | — | — | unfolds the cursor's cell |
+| How to read a folded cell | — | `空格 t w` | the panel on the right (the whole cell, wrapped), `i`, `空格 t w` |
+| `空格 t a` wrapping inside the cell | — | refused: needs the whole window | **yes** |
+| **Soft wrap on table rows** | wraps as usual | **no wrap** (one row is one line) | n/a |
+| `hjkl` | by character | **by character** — it is a document | **by cell** at the top layer, by character inside one |
+| The mode word | `NOR` | `NOR` | `CEL` / `CEL.NOR` |
+| `Enter` / `Esc` go down into a cell and back out | — | — | **yes** |
+| Can a motion leave the cell | — | yes | **no**, inside a cell the cell is the document |
+| `Tab` | the text's own | **next cell** | next cell |
+| Whole-cell `y` `d` `c` `i` `o` | — | — | **yes**, at the top layer |
+| The record panel on the right (the whole row in one column) | no | **not opened**, `空格 t i` opens it | open |
+| The text around it | there | there | not there |
 
 A few that are easy to get wrong:
 
@@ -3231,16 +3232,17 @@ A few that are easy to get wrong:
 - **The principle of `空格 t b` is that it may add characters and never take any away**:
   the padding, the column ruler and the top band are all marks **added** to the page, so
   all of them are there in `空格 t b`; folding **hides** characters, so it has to be
-  asked for with `空格 t w`. `空格 t f` also **replaces** (`|` drawn as `┆`), which is
-  the third thing only `空格 t f` does.
+  asked for with `空格 t w`. Nothing there ever **replaces** a character you typed —
+  the `|` stays a `|`. Drawing it as the wall `┆` it means is what `空格 t t` does, and
+  that is a table interface rather than a page of prose.
 - **The cursor does not unfold a folded cell just by standing on it** — `i` does.
   Unfolding on arrival would give the column a new width at every press of `l`, so a key
   that only says "next cell" would shove the whole table sideways. There are three ways
   to read a folded cell in Normal,
   and none of them moves the layout: **the panel on the right** has the whole cell
   spread out already, `i` unfolds it in place, `空格 t w` unfolds them all at once.
-- **On a text page the record panel never opens by itself** — `空格 t o`, `空格 t b` and
-  `空格 t f` alike; press `空格 t i` to see it. Only `空格 t t` (the window given
+- **On a text page the record panel never opens by itself** — `空格 t o` and `空格 t b`
+  alike; press `空格 t i` to see it. Only `空格 t t` (the window given
   entirely to the table) opens it by itself: there is no text to mind there, and with
   long cells folded the panel is the way to read the whole content.
   The panel takes a fifth of the width, and the moment it appears the paragraphs above
@@ -3249,7 +3251,7 @@ A few that are easy to get wrong:
   quietly change it back, the same rule as `空格 t w`.
 
 - **The four kinds of punctuation make no difference**: markdown's `|`, csv's `,`, tsv's
-  tab and Excel's `;` run through the same code under `空格 t b` and `空格 t f` and look
+  tab and Excel's `;` run through the same code under `空格 t b` and look
   the same.
 
 Switch between the four directly, without stepping out first: `空格 t b` in the
@@ -3257,8 +3259,8 @@ whole-window table goes back to table keys, not back to the text. **`空格 t o`
 way back to the text**, and all four know it.
 
 **`空格 t q` concerns the whole-window table only**: it hands the window back and
-returns you to whichever one you were in before — after `空格 t f` `空格 t t` `空格 t q`
-you are in `空格 t f` again. A `.csv` that is nothing but a table has no "whichever one
+returns you to whichever one you were in before — after `空格 t b` `空格 t t` `空格 t q`
+you are in `空格 t b` again. A `.csv` that is nothing but a table has no "whichever one
 you were in before", and there `空格 t q` is `空格 t o`.
 
 **Table keys** is for "I want to see what I typed, and I want to walk by cells" —
@@ -3266,14 +3268,13 @@ editing a Markdown table, working on the source of a CSV, with not one comma or 
 hidden, while `Tab`, `空格 t r`, `空格 t1s` and `空格 t/` all mean the grid. Those rows
 **stop wrapping**: one row is one line, and you can count which column you are in.
 
-**Drawn in place** and **the whole window** differ in exactly one thing: who computes
-the column widths. The one drawn into the text computes one set of widths from the
-**whole table**, so the rules do not move as you scroll; the whole-window one computes
-them from **the rows you can see**, so it tightens to whatever it has scrolled to —
-which is why a hundred-and-twenty-thousand-row division table costs the effort of one
-page.
+**Table keys** and **the whole window** differ in who computes the column widths. The
+one drawn into the text computes one set of widths from the **whole table**, so the
+columns do not move as you scroll; the whole-window one computes them from **the rows
+you can see**, so it tightens to whatever it has scrolled to — which is why a
+hundred-and-twenty-thousand-row division table costs the effort of one page.
 
-**In `空格 t b` and `空格 t f` the cursor can walk up and down out of the table**: `j`
+**In `空格 t b` the cursor can walk up and down out of the table**: `j`
 on the last row walks into the paragraph below the table, `k` on the heading row walks
 into the paragraph above. Walk out and `hjkl` are letters again; walk back in and they
 are cells. `J`/`K` (paging) do not walk out — a page counts **the table's** rows, and
@@ -3283,7 +3284,7 @@ stops when it has counted them.
 the top line, `空格 t t` from the heading row lands on **the first data row**, and `k`
 on the first row stops — otherwise the cursor would plainly be on the heading row while
 being drawn on the first row, and a character typed would go into a column name. In
-`空格 t b`/`空格 t f` the heading row is still in its place on the page, and editing a
+`空格 t b` the heading row is still in its place on the page, and editing a
 column name is editing a column name.
 
 **The whole-window table is one window, opened onto one table, and there is no walking
@@ -3292,7 +3293,7 @@ whole file, and inside the window they are all **clamped inside the table**, wit
 said: "the whole-window table holds this table". `gg` is this table's first row, `ge` its
 last, and the scroll wheel stops at the end. There are only three ways out: `空格 t q`
 hands the window back (to whichever one you were in before),
-`空格 t o`/`空格 t b`/`空格 t f` change the surface, and `空格 t ]`/`空格 t [` go to
+`空格 t o`/`空格 t b` change the surface, and `空格 t ]`/`空格 t [` go to
 the next table.
 
 **The window never ends unless you end it.** `ge` cannot walk the cursor out into the
@@ -3302,7 +3303,7 @@ paragraph.
 **Line numbers in the window are this table's own** (row 1, row 2…), not the file's. The
 status line's "line N" follows it, and `空格 t1g` and `空格 t20,20g` count it too —
 **every number in the window means the same thing**. Walk out of the window
-(`空格 t b`/`空格 t f`/ `空格 t o`) and the line numbers are the file's again, and
+(`空格 t b`/`空格 t o`) and the line numbers are the file's again, and
 then `空格 t20g` is the file's line 20 again (clamped inside the table).
 
 **`空格 t ]`/`空格 t [` walk to another table, and a different column count is no
@@ -3395,7 +3396,7 @@ are; neither does a file with a schema, or with a schema that has an error in it
 **`空格 t o` only has to be pressed once.** When the guess is wrong (or you simply want
 to see the source), `空格 t o` goes back to the source, and that answer is recorded in
 `source-mode.txt` in the data directory, so the next time you open the same file it is
-not guessed at again. Change your mind with `空格 t b`/`空格 t f` and that line comes
+not guessed at again. Change your mind with `空格 t b` and that line comes
 off the list. The list keeps only the 200 most recent files, and a file that is gone
 drops off by itself.
 
@@ -3421,7 +3422,7 @@ it guessed, the "the first row is data" that `空格 t H` said is in there too, 
 column names follow the first line. So opening it and reading it back changes not one
 cell — every item you then edit edits something you can see in front of you, instead of
 guessing at a format against a blank sheet. Save your edits, then `:table-render off` and
-`:table-render full` again (or `空格 t o` `空格 t f`) and it is read the new way.
+`:table-render basic` again (or `空格 t o` `空格 t b`) and it is read the new way.
 
 A file that already has that name is not overwritten: it is somebody's work, and opening
 it to see what it says is the right thing to do. A stretch recognised inside a document
@@ -3432,13 +3433,13 @@ table files.
 
 **The whole file is not a table, those few lines are.** A code table pasted into a
 chapter, a `dict.yaml`'s body under the `---` front matter, LaTeX's `tabular` — put the
-cursor into those lines, `:table-render full`, and it is a grid; `:table-render off` comes out,
+cursor into those lines, `:table-render basic`, and it is a grid; `:table-render off` comes out,
 and not one byte of the file has moved.
 
 How it is recognised:
 
 * **Whichever delimiter you are standing on is the one.** When a line has both tabs and
-  commas, press `:table-render full` on the comma and it splits by comma. Selecting a few lines
+  commas, press `:table-render basic` on the comma and it splits by comma. Selecting a few lines
   works too: the character that appears the same number of times on every line of the
   selection is the one. When nothing has said, it tries tab, comma, semicolon and `&` in
   that order (`&` is for LaTeX and Typst).
@@ -3686,7 +3687,7 @@ is part of the page, and whatever layout the page is in, it is in.
 #### Markdown's `|` tables
 
 The same grid, pointed at **one stretch** of a document instead of a whole file. Put the
-cursor on any `|` line and `:table-render full`:
+cursor on any `|` line and `:table-render basic`:
 
 ```
 | 字 | 讀音 |
@@ -3711,7 +3712,7 @@ one the cursor is in, and no need to enter table mode: the padding is drawn on, 
 file gains not one byte. This has to be done on the page — once
 what-you-see-is-what-you-get hides the `` ` `` and the `**`, every row loses a different
 number of squares, and **the same source cannot possibly be lined up on both sides at
-once**. So the source belongs to `空格 t f` and the page belongs to itself, each doing
+once**. So the source belongs to `空格 t b` and the page belongs to itself, each doing
 its own job, neither in the other's way.
 
 What is measured is **the whole cell's width** between two `|`, and the spaces you typed
@@ -3815,7 +3816,7 @@ nothing to remember about which is which.
 | `空格 t <` `空格 t =` `空格 t >` | this column left/centre/right |
 | `空格 t F` | line it up again, into the file |
 | `空格 t x` | convert the table's format (the delimiter): `p` pipe, `c` csv, `t` tsv; upper case `P C T` paste the clipboard as that one |
-| `空格 t o` `空格 t b` `空格 t f` `空格 t t` | source/table keys/drawn in place/the whole window (see below) |
+| `空格 t o` `空格 t b` `空格 t t` | source/table keys/the whole window (see below) |
 | `空格 t w` | fold the too-wide cells/spread them back (everything but source counts) |
 | `空格 t a` | wrap the too-wide cells — the tail drawn on the lines below, inside its own column (the whole window only) |
 | `空格 t i` | this row spread into the sidebar, one field to a line |
@@ -3910,7 +3911,7 @@ allowed to hide things **of its own accord**, so it ships spread out in full; pr
 `空格 t w` and that is you saying to fold, so it folds, and the level does not move. The
 only one with truly nothing to fold is **source** — that level draws things as written,
 no column is lined up, and so there is nothing to measure against; `空格 t w` there says
-plainly that it wants `空格 t b` or `空格 t f`. The press you made counts: spread it out
+plainly that it wants `空格 t b`. The press you made counts: spread it out
 in "basic" and it is still spread when you get to "drawn in place".
 
 **`空格 t w` counts in the whole-window table too**, only it folds a different way: in
@@ -3995,7 +3996,7 @@ before.
 write one in a cell, write `\|` — that is the one escape a Markdown table has, and it is
 recognised here: `a\|b` is one cell.
 
-A `|` table inside a code block is **not** a table, it is a quotation: `:table-render full`
+A `|` table inside a code block is **not** a table, it is a quotation: `:table-render basic`
 is refused, and it will not go reflowing somebody else's pasted-in example (there are
 several in this very manual). A row with only one column is not a table either.
 
@@ -5856,7 +5857,7 @@ line will tell you itself.
 - `:indent-tab` ｜ `spaces` `tab` — what Tab types in insert mode: spaces (the default, filling to the next indent stop) or a tab; Shift-Tab types the other
 - `:indent-width` ｜ `<1–16>` — indent width: how many spaces Tab types, and how far `>` `<` shift
 - `:table` <rows> <columns> — an empty table: `:table 3 4` is three rows by four columns, the first row the headings. Only on a blank line, so it can never break a paragraph; with no numbers it is 3×3
-  - `render` ｜ `off` `basic` `full` `window` — how much of a table is drawn: the source, basic, full, or window view; bare reports the mode. The same four as `空格 t o` `空格 t b` `空格 t f` `空格 t t`
+  - `render` ｜ `off` `basic` `window` — how much of a table is drawn: the source, basic, or window view; bare reports the mode. The same three as `空格 t o` `空格 t b` `空格 t t`
   - `check` — look the whole table over: repeated row names, components with no row, rows of the wrong width, characters outside the 字集
   - `rules` ｜ `off` `color` `line` — column rules: how the columns are told apart
   - `sort` <column> a｜d … — sort by these columns: `sort 1 a 2 d` is column 1 ascending, then column 2 descending
