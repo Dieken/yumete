@@ -3218,7 +3218,7 @@ The table above says what they are; this one says what they do.
 | `hjkl` | by character | **by character** — it is a document | **by cell** at the top layer, by character inside one |
 | The mode word | `NOR` | `NOR` | `CEL` / `CEL.NOR` |
 | `Enter` / `Esc` go down into a cell and back out | — | — | **yes** |
-| Can a motion leave the cell | — | yes | **no**, inside a cell the cell is the document |
+| Can a motion leave the cell | — | yes | **not the ones that walk by a word or more** — for those the cell is the document. `hjkl` and `Tab` cross on purpose, one cell at a time |
 | `Tab` | the text's own | **next cell** | next cell |
 | Whole-cell `y` `d` `c` `i` `o` | — | — | **yes**, at the top layer |
 | The record panel on the right (the whole row in one column) | no | **not opened**, `空格 t i` opens it | open |
@@ -3470,7 +3470,7 @@ surrounds it is somebody else's prose. To really tidy it up, `:convert-table` it
 | | |
 |---|---|
 | `h` `l` | one cell left or right |
-| `j` `k` | one row up or down, staying in the same column |
+| `j` `k` | one row up or down, staying in the same column. **Inside a cell they walk that cell's own rows first** and step out of it at its last one; `gj` `gk` the same way over the rows of the *file* rather than the rows on the screen |
 | `0` `$` `Home` `End` | **the first/last cell of this row**; under the helix keymap `gh` `gl` `gs` are the same thing. Inside a cell all of them are that cell's own two ends |
 | `c` | **replace this cell** — the whole cell cleared **into the register**, type the new one straight in. The most used key in the grid |
 | `d` | **empty this cell** (the delimiter stays), **putting it in the register** — the text's rule, where `d` cuts; with a selection it still deletes the selection |
@@ -3608,13 +3608,24 @@ Only the `t` family goes on knowing about cells inside one: **whichever componen
 cursor is on is the one `空格 t/` searches for** — and at the top layer it searches for
 the whole cell.
 
-**How the cursor moves inside a cell**: once you are in (`i`/`a`/`c`), the **left and
-right arrow keys** move by character and `Home`/`End` are the cell's two ends. Press
-once more at the edge of the cell and you step into the one next door — to the right,
-the end of the row picks up the first cell of the next; to the left, the start picks up
-the last cell of the row above, and you land at that cell's **far end** (come in from
-the right and the cursor is at its right end). The up and down arrows change rows within
-the column, the same step as `j`/`k` in Normal.
+**How the cursor moves inside a cell**: `h`/`l` and the **left and right arrow keys**
+move by character and `Home`/`End` are the cell's two ends. Press once more at the edge
+of the cell and you step into the one next door — to the right, the end of the row picks
+up the first cell of the next; to the left, the start picks up the last cell of the row
+above, and you land at that cell's **far end** (come in from the right and the cursor is
+at its right end).
+
+**`j`/`k` walk this cell's own rows before they leave the cell.** A cell can have rows
+of two kinds: a line break typed into it starts one, and under `空格 t a` the part of a
+wide cell past the cap is drawn underneath as another. `j` steps through them — the rows
+you can see — and only at the cell's last row does it step to the same column of the
+next record; `k` the same going up, landing on the last row of the cell above. `gj`/`gk`
+walk the rows **of the file** instead, so in a wrapped cell they step over the drawn
+rows altogether: the editor's own `j`-is-the-screen, `gj`-is-the-file split, asked of one
+cell. The arrows do the same in Insert as `j`/`k` do in Normal, so typing does not change
+what a direction means. On the grid's last record `j` stays where it is — a table drawn
+inside a document is part of it, and there `j` walks on into the paragraph underneath as
+it always has.
 
 The arrow keys only walk, they change not one character, so they are not blocked.
 `Backspace` at the head of a cell is: it would join two cells into one. **`Enter` makes
@@ -3651,18 +3662,22 @@ nobody's rows. The rule row (`|---|`) is neither checked nor counted in the row 
 
 #### A few things it will not let you get wrong
 
-**A comma cannot get into a cell — by any route at all.** This table has no quoting
-whatever, a cell is what lies between two commas, and that rule is what lets an 8 MB
-hand-edited table be saved back byte for byte. The price is that **no cell may contain
-the delimiter**.
+**A row cannot quietly change shape — by any route at all.** A delimited file is read
+by counting delimiters, so one stray comma turns a three-column row into four and an
+8 MB hand-edited table stops being the table it was.
 
 That guard does not live at "typing"; it lives on **the two functions every character
 passes through on its way in or out of the buffer**. The first version guarded typing
 only, and one review turned up seven other routes around it — ⌘V paste, `空格 p`, an IME
 commit, `:s`, `r`, `R`, and pressing `d` on an empty cell (an empty cell's position is
-exactly where that comma is, so two cells become one; and since most columns of this
-table are empty on most rows, that is the easiest one to hit by accident). Now they all
-go through the same gate and say the same thing.
+exactly where that comma is, so two cells became one; and since most columns of a
+division table are empty on most rows, that was the easiest one to hit by accident). Now
+they all go through the same gate and say the same thing.
+
+A comma, a quote and a line break you **type** are not that case: the editor wraps the
+field for you, and the row still comes apart into the same number of cells. What is
+refused is a route that would change the count — a paste of the wrong shape, a `:s` that
+rewrites delimiters.
 
 The invariant is: **the number of cells a row comes apart into never changes.** `:s` is
 checked against it too — a replacement that only changes what is **inside** a cell runs
