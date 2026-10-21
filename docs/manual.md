@@ -3616,11 +3616,12 @@ the last cell of the row above, and you land at that cell's **far end** (come in
 the right and the cursor is at its right end). The up and down arrows change rows within
 the column, the same step as `j`/`k` in Normal.
 
-The arrow keys only walk, they change not one character, so they are not blocked. **What
-is blocked is the two that would change characters**: `Enter` would cut a row in half,
-and `Backspace` at the head of a cell would join two cells into one. Besides that, `Tab`
-in the last cell **opens a new row** (you are filling a table), and the arrow keys stop
-there.
+The arrow keys only walk, they change not one character, so they are not blocked.
+`Backspace` at the head of a cell is: it would join two cells into one. **`Enter` makes
+a line break inside the cell** — in a delimited file, where the editor quotes the field
+around it; a `|` table's row *is* a line and has no quoting to lean on, so there it still
+says so and does nothing. Besides that, `Tab` in the last cell **opens a new row** (you
+are filling a table), and the arrow keys stop there.
 
 Replacing a whole cell is much faster with `c` than with `i`: land on the cell, `c`,
 type the new value, `Esc`. One `u` undoes the lot.
@@ -3663,25 +3664,24 @@ exactly where that comma is, so two cells become one; and since most columns of 
 table are empty on most rows, that is the easiest one to hit by accident). Now they all
 go through the same gate and say the same thing.
 
-The invariant is: **in table mode, the number of delimiters on a line never changes.**
-`:s` is checked against it too — a replacement that only changes what is **inside** a
-cell runs as usual (`:%s/⿰木/⿰禾/g` is fine), and one that would change the cell count
-or the line count is refused outright, with the line number.
+The invariant is: **the number of cells a row comes apart into never changes.** `:s` is
+checked against it too — a replacement that only changes what is **inside** a cell runs
+as usual (`:%s/⿰木/⿰禾/g` is fine), and one that would change the cell count or the line
+count is refused outright, with the line number.
 
-**Quotes already in the file are read correctly.** The rule above says "cannot be typed
-in", not "cannot be read": `2500,"Smith, John",note` is three cells, and the middle one,
-quotes and all, is the characters you edit — the quotes are in the file, and what you
-look at is the file. RFC 4180's doubled quote is recognised too. The quote in
-`he said "hi"` is not at the head of a cell, so it is only a character: to really guard
-a comma, the writer quotes the whole cell.
+**The quotes are the editor's, not yours.** A field of a delimited file may hold the
+delimiter, a quote or a line break, and the way it holds them is RFC 4180's: the field
+is wrapped in `"` and a quote inside it is doubled. That is syntax rather than anything
+you typed, so you never see it and never type it — `2500,"Smith, John",note` is three
+cells and the middle one reads `Smith, John`. Type a comma into a cell and the quotes
+appear around it; take the comma out again and they go, because a value that does not
+need them is written without them.
 
-**There is only one thing it cannot read: a newline inside quotes.** That makes one
-record take two lines, and this grid is "one record to a line" from the cursor all the
-way to the save; another parser would be the same. So it is recognised and said out
-loud, rather than half read and half guessed: when that is what stops the whole file
-from being a grid, opening the table tells you so directly; when the file is a grid on
-the whole, `:table-check` lists that row on its own and says "this quote is never
-closed", instead of vaguely reporting a wrong column count.
+**A record may run over several lines**, which is what a quoted line break makes. The
+grid draws it as one row (its continuation lines carry no number of their own), walks it
+as one row, and writes it back the way it found it. What is still said out loud is a
+quote that is never *closed*: `:table-check` lists that row on its own, rather than
+vaguely reporting a wrong column count.
 
 **An error in the schema is said out loud** — which file, which line, and what is
 wrong. A schema dropped in silence would take twenty-eight labels, two computed fields
