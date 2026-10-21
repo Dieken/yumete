@@ -2887,7 +2887,7 @@ NOR  ch01.md   Ln 12, Col 8                       螭 U+87ED · CJK Unified Ideo
 position, the character under the caret. It **never changes shape**, so the eye finds
 the same thing in the same place every time.
 
-The gold word at the front is the mode, seven in all:
+The gold word at the front is the mode, nine in all:
 
 | | What it means |
 | --- | --- |
@@ -2898,6 +2898,8 @@ The gold word at the front is the mode, seven in all:
 | `PAN.NOR` | **the keys are in a sidebar panel**, pressing keys |
 | `PAN.INS` | the keys are in a field in the panel, typing |
 | `PIC.INS` | the keys are in the picker's box, typing |
+| `CEL` | **the keys are a grid's**, and the whole cell is the unit |
+| `CEL.NOR` | the keys are inside one cell — and `CEL.INS`, `CEL.SEL`, `CEL.REP` the same way |
 
 Those two `PAN.` ones answer "when I press a key, does the manuscript move or the
 panel?". Pressing `d` on a list of search results clears the search term; pressing `d`
@@ -2917,8 +2919,8 @@ It answers in this order:
 2. **what just happened** — `存了 ch01.md`, a key that was turned away, `找不到`
 3. **the key you have half pressed** — you pressed `m` and cannot remember what
    follows it; this line simply lists them
-4. **the panel holding the keyboard** — the sidebar, a table (by cell or by character,
-   each with its own keys)
+4. **the panel holding the keyboard** — the sidebar, a table (`CEL` for the whole cell,
+   `CEL.NOR` for inside one, each with its own keys)
 
 `空格` and the picker are not on this line, because they have already opened a panel
 that lists their own keys — the same thing said in two places is worse than said once.
@@ -3215,8 +3217,8 @@ The table above says what they are; this one says what they do.
 | **Soft wrap on table rows** | wraps as usual | **no wrap** (one row is one line) | no wrap | n/a |
 | The padding spaces the file itself carries | on the page | on the page | **taken off the page** while folded | — |
 | The cursor walking over those removed spaces | — | — | **steps across in one** | — |
-| `hjkl` | by character | by character | by character | by character |
-| `T` switches the grain | — | by cell/by character | same | same |
+| `hjkl` | by character | **by cell** (a grid opens at its top layer) | same | same |
+| `Enter` / `Esc` go down into a cell and back out | — | yes | same | same |
 | `Tab` | the text's own | next cell | next cell | next cell |
 | The record panel on the right (the whole row in one column) | no | **not opened**, `空格 t i` opens it | same | open |
 | The text around it | there | there | there | not there |
@@ -3259,7 +3261,7 @@ returns you to whichever one you were in before — after `空格 t f` `空格 t
 you are in `空格 t f` again. A `.csv` that is nothing but a table has no "whichever one
 you were in before", and there `空格 t q` is `空格 t o`.
 
-**Table keys** is for "I want to see what I typed, but I want to walk by cells" —
+**Table keys** is for "I want to see what I typed, and I want to walk by cells" —
 editing a Markdown table, working on the source of a CSV, with not one comma or `|`
 hidden, while `Tab`, `空格 t r`, `空格 t1s` and `空格 t/` all mean the grid. Those rows
 **stop wrapping**: one row is one line, and you can count which column you are in.
@@ -3454,7 +3456,7 @@ How it is recognised:
 * **The first row is data, not a heading.** A code table has no heading, so the column
   names are 1, 2, 3.
 
-**It only reads, it never rewrites.** Walking by cells, `空格 t g`, `空格 t /`
+**It only reads, it never rewrites.** Walking cells, `空格 t g`, `空格 t /`
 `空格 t ?`, `空格 t y` `空格 t p` all work as usual (`空格 t p` writes only as far as
 the block's last line, and will not run on down into the text); the ones that would
 rewrite a whole row — `空格 t1s` `空格 t1S` `空格 t r` `空格 t R` `空格 t d` `空格 t D`
@@ -3468,7 +3470,7 @@ surrounds it is somebody else's prose. To really tidy it up, `:convert-table` it
 |---|---|
 | `h` `l` | one cell left or right |
 | `j` `k` | one row up or down, staying in the same column |
-| `0` `$` | the first/last cell of this row — **press `T` for the cell grain first**; by character (the default) they answer by the text's rule, 「行首是 `gh`」 |
+| `0` `$` | the first/last cell of this row. Inside a cell they answer by the text's rule instead, 「行首是 `gh`」 |
 | `c` | **replace this cell** — the whole cell cleared **into the register**, type the new one straight in. The most used key in the grid |
 | `d` | **empty this cell** (the delimiter stays), **putting it in the register** — the text's rule, where `d` cuts; with a selection it still deletes the selection |
 | `A-d` | empties it the same way but **leaves the register alone**, so the piece you just copied is still there — the text's `A-d`, key for key |
@@ -3477,9 +3479,10 @@ surrounds it is somebody else's prose. To really tidy it up, `:convert-table` it
 | `a` | into the cell, stopping **after the last character** (`A` is the same) |
 | `空格 t/` `空格 t?` | **who used it** — searching column by column. `/` searches here, `?` looks in the other area. `空格 t1/` searches column 1 only, `空格 t2-10?` columns 2–10 |
 | `n` `N` | walk the rows just found |
-| `空格 t T` | **switch the grain**: by character ⇄ by cell (by character is the default). Bare `T` is vi's till, and stays that |
-| `Tab` `S-Tab` | next cell/previous cell — under both grains |
-| `o` `O` | open a new **row** — delimiters included, not a blank line |
+| `Enter` `Esc` | **down into the cell, and back out** — the two layers. Bare `T` is vi's till, and stays that |
+| `空格 t T` | the same round trip on one key, for when you would rather not think about direction |
+| `Tab` `S-Tab` | next cell/previous cell — from either layer |
+| `o` `O` | open a new **row** below/above — delimiters included, not a blank line — and start typing in its cell, the way vi's `o` opens a line |
 | `空格 t r` `空格 t R` `空格 t d` | add a row (below/above)/delete this row |
 | `空格 t j` `空格 t k` | move this row down/up |
 | `空格 t y` `空格 t p` | yank a whole column/paste the yanked column onto this column |
@@ -3546,29 +3549,43 @@ this table names no scope to jump within, so the search runs from the first colu
 were standing in. The same character gives you the same route every time you press
 `空格 t/` — "go over every place it is used" means exactly that.
 
-By character it searches for the **single character** under the cursor; by cell it
-searches for **the whole cell**.
+Inside a cell it searches for the **single character** under the cursor; at the top
+layer it searches for **the whole cell**.
 
-#### `T`: by character, or by cell
+#### Two layers: the cell, and inside it
 
-By **character** is the default — the characters inside a cell are mostly what someone
-writing is there to change. But a division table is a grid, and yanking a whole cell,
-replacing a whole cell, walking cell by cell all want the **cell** as the unit: `T`
-decides. The right of the status line says which it is now, and it says a word at the
-moment you press:
+A grid has two units and one keyboard, and rather than hand `hjkl` to both it puts them
+in **layers**. One key goes between them.
 
-```
-NOR  拆分表.csv   Ln 50000 · ids_g · cell
-```
+**The top layer is where a grid opens.** The whole cell is the unit: `hjkl` walk cells
+and rows, `y` takes a cell, `c` replaces one. There is no caret, because there is no
+character to stand on — the cell itself is the mark, drawn as two gold rules in the gaps
+beside it, half a column wide. The status line says `CEL`.
 
-`Tab` does not switch the grain; it **walks cells** — the cell to the right, and at the
-end of a row it picks up the first cell of the next, with `S-Tab` going backwards. Every
-spreadsheet means this, and it is the same under both grains.
+**`Enter` goes down into the cell**, and `Esc` comes back up. Inside, this is an ordinary
+file that happens to be drawn as a grid: `hjkl`, the operators and the selection mean
+exactly what they mean in a chapter, there is an ordinary caret, and the gold rules
+thin to an eighth of a column to say the cell is no longer the unit. The status line
+says `CEL.NOR`.
 
-By character, `hjkl`, the operators and the selections all go back to their ordinary
-meanings — at that point it is simply a file drawn as a grid. Only the `t` family still
-knows about cells: **whichever component the cursor is on is the one `空格 t/` searches
-for** — and by cell it searches for the whole cell.
+`空格 t T` is the same round trip on one key, for when you would rather not think about
+which direction you are going.
+
+**`Esc` never leaves the grid.** At the top layer it clears a count and a selection, the
+way it does everywhere else; leaving is `空格 t o` or `空格 t q`.
+
+**Typing always has a caret**, at either layer, and `Esc` from Insert returns you to the
+layer you came from: `i` at the top layer puts you at the start of the cell, and one
+`Esc` puts the whole cell back under the keys.
+
+`Tab` **walks cells from either layer** — the cell to the right, and at the end of a row
+the first cell of the next, with `S-Tab` going backwards. Every spreadsheet means this,
+and it is how a table gets filled in, so it is the one cell motion that is not worth
+having to come up a layer for.
+
+Only the `t` family goes on knowing about cells inside one: **whichever component the
+cursor is on is the one `空格 t/` searches for** — and at the top layer it searches for
+the whole cell.
 
 **How the cursor moves inside a cell**: once you are in (`i`/`a`/`c`), the **left and
 right arrow keys** move by character and `Home`/`End` are the cell's two ends. Press
