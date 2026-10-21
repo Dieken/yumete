@@ -3559,14 +3559,16 @@ in **layers**. One key goes between them.
 
 **The top layer is where a grid opens.** The whole cell is the unit: `hjkl` walk cells
 and rows, `y` takes a cell, `c` replaces one. There is no caret, because there is no
-character to stand on — the cell itself is the mark, drawn as two gold rules in the gaps
-beside it, half a column wide. The status line says `CEL`.
+character to stand on — the cell itself is the mark, drawn as two gold bars half a
+column wide in the gaps beside it, **over whatever those gaps held**: where the grid
+draws its own rules, the two beside the cell you are in become bars. The status line
+says `CEL`.
 
 **`Enter` goes down into the cell**, and `Esc` comes back up. Inside, this is an ordinary
 file that happens to be drawn as a grid: `hjkl`, the operators and the selection mean
-exactly what they mean in a chapter, there is an ordinary caret, and the gold rules
-thin to an eighth of a column to say the cell is no longer the unit. The status line
-says `CEL.NOR`.
+exactly what they mean in a chapter, there is an ordinary caret, and the mark thins to
+an eighth of a column to say the cell is no longer the unit — where the grid draws its
+own rules it goes back to being one of them, gold. The status line says `CEL.NOR`.
 
 `空格 t T` is the same round trip on one key, for when you would rather not think about
 which direction you are going.
