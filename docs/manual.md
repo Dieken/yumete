@@ -3478,10 +3478,16 @@ surrounds it is somebody else's prose. To really tidy it up, `:convert-table` it
 | `A-c` | replaces the cell like `c`, but **leaves the register alone** |
 | `i` | into the cell, stopping **before the first character** (`I` is the same) |
 | `a` | into the cell, stopping **after the last character** (`A` is the same) |
+| `y` | **take this cell**. With a run of cells selected those cells; with records selected those records |
+| `Y` | the whole row, as text |
+| `x` | **this whole record** — every line of it, where a quoted field runs over several; again for one more |
+| `%` | **this whole table**, heading and all, and not the chapter it sits in |
+| `v` then `h` `l` | grow the selection along the row, **by whole cells** |
+| `R` | **write the register over what is here** — a cell over this cell, a run of N cells over the N cells from here on, a record over this record |
+| `p` `P` | **put a record in**, below/above. A cell or a run of cells is `R`'s work, not this key's |
 | `空格 t/` `空格 t?` | **who used it** — searching column by column. `/` searches here, `?` looks in the other area. `空格 t1/` searches column 1 only, `空格 t2-10?` columns 2–10 |
 | `n` `N` | walk the rows just found |
 | `Enter` `Esc` | **down into the cell, and back out** — the two layers. Bare `T` is vi's till, and stays that |
-| `空格 t T` | the same round trip on one key, for when you would rather not think about direction |
 | `Tab` `S-Tab` | next cell/previous cell — from either layer |
 | `o` `O` | open a new **row** below/above — delimiters included, not a blank line — and start typing in its cell, the way vi's `o` opens a line |
 | `空格 t r` `空格 t R` `空格 t d` | add a row (below/above)/delete this row |
@@ -3492,6 +3498,21 @@ surrounds it is somebody else's prose. To really tidy it up, `:convert-table` it
 | `空格 t i` | the record panel, on and off |
 | `空格 t H` | whether the table's first row is a heading |
 | `空格 t e` | this table's schema in the other half, written out first if there is none |
+
+#### `p` puts in, `R` writes over
+
+A row's cell count belongs to the table, so the only thing a grid can take **in** without
+changing its shape is a whole record: `p` puts one below, `P` above. Everything else the
+register can hold — a cell, a run of cells, a block copied out of a spreadsheet — can
+only be written **over** what is already there, and that key is `R`.
+
+Both of the keymaps yumete follows agree on the half that matters: neither `p` nor `P`
+ever overwrites, and helix's own replace-with-the-register is `R` too. What is particular
+to a grid is that **a run of N cells and an N-column row are the same text**, so the key
+that *took* it is what tells them apart — `y` over a run remembers cells, and `R` then
+lays them down one for one, every delimiter kept. `R` would rather write nothing than
+write half a run: with fewer cells left from here to the end of the row than the register
+holds, nothing moves and it says so.
 
 #### `空格 t` is the table's command group, `g` is the whole document's
 
@@ -3570,9 +3591,6 @@ file that happens to be drawn as a grid: `hjkl`, the operators and the selection
 exactly what they mean in a chapter, there is an ordinary caret, and the mark thins to
 an eighth of a column to say the cell is no longer the unit — where the grid draws its
 own rules it goes back to being one of them, gold. The status line says `CEL.NOR`.
-
-`空格 t T` is the same round trip on one key, for when you would rather not think about
-which direction you are going.
 
 **`Esc` never leaves the grid.** At the top layer it clears a count and a selection, the
 way it does everywhere else; leaving is `空格 t o` or `空格 t q`.
