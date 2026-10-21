@@ -3471,7 +3471,7 @@ surrounds it is somebody else's prose. To really tidy it up, `:convert-table` it
 |---|---|
 | `h` `l` | one cell left or right |
 | `j` `k` | one row up or down, staying in the same column |
-| `0` `$` | the first/last cell of this row. Inside a cell they answer by the text's rule instead, 「行首是 `gh`」 |
+| `0` `$` `Home` `End` | **the first/last cell of this row**; under the helix keymap `gh` `gl` `gs` are the same thing. Inside a cell all of them are that cell's own two ends |
 | `c` | **replace this cell** — the whole cell cleared **into the register**, type the new one straight in. The most used key in the grid |
 | `d` | **empty this cell** (the delimiter stays), **putting it in the register** — the text's rule, where `d` cuts; with a selection it still deletes the selection |
 | `A-d` | empties it the same way but **leaves the register alone**, so the piece you just copied is still there — the text's `A-d`, key for key |
