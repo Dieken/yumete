@@ -3614,12 +3614,13 @@ cell is drawn as `␊` and they go on across it onto the writing below — the c
 run of characters however many lines it is drawn on. Under the helix keys the break is a
 place like any other, so one press reaches it and the next passes it; under the vim
 keys, where the cursor never rests on a line break, one press takes the whole step. In
-Insert, the place in front of the `␊` is where you add to the line above it. **`h` and
-`l` stop at the cell's two ends** and the status line says which end you are on — `Tab`
-is how you go next door. The arrow keys in Insert do step into the cell next door: to
-the right, the end of the row picks up the first cell of the next; to the left, the
-start picks up the last cell of the row above, and you land at that cell's **far end**
-(come in from the right and the cursor is at its right end).
+Insert, the place in front of the `␊` is where you add to the line above it. **At the
+cell's two ends one more press steps into the cell next door** — to the right, the end
+of the row picks up the first cell of the next; to the left, the start picks up the last
+cell of the row above, and you land on that cell's **last character** (come in from the
+right and the cursor is at its right end). The table's own first and last cell have
+nowhere to step, and say so. Moving by a word (`w`/`b`/`e`) and the cell's two ends
+(`gh`/`gl`) never leave it, so there is always a way to stay inside one.
 
 **`j`/`k` walk this cell's own rows before they leave the cell.** A cell can have rows
 of two kinds: a line break typed into it starts one, and under `空格 t a` the part of a
