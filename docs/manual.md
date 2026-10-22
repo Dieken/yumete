@@ -3610,13 +3610,15 @@ the whole cell.
 
 **How the cursor moves inside a cell**: `h`/`l` and the **left and right arrow keys**
 move by character and `Home`/`End` are the cell's two ends. A line break typed into the
-cell is drawn as `␊`, and they step straight across it onto the writing below — that is
-still one cell, so the keys read it as one run of characters; in Insert the place in
-front of the `␊` is where you add to the line above it. Press once more at the edge of
-the cell and you step into the one next door — to the right, the end of the row picks up
-the first cell of the next; to the left, the start picks up the last cell of the row
-above, and you land at that cell's **far end** (come in from the right and the cursor is
-at its right end).
+cell is drawn as `␊` and they go on across it onto the writing below — the cell is one
+run of characters however many lines it is drawn on. Under the helix keys the break is a
+place like any other, so one press reaches it and the next passes it; under the vim
+keys, where the cursor never rests on a line break, one press takes the whole step. In
+Insert, the place in front of the `␊` is where you add to the line above it. Press once
+more at the edge of the cell and you step into the one next door — to the right, the end
+of the row picks up the first cell of the next; to the left, the start picks up the last
+cell of the row above, and you land at that cell's **far end** (come in from the right
+and the cursor is at its right end).
 
 **`j`/`k` walk this cell's own rows before they leave the cell.** A cell can have rows
 of two kinds: a line break typed into it starts one, and under `空格 t a` the part of a
