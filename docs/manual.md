@@ -3614,11 +3614,12 @@ cell is drawn as `␊` and they go on across it onto the writing below — the c
 run of characters however many lines it is drawn on. Under the helix keys the break is a
 place like any other, so one press reaches it and the next passes it; under the vim
 keys, where the cursor never rests on a line break, one press takes the whole step. In
-Insert, the place in front of the `␊` is where you add to the line above it. Press once
-more at the edge of the cell and you step into the one next door — to the right, the end
-of the row picks up the first cell of the next; to the left, the start picks up the last
-cell of the row above, and you land at that cell's **far end** (come in from the right
-and the cursor is at its right end).
+Insert, the place in front of the `␊` is where you add to the line above it. **`h` and
+`l` stop at the cell's two ends** and the status line says which end you are on — `Tab`
+is how you go next door. The arrow keys in Insert do step into the cell next door: to
+the right, the end of the row picks up the first cell of the next; to the left, the
+start picks up the last cell of the row above, and you land at that cell's **far end**
+(come in from the right and the cursor is at its right end).
 
 **`j`/`k` walk this cell's own rows before they leave the cell.** A cell can have rows
 of two kinds: a line break typed into it starts one, and under `空格 t a` the part of a
@@ -3641,6 +3642,11 @@ are filling a table), and the arrow keys stop there.
 
 Replacing a whole cell is much faster with `c` than with `i`: land on the cell, `c`,
 type the new value, `Esc`. One `u` undoes the lot.
+
+**`o` and `O` inside a cell open a line of the cell**, not a row of the table — the same
+letter means a row at the cell layer, which is one key with one meaning in each layer
+rather than two. `gg` and `ge` (vim's `G`) are the cell's two ends while the keys are
+inside it: the cell is the whole document to them.
 
 `HJKL` still page, and `gg`/`G`/search/the operators are all unchanged — those are
 about lines and characters, and the grid has not changed their meaning.
