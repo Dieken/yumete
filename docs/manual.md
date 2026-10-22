@@ -3207,13 +3207,12 @@ The table above says what they are; this one says what they do.
 | Column ruler (hugging the heading row) | no | **yes** | yes |
 | Column numbers ＋ names on top once the heading scrolls off | no | **yes** | the pane freezes the heading itself |
 | Frozen line numbers | — | no | **yes** |
-| **Long cells folded by default** | not folded | **not folded** | **folded**, 32 squares at most |
-| `空格 t w` fold/unfold | refused (it says to press `空格 t b`), but the answer is remembered | on/off | on/off |
-| The fold mark | — | `>` (only once folded) | `>` |
+| **How a long cell is drawn** | whole | **whole** | **wrapped**, 32 squares to a line |
+| `空格 t w`, the ring wrapped/folded/whole | not a key here | **not a key here** | wrapped → folded → whole |
+| The fold mark | — | — | `>` (once folded) |
 | Cursor moves into a folded cell in Normal | — | — | **does not unfold** |
 | In Insert (press `i`) | — | — | unfolds the cursor's cell |
-| How to read a folded cell | — | `空格 t w` | the panel on the right (the whole cell, wrapped), `i`, `空格 t w` |
-| `空格 t a` wrapping inside the cell | — | refused: needs the whole window | **yes** |
+| How to read a folded cell | — | — | the panel on the right (the whole cell, wrapped), `i`, `空格 t w` |
 | **Soft wrap on table rows** | wraps as usual | **no wrap** (one row is one line) | n/a |
 | `hjkl` | by character | **by character** — it is a document | **by cell** at the top layer, by character inside one |
 | The mode word | `NOR` | `NOR` | `CEL` / `CEL.NOR` |
@@ -3231,16 +3230,19 @@ A few that are easy to get wrong:
   you were in before.
 - **The principle of `空格 t b` is that it may add characters and never take any away**:
   the padding, the column ruler and the top band are all marks **added** to the page, so
-  all of them are there in `空格 t b`; folding **hides** characters, so it has to be
-  asked for with `空格 t w`. Nothing there ever **replaces** a character you typed —
-  the `|` stays a `|`. Drawing it as the wall `┆` it means is what `空格 t t` does, and
-  that is a table interface rather than a page of prose.
+  all of them are there in `空格 t b`. Folding **hides** characters, so it does not happen
+  there at all — and `空格 t w` is not a key on a text page, in either direction. Nothing
+  there ever **replaces** a character you typed either — the `|` stays a `|`. Drawing it
+  as the wall `┆` it means is what `空格 t t` does, and that is a table interface rather
+  than a page of prose.
 - **The cursor does not unfold a folded cell just by standing on it** — `i` does.
   Unfolding on arrival would give the column a new width at every press of `l`, so a key
   that only says "next cell" would shove the whole table sideways. There are three ways
   to read a folded cell in Normal,
   and none of them moves the layout: **the panel on the right** has the whole cell
-  spread out already, `i` unfolds it in place, `空格 t w` unfolds them all at once.
+  spread out already, `i` unfolds it in place, `空格 t w` carries the ring on to whole.
+  A cell is only folded if you asked for that: the whole-window table opens **wrapped**,
+  which keeps every character on the page.
 - **On a text page the record panel never opens by itself** — `空格 t o` and `空格 t b`
   alike; press `空格 t i` to see it. Only `空格 t t` (the window given
   entirely to the table) opens it by itself: there is no text to mind there, and with
@@ -3623,7 +3625,7 @@ nowhere to step, and say so. Moving by a word (`w`/`b`/`e`) and the cell's two e
 (`gh`/`gl`) never leave it, so there is always a way to stay inside one.
 
 **`j`/`k` walk this cell's own rows before they leave the cell.** A cell can have rows
-of two kinds: a line break typed into it starts one, and under `空格 t a` the part of a
+of two kinds: a line break typed into it starts one, and under wrapping the part of a
 wide cell past the cap is drawn underneath as another. `j` steps through them — the rows
 you can see — and only at the cell's last row does it step to the same column of the
 next record; `k` the same going up, landing on the last row of the cell above. `gj`/`gk`
@@ -3862,8 +3864,7 @@ nothing to remember about which is which.
 | `空格 t F` | line it up again, into the file |
 | `空格 t x` | convert the table's format (the delimiter): `p` pipe, `c` csv, `t` tsv; upper case `P C T` paste the clipboard as that one |
 | `空格 t o` `空格 t b` `空格 t t` | source/table keys/the whole window (see below) |
-| `空格 t w` | fold the too-wide cells/spread them back (everything but source counts) |
-| `空格 t a` | wrap the too-wide cells — the tail drawn on the lines below, inside its own column (the whole window only) |
+| `空格 t w` | how a too-wide cell is drawn, round a ring of three: **wrapped** (the tail on the lines below, inside its own column), **folded** (the tail behind a `>`), **whole**. The whole-window table only — on a text page every cell is drawn whole |
 | `空格 t i` | this row spread into the sidebar, one field to a line |
 | `空格 t q` | the whole-window table hands the window back, returning to whichever one you were in |
 | `空格 t ]` `空格 t [` | the next table/the one before |
@@ -3919,20 +3920,39 @@ written out in full (nothing is ever truncated), only the other rows no longer w
 along with it — otherwise one remark in a character list could stretch the whole table
 to two hundred squares.
 
-**`空格 t w` folds the overhanging tail away**, and stands a `>` wherever it folded.
-That `>` is **gold and bold** — every other character on the page is grey and this one
-is not, so it will not be read as a greater-than sign you typed yourself. (The mark
-itself can only be this halfwidth symbol: Unicode's various ellipsis characters have no
-fixed width in East Asian environments, and one square measured as two puts every column
-after it out of place.) Press `空格 t w` again and they all spread back. The file does
-not move one character: when `空格 t F` lines the table up into the file it reads the
-source, not the page.
+**`空格 t w` is one key with three answers**, and it is a key of the whole-window table
+alone: **wrapped** → **folded** → **whole**, and round again. The window opens wrapped.
 
-**The cell you are typing in scrolls inside itself.** Type past the width the column
-has and the cell slides left under the cursor rather than letting it run off the edge,
-with a `<` in front to say its head is behind you; walk back and it slides the other
-way. Nothing is cut and nothing moves in the file — this is only which stretch of the
-cell the column has room to show.
+**Wrapped** draws an over-wide cell's tail on the lines below, inside its own column —
+nothing hidden, nothing to scroll sideways for. How tall a row is depends on its tallest
+cell, and the row number is drawn on the first of its lines only, so you can still count
+which row you are on.
+
+**Folded** takes the tail off the page and stands a `>` where it stopped. That `>` is
+**gold and bold** — every other character on the page is grey and this one is not, so it
+will not be read as a greater-than sign you typed yourself. (The mark itself can only be
+this halfwidth symbol: Unicode's various ellipsis characters have no fixed width in East
+Asian environments, and one square measured as two puts every column after it out of
+place.)
+
+**Whole** draws every column as wide as it is, up to one window at most — a column wider
+than the window gains nothing from the extra width, since the grid scrolls sideways a
+column at a time and nobody can reach the part that will not scroll in.
+
+None of the three moves one character of the file: when `空格 t F` lines the table up
+into the file it reads the source, not the page.
+
+**On a text page every cell is drawn whole**, and `空格 t w` is not a key there. Source
+and table keys may add characters to the page and never take any away — a page that hid
+the tail of your own writing is not one you can trust — so cutting a cell belongs to the
+one surface that is a table interface rather than a page of prose.
+
+**The cell you are typing in scrolls inside itself**, under *folded*, where the tail has
+nowhere else to go. Type past the width the column has and the cell slides left under
+the cursor rather than letting it run off the edge, with a `<` in front to say its head
+is behind you; walk back and it slides the other way. Nothing is cut and nothing moves
+in the file — this is only which stretch of the cell the column has room to show. Under
+*wrapped* there is nothing to scroll: what you type carries on the line below.
 
 **Walking over it does not spread it; changing characters does.** The cursor stops on a
 folded cell and it stays folded — **to read the whole thing, open the record panel with
@@ -3950,49 +3970,6 @@ table at every press of `j` — 15 milliseconds a step on a 286-row table.
 own wall, the columns after it on that row shift right with it, and **no other row moves
 a square**. The wall is still drawn where it pushed out, and the spaces on either side
 are still there, so you can see where the boundary is.
-
-**"Basic" does not fold on its own, and folds when you tell it to.** That level is not
-allowed to hide things **of its own accord**, so it ships spread out in full; press
-`空格 t w` and that is you saying to fold, so it folds, and the level does not move. The
-only one with truly nothing to fold is **source** — that level draws things as written,
-no column is lined up, and so there is nothing to measure against; `空格 t w` there says
-plainly that it wants `空格 t b`. The press you made counts: spread it out
-in "basic" and it is still spread when you get to "drawn in place".
-
-**`空格 t w` counts in the whole-window table too**, only it folds a different way: in
-the text what is folded is **characters** (the tail goes off the page), and in the whole
-window what is folded is **the column width** (that column drawn only as far as 32
-squares). The break stands a `>` the same way, and the cell the cursor is in is drawn
-whole the same way — it is measured against the window width instead of the limit, so
-walking into it is enough to read the whole thing, and `i` into it to change characters
-reaches the tail too. Spread back out, every column is drawn as wide as it is, up to one
-window at most — a column wider than the window gains nothing from being wider, since
-the grid scrolls sideways a column at a time, and nobody can reach the part that will
-not scroll in.
-
-##### `空格 t a`: wrapping — the tail drawn below, not folded away
-
-**The whole-window table has a third answer**: `空格 t a` **wraps every over-wide cell
-onto the lines below, inside its own column**, hiding not one character and needing no
-sideways scrolling. How tall a row is depends on its tallest cell; the line number is
-drawn only on the first line, and the lines below it are continuations of the same row,
-so you can still count which row you are on.
-
-`空格 t w` and `空格 t a` are two switches on one thing, and **they are never lit at the
-same time**. `空格 t a` goes into wrapping: press it while folded and it changes to
-wrapping, press it while spread and it wraps, press it while wrapped and it spreads
-flat. `空格 t w` knows only "folded or not": press it while spread and it folds, press
-it while folded and it spreads, **and press it while wrapped and it spreads too** — not
-one character hidden; to fold, press `空格 t w` once more.
-
-**Why only the whole window has it.** The lines of a text page are computed by the
-editor's shared wrapping layer (every movement key, the mouse, vertical layout and the
-split panes all read it), and that layer has no hanging indent — a continuation can only
-start at the far left, and the rest of the row's columns would follow on after the
-wrapped text, which is nobody's idea of wrapping. The whole-window grid is drawn by the
-table itself, so it can do it. Press `空格 t a` in the text and it says to press
-`空格 t t` first; **the setting is recorded all the same**, and `空格 t t` takes you in
-already wrapped.
 
 ##### `Tab`: when you are filling a table
 
