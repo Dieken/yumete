@@ -3609,9 +3609,12 @@ cursor is on is the one `空格 t/` searches for** — and at the top layer it s
 the whole cell.
 
 **How the cursor moves inside a cell**: `h`/`l` and the **left and right arrow keys**
-move by character and `Home`/`End` are the cell's two ends. Press once more at the edge
-of the cell and you step into the one next door — to the right, the end of the row picks
-up the first cell of the next; to the left, the start picks up the last cell of the row
+move by character and `Home`/`End` are the cell's two ends. A line break typed into the
+cell is drawn as `␊`, and they step straight across it onto the writing below — that is
+still one cell, so the keys read it as one run of characters; in Insert the place in
+front of the `␊` is where you add to the line above it. Press once more at the edge of
+the cell and you step into the one next door — to the right, the end of the row picks up
+the first cell of the next; to the left, the start picks up the last cell of the row
 above, and you land at that cell's **far end** (come in from the right and the cursor is
 at its right end).
 
