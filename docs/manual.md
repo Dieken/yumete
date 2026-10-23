@@ -3600,7 +3600,12 @@ column wide in the gaps beside it, **over whatever those gaps held**: where the 
 draws its own rules, the two beside the cell you are in become bars. The status line
 says `CEL`.
 
-**`Enter` goes down into the cell**, and `Esc` comes back up. Inside, this is an ordinary
+**A letter here is a command, not the first character of a new value.** A spreadsheet
+replaces the cell the moment you type into it; here that is `c`, and every other letter
+is the key it is everywhere else. A click selects a cell.
+
+**`Enter` goes down into the cell**, and `Esc` comes back up — or double-click it, and the
+caret is on the character you clicked. Inside, this is an ordinary
 file that happens to be drawn as a grid: `hjkl`, the operators and the selection mean
 exactly what they mean in a chapter, there is an ordinary caret, and the mark thins to
 an eighth of a column to say the cell is no longer the unit — where the grid draws its
