@@ -712,7 +712,7 @@ instead, and so is `:keymap`.
 | start / end of file | `gg` `ge` | same | `gg` `G` |
 | go to line n | `nG` / `:n` | `:n` | `nG` |
 | back where I was / forward again | `C-o` `C-i` | same | same |
-| find a character | `f` `t` | same | same |
+| find a character | `f` `t`, **across lines** | same | `f` `t`, on this line only |
 | find that same character again | `A-.` | same | `;` |
 | search / next | `/` `n` `N` | same | same |
 | search for what is selected | `g/` (`*` works too) | `*` | `*` |
