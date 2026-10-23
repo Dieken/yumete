@@ -3499,6 +3499,7 @@ surrounds it is somebody else's prose. To really tidy it up, `:convert-table` it
 | `Enter` `Esc` | **down into the cell, and back out** — the two layers. Bare `T` is vi's till, and stays that |
 | `Tab` `S-Tab` | next cell/previous cell — from either layer |
 | `o` `O` | open a new **row** below/above — delimiters included, not a blank line — and start typing in its cell, the way vi's `o` opens a line |
+| `t` | **the table's group, at the cell layer** — the same as `空格 t`. Inside a cell it is till |
 | `空格 t r` `空格 t R` `空格 t d` | add a row (below/above)/delete this row |
 | `空格 t j` `空格 t k` | move this row down/up |
 | `空格 t y` `空格 t p` | yank a whole column/paste the yanked column onto this column |
@@ -3532,9 +3533,13 @@ searching the grid, when that is the one thing the name `gd` ought to do. Now `g
 `g/` `g?` know the whole manuscript only, and the table's own questions go to `空格 t/`,
 `空格 t?` and `:table-jump`.
 
-**This group is on `空格 t`, not on `t`.** `t`/`T` is vi's till, and helix's
-own `t` is till as well — one key cannot owe two hands at once, and the table is not
-the group pressed most often.
+**This group is on `空格 t`, and at the cell layer on `t` as well.** `t`/`T` is vi's
+till, and helix's own `t` is till too — but a till stops *before a character*, and at
+the cell layer there is no character to stop before: the whole cell is the unit. So
+there, and only there, `t` opens the same group — `t o`, `t H`, `t r` — and the letter
+the grid's own hint line teaches (「按 t o 回到源碼模式」) is the one that works. Inside a
+cell, and everywhere outside the whole-window grid, `t` is till again. `空格 t` works
+everywhere.
 
 **To go to a row**, `:table-jump 木`: the row called that in the column named by the
 schema's `[table] key` (`char`, for the division table), with `C-o` to come back.
