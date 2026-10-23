@@ -3413,6 +3413,13 @@ only means anything for the "the whole file is one table" kind — a `|` table's
 is declared by the file itself (that `---` line underneath), and a stretch recognised
 inside a document (see below) has no heading to begin with.
 
+**A table can have no rows at all**, and a heading is not one of them. Delete the last
+row and the grid draws the column names and nothing else, the status line writes
+`行 —`, and every key that means 「this cell」 answers that there is none — `空格 t r`,
+`o`, `O` and `p` open a row with this table's own columns in it. `空格 t H` is also how
+to edit the column names of a file that has no schema: turn the heading off, change row
+one like any other row, turn it back on.
+
 **`空格 t e` opens this table's schema in the other half.** When the whole file is one
 table, `空格 t e` (or `:table-schema`) opens the `.toml` that describes it in the
 secondary edit area — the keys stay with the table half, and `C-w w` goes over to edit
