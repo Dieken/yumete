@@ -184,8 +184,8 @@ no syllable — is searched as written, and never pays for the readings. That is
 makes it fast: on a 794 MB corpus the same query went from 10.4 seconds to 0.9.
 
 **With nothing named it searches the current directory**, as every other command-line
-tool does; `--project` searches up to the book's root (the nearest `.yumete` or `.git`
-above you). A path is printed the way you spelt it, and with no directory named it is
+tool does; `--project` searches up to the project's root (the nearest `.yumete` above you,
+or else the nearest `.git`, `.jj` or `.svn`). A path is printed the way you spelt it, and with no directory named it is
 relative to where you stand.
 
 **Add `--open` and it prints nothing and opens the editor instead**: `--grep` comes up
@@ -4395,7 +4395,7 @@ look**, and what to look for is always typed in the box.
 | this file | the one buffer in front of you, unsaved changes included | `:search` (`空格 /`) |
 | open buffers | every one that is open, **drafts with no name included**, unsaved changes included the same way | `:search-buffers` |
 | working directory | the directory the shell was in when you typed `ye`; `:cd` moves it | `:search-working` |
-| the project | the **nearest** directory with a `.yumete` in it, walking up from the working directory, or the level with a `.git` if there is none | `:search-project` |
+| the project | the **nearest** directory with a `.yumete` in it, walking up from the working directory, or else the nearest with a `.git`, `.jj` or `.svn` | `:search-project` |
 | a folder… | the one you name | `:search 稿` |
 
 **The scope does not follow the cursor.** Jump into somebody else's
@@ -4751,7 +4751,7 @@ and after that only `:cd` changes it and `:pwd` shows it. `空格 F` searches it
 
 **The project path is worked out from the working directory and not stored separately**:
 it looks upward, first for the level with a `.yumete` (the config, `words.txt` and
-`tables/` live there anyway), then for the level with a `.git`, and with neither it is
+`tables/` live there anyway), then for the nearest `.git`, `.jj` or `.svn`, and with none it is
 the working directory itself. `空格 f`'s file picker, the sidebar, `:search-project`,
 the word list, the wiki, table schemas and the language server all go by it.
 
