@@ -5843,9 +5843,9 @@ line will tell you itself.
   - `morandi` — morandi: low text contrast
   - `firefly` — firefly: a near-black ground, cool grey text, and warmth only in that gold — a firefly is not neon, a page should hold a few sparks
   - `meridian` — meridian: the 朱 is not red but blue, so red-green blindness tells it apart too
-  - `kiln` — kiln: ash-glazed stoneware — kiln-ash ground, wood-ash green for the gold
   - `complement` — complement: colour lives in the grounds only, the writing stays neutral grey
   - `one-dark` — one-dark: the scheme most VS Code users know; dark only
+  - `zed-one-dark` — zed-one-dark: Zed's default theme; dark only
 - `:shot` — a picture: the clipboard by default, or png/html/txt saved as a file (into the downloads folder)
   - `screen` — photograph the window onto the clipboard
   - `png` path — photograph the window into a PNG
@@ -6199,7 +6199,7 @@ for**, so searching for the same thing again is `/` and a Tab.
 | `:word-discover-working` `-project` | The same, over the working directory / the project directory (the same two words as `:search`) |
 | `:theme` | Which theme this is, and dark or light |
 | `:theme ink` (moxiang)/`bw` (heibai) | Change the set of inks (dark or light is `:theme-mode`) |
-| `:theme one-dark` | Code and Markdown in One Dark Pro's own colours, value for value; the rest of the page is worked out from its ink and paper. Dark only: in a light mood it stays dark and says so |
+| `:theme one-dark`/`zed-one-dark` (`zed`) | Code and Markdown in One Dark Pro's / Zed's own colours, value for value; the rest of the page is worked out from its ink and paper. Dark only: in a light mood it stays dark and says so |
 | `:theme-mode dark`/`light`/`system` | Dark or light only; `system` goes back to the terminal's answer |
 | `:theme-fill` (`on`/`off`) | Whether code and quotations sit on a ground (they do not out of the box) |
 | `:view-numbers-fill on`/`off` | Whether the line-number band has a ground of its own (no by default) |
@@ -6753,11 +6753,11 @@ for now the variants are used only in code colouring:
 is wrong"; if code wants an orange for its numbers, it gets an orange of its
 own, not a loan from the red. In every theme that means its red to be red, the
 red is corrected to a true red (OKLCH hue 29–30°, exactly the hue of pure red on
-screen). meridian (whose red is blue, for red-green colour blindness),
-complement (whose red is purple) and kiln (whose red is the orange of kiln fire)
-deliberately do not use red, and stay as they are; kiln's and complement's
-"orange" is therefore given as a red, so that it does not collide with their own
-orange.
+screen). meridian (whose red is blue, for red-green colour blindness) and
+complement (whose red is purple) deliberately do not use red, and stay as they
+are; complement's "orange" is therefore given as a red, so that it does not
+collide with its own orange. `one-dark` and `zed-one-dark` take their colours,
+red included, from the themes they copy.
 
 **No ground out of the box**: the `` ` `` and the `>` are drawn there already,
 the boundary is on the page, and laying a ground under it answers a question
