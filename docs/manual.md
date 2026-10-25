@@ -5565,14 +5565,14 @@ line break or a punctuation mark on either side, the page has already cut it loo
 and another layer of ground says the same thing twice — most of a Western sentence is
 like that, and a fair part of a Chinese one too: in 「今天天氣很好。」 `今天` wants
 marking and `好。` does not. What is left is exactly the runs of 漢字 the eye has to
-cut for itself. If you do not want the tint at all, `:word-show off`, or
-`show_segmentation = false` in the config.
+cut for itself. If you do not want the mark at all, `:word-mark off`, or
+`word_mark = "off"` in the config.
 
 **Four ways of drawing it**, told apart in one sentence: **ink** moves the lightness,
 **hue** moves the colour, **tint** moves the paper, and **line** moves nothing at all
 and draws a rule under the word.
 
-| `:word-show` | config | what it moves | the catch |
+| `:word-mark` | config | what it moves | the catch |
 | --- | --- | --- | --- |
 | `色相` / `color` | `"color"` (factory) | every other word turns a **pale blue**, brightness all but unmoved | writing that already has a colour — a heading, a link — is left alone, so boundaries do not show inside it |
 | `字色` / `ink` | `"ink"` | every other word takes a slightly fainter ink; the paper stays put | the two inks differ by 1.38:1, so the fainter word reads as emphasis |
@@ -6186,8 +6186,8 @@ for**, so searching for the same thing again is `/` and a Tab.
 | `:table-find row`/`column` *pattern* | Search row by row (`/`) / column by column (`空格 t/` in a table) |
 | `:clipboard-yank`/`paste` | Trade with the system clipboard (`空格 y`/`空格 p`) |
 | `:keymap-yumete-flavor` (`on`/`off`) | The Yumete keymap flavour over helix/vim. On, `d` and `c` stop filling the register and `A-d`/`A-c` cut; with no word it reports the state and what is in the set |
-| `:word-show` (`on`/`off`) | The word tint on or off |
-| `:word-show 色相`/`字色`/`底色`/`線` | The four ways of drawing it: the ink's colour (factory) / the ink's lightness / a faint colour on the paper / a rule under the word |
+| `:word-mark` | Which way word boundaries are marked, or `off` |
+| `:word-mark off`/`色相`/`字色`/`底色`/`線` | No mark / the four ways of drawing it: the ink's colour (factory) / the ink's lightness / a faint colour on the paper / a rule under the word |
 | `:wiki` *name* | Look a name up in the book's wiki |
 | `:wiki-where` | Which files were read, and how many entries each |
 | `:wiki-edit` | Open `.yumete/wiki.md` |
@@ -6326,12 +6326,12 @@ That sounds like meddling, and it is really a repair: a key `RawConfig` does not
 **voids the whole config**, and not one of the correct settings in the same file takes
 effect. Once it is commented out the file works again, and not a character is lost.
 
-**Eight groups, fifty-nine items**, one group to a page:
+**Eight groups, fifty-eight items**, one group to a page:
 
 | Group | What is in it |
 | --- | --- |
 | layout | across or down, characters to a column, indent, the interlinear lane, tatechuyoko… |
-| marks | what is drawn on top of the text: line numbers, the diff gutter, word colouring, ruby, a table's rules… |
+| marks | what is drawn on top of the text: line numbers, the diff gutter, word marks, ruby, a table's rules… |
 | interface | the editor's own few edges: scrolloff, lane width, the tab bar, the candidate bar… |
 | colours | theme, dark or light, the paper, the ground of the status bar |
 | input | which 碼表 to use, whether to load it at startup, whether to let the system IME open |
@@ -6389,9 +6389,9 @@ diff_gutter = true           # the diff gutter: the cell beside the line number 
                              # (on at the factory; `:view-diff off` turns it off any time)
 scrolloff = 3                # lines (or columns) kept around the cursor
 wheel_step = 3               # lines (or columns) one wheel notch moves; 1 = the terminal's own notch
-show_segmentation = true     # word colouring (`:word-show` turns it on and off any time too)
-word_mark = "color"          # how to draw it: "color" changes the ink's hue (factory) | "ink" changes the ink's lightness
-                             # | "tint" lays a pale wash on the paper | "line" draws a line under the word
+word_mark = "color"          # word marks: "color" changes the ink's hue (factory) | "ink" changes the ink's lightness
+                             # | "tint" lays a pale wash on the paper | "line" draws a line under the word | "off"
+                             # (`:word-mark` changes it any time)
 word_level = "balanced"      # how readily things join into a word: "strict" | "balanced" | "full"
 table_rules = "line dash"    # a table's rules: "line dash" (default) | "line"
                              # | "line double" | "color" | "off"
@@ -6639,7 +6639,7 @@ step a name, add a line whenever you like.
 | Step | Tick | Where it is used |
 | --- | --- | --- |
 | 0 | 0 | The writing, and everything that **is** the writing |
-| 15 | 1500 | Word segmentation's second ink (the one `:word-show ink` alternates into every other word) |
+| 15 | 1500 | Word segmentation's second ink (the one `:word-mark ink` alternates into every other word) |
 | 20 | 2000 | A table's column ruler |
 | 25 | 2500 | **Side notes**: ruby, splits, candidate numbers — readable, but not the writing |
 | 35 | 3500 | Furniture: line numbers, unselected tabs, key names, comments |
@@ -6649,7 +6649,7 @@ step a name, add a line whenever you like.
 | 73 | 7300 | The one that has to be visible: the paragraph-number band in vertical layout, the cursor's row in a table |
 | 81 | 8100 | Furniture: the sidebar, the tab bar |
 | 84 | 8400 | A quiet ground: one block (a quotation, a fence) |
-| 86 | 8600 | Word segmentation's ground (`:word-show tint`), and the step for a table's alternating rows |
+| 86 | 8600 | Word segmentation's ground (`:word-mark tint`), and the step for a table's alternating rows |
 | **90** | 9000 | **Paper** — the ground the writing sits on |
 | **100** | 10000 | **The status bar** — the level that sits heavier than paper |
 
