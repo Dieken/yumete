@@ -5839,13 +5839,13 @@ line will tell you itself.
   - `ink` — moxiang: black, white-gold, gold and red ink; every other shade computed
   - `bw` — heibai: black, white and grey only — weight says it, colour says nothing
   - `cyanotype` — cyanotype: white lines on Prussian blue — the one theme of the ten whose ground truly carries colour
-  - `amber` — amber: one colour for the whole page
   - `mogao` — mogao: the brown-black the murals really oxidised into; the gold is not gold but malachite — the caves' own mineral
-  - `morandi` — morandi: the lowest text contrast and the greyest ground of the ten
+  - `morandi` — morandi: low text contrast
   - `firefly` — firefly: a near-black ground, cool grey text, and warmth only in that gold — a firefly is not neon, a page should hold a few sparks
   - `meridian` — meridian: the 朱 is not red but blue, so red-green blindness tells it apart too
   - `kiln` — kiln: ash-glazed stoneware — kiln-ash ground, wood-ash green for the gold
   - `complement` — complement: colour lives in the grounds only, the writing stays neutral grey
+  - `one-dark` — one-dark: the scheme most VS Code users know; dark only
 - `:shot` — a picture: the clipboard by default, or png/html/txt saved as a file (into the downloads folder)
   - `screen` — photograph the window onto the clipboard
   - `png` path — photograph the window into a PNG
@@ -6199,6 +6199,7 @@ for**, so searching for the same thing again is `/` and a Tab.
 | `:word-discover-working` `-project` | The same, over the working directory / the project directory (the same two words as `:search`) |
 | `:theme` | Which theme this is, and dark or light |
 | `:theme ink` (moxiang)/`bw` (heibai) | Change the set of inks (dark or light is `:theme-mode`) |
+| `:theme one-dark` | Code and Markdown in One Dark Pro's own colours, value for value; the rest of the page is worked out from its ink and paper. Dark only: in a light mood it stays dark and says so |
 | `:theme-mode dark`/`light`/`system` | Dark or light only; `system` goes back to the terminal's answer |
 | `:theme-fill` (`on`/`off`) | Whether code and quotations sit on a ground (they do not out of the box) |
 | `:view-numbers-fill on`/`off` | Whether the line-number band has a ground of its own (no by default) |
@@ -6656,8 +6657,8 @@ step a name, add a line whenever you like.
 — the selection, the cursor's row, the column ground — and all three have to be
 distinguishable from each other (1.24:1). Move them two steps further toward the
 paper and morandi's light mode drops to 1.20, and then you cannot tell which row
-you are standing on. Morandi is the theme with the least contrast of them all,
-so these two numbers are its to set.
+you are standing on. Morandi's light mode is the one that decides
+these two numbers.
 
 From step 35 toward the ink is **ink you can read**; from step 73 toward the
 paper is **ground you can write on**; the stretch in between holds nothing but
