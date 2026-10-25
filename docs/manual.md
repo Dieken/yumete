@@ -5837,6 +5837,8 @@ line will tell you itself.
   - `visual` — each of the four goes where it points
 - `:theme` — theme: which set of inks (light or dark is `:theme-mode`)
   - `ink` — moxiang: black, white-gold, gold and red ink; every other shade computed
+  - `one-dark` — one-dark: the scheme most VS Code users know; dark only
+  - `zed-one-dark` — zed-one-dark: Zed's default theme; dark only
   - `bw` — heibai: black, white and grey only — weight says it, colour says nothing
   - `cyanotype` — cyanotype: white lines on Prussian blue — the one theme of the ten whose ground truly carries colour
   - `mogao` — mogao: the brown-black the murals really oxidised into; the gold is not gold but malachite — the caves' own mineral
@@ -5844,8 +5846,6 @@ line will tell you itself.
   - `firefly` — firefly: a near-black ground, cool grey text, and warmth only in that gold — a firefly is not neon, a page should hold a few sparks
   - `meridian` — meridian: the 朱 is not red but blue, so red-green blindness tells it apart too
   - `complement` — complement: colour lives in the grounds only, the writing stays neutral grey
-  - `one-dark` — one-dark: the scheme most VS Code users know; dark only
-  - `zed-one-dark` — zed-one-dark: Zed's default theme; dark only
 - `:shot` — a picture: the clipboard by default, or png/html/txt saved as a file (into the downloads folder)
   - `screen` — photograph the window onto the clipboard
   - `png` path — photograph the window into a PNG
