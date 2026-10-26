@@ -58,17 +58,18 @@ Here are the features Yumete has for people writing in 漢字:
   〉《 》, `"` covers " ＂ “ ”, `'` covers ' ＇ ‘ ’. **The single layer belongs to `[`,
   and the layer nested inside it to `{`**. Both ends are recognised, so `di（` finds
   `()` just as well; when a family is nested in itself, the innermost pair is taken. For
-  "whichever pair it is, take off the innermost one" use `md m` — which also takes off
-  markdown's markup.
+  "whichever pair it is, take off the innermost one" use `md m`, and for markdown's
+  marks `md k`.
 - **`mi s` takes the sentence the cursor is in.** This editor already treats the
   sentence as a unit (`H`/`L` walk by sentence, `:view-sentence` gives one sentence a
   column), and `mi s`/`ma s` hand it to `d`, `c` and `y` (under the vim keymap preset,
   `dis`/`cis`/`das`). Chinese sentences have no whitespace between them, so
   `ma s` and `mi s` get the same stretch.
-- **`mi m` takes the piece of markup the cursor is in.** `**粗**`, `*斜*`, `~~刪~~`,
+- **`mi k` takes the piece of markup the cursor is in** (mar*k*up; `m` is the nearest
+  pair, as in helix). `**粗**`, `*斜*`, `~~刪~~`,
   `==標==`, `` `碼` ``, `[文字](地址)`, `[[雙鏈]]`, `%%批注%%`, footnotes — one key for
-  all of them: `mi m` takes the text inside, `ma m` takes the markup with it (under the
-  vim keymap preset, `dim`/`dam`). It follows the file's syntax, so in a
+  all of them: `mi k` takes the text inside, `ma k` takes the markup with it (under the
+  vim keymap preset, `dik`/`dak`). It follows the file's syntax, so in a
   `:syntax text` file it takes nothing.
 - **`mi c` takes the table cell the cursor is in.** Replacing a whole cell is the
   commonest thing there is to do to a table, and `mi c c` is it; `mi c d` empties the
@@ -657,18 +658,22 @@ know, do it anyway」.
 | `mm` | jump to the matching bracket |
 | `mi` *c* | select **inside** the *c* pair |
 | `ma` *c* | select the brackets along with it |
+| `mi m` / `ma m` | the **nearest pair**, whichever kind it is |
+| `mi k` / `ma k` | the **markdown marks** the cursor is in (`**粗**`, a link…) |
 | `mi w` / `mi p` | select the **word** / the **paragraph** under the cursor |
 | `mi f` / `mi t` | select the **function** / the **class** the cursor is in (only in a file that is code all through; the innermost one) |
 | `mi a` / `mi c` | select the **parameter** / the **comment** the cursor is in (same as above; eight languages: python rust go javascript c java r mojo) |
 | `ms` *c* | wrap the selection in *c* |
-| `md` *c* | take the *c* pair away; `md m` is 「whichever pair it is, take the innermost one away」 |
+| `md` *c* | take the *c* pair away; `md m` is 「whichever pair it is, take the innermost one away」, `md k` takes away the markdown marks |
 | `mr` *c* *d* | turn the *c* pair into the *d* pair; `mr m` *d* turns the innermost one |
 
 **With the cursor on a bracket, its partner is lit in 金** — one cell, and the far half
 only: the cursor is already sitting on the near one. No setting turns it off.
 
-The `m` in `md m` and `mr m` is helix's spelling (its `surround_delete` takes it too).
-`md m` also takes away markdown's `**` `*` `~~` `==` `` ` `` and links.
+The `m` in `md m` and `mr m` is helix's spelling (its `surround_delete` takes it too),
+and like helix's it means a bracket or quote pair only. Markdown's `**` `*` `~~` `==`
+`` ` `` and links are `k`: `md k` takes them away whole, where `md m` on a link would take
+only its `[` `]`. Each step of `m` lists what it takes as you type it.
 
 `mi p` takes the whole paragraph (the trailing newline included), and `ma p` adds the
 blank lines below it — **with the cursor on a blank line, that paragraph is those blank
