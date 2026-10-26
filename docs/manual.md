@@ -1176,7 +1176,9 @@ The palette follows the ones every eye is used to — One Dark, Catppuccin, VS C
 keywords purple, functions blue, strings green, numbers orange. The colours are the five
 pairs of ten of the court-robe ranks (see 「Court-robe colours」), all but 朱 — 朱 only
 ever says 「something here is wrong」. They are the theme's own colours, so they stay
-right when you change theme. With no language written, or a language that is not in the
+right when you change theme. The borrowed themes (`one-dark`, `github`, `monokai`,
+`dracula`, `tokyo-night`, `catppuccin`, `gruvbox`) use the code colours of the theme
+they copy instead. With no language written, or a language that is not in the
 table (`haskell`, say), the whole block stays one purple as before.
 
 It parses only the lines **inside the fence**, never the whole manuscript — the
@@ -4251,8 +4253,9 @@ chapter to a novel gets stopped. Together they state the shape of the thing: the
 **While the question is up, the keyboard belongs to it.** A key that is not one of those
 three answers will not leak through onto the manuscript underneath.
 
-**Only `:write` has this door today.** `:w!` says "write over it" on its own;
-`:wq` and `:wa` are each one line away, left until this way of asking has worn in.
+**Every save goes through this door**: `:w!`, `:wq`, `:wa` and `:wqa` included. A `!`
+says "write over what changed outside", not "a file many times its size is what I
+meant", so it does not answer this question; `:wqa!` stops here too.
 
 ### Trading text with the outside
 
@@ -5753,12 +5756,15 @@ word read as something the command takes.
 | `:wqa` `:xa` | `:write-quit-all` |
 | `:x` `:xit` | `:exit` |
 | `:up` | `:update` |
+| `:sb` `:sw` `:sp` | `:search-buffers` `:search-working` `:search-project` |
+| `:rb` `:rw` `:rp` | `:replace-buffers` `:replace-working` `:replace-project` |
 | `:y` | `:yume` = Chinese on — the head of a family, two keys |
 
 A short form is only an **expansion**: `:bc!` is `:buffer-close!`, and whatever the long
 command grows later, the short form gets it too. Completion follows the same rule —
-type `:wq` and the hint says `write quit`, because that is the spelling that can say
-what it means.
+type `:wq` and the menu shows `:write-quit (wq)`, because that is the spelling that
+says what it means. A short form has no line of its own in the menu; it is shown in
+brackets beside its command.
 
 **The word `:wysiwyg` is gone as well.** It and `:markup` were always three stops on one
 axis — the code admitted as much long ago with `wysiwyg && show_markup`: with no
@@ -5798,7 +5804,7 @@ line will tell you itself.
   - `all` — save every file that changed
   - `as` path — save under a new name and edit that one (`:w <文件名>` only copies, and you stay here)
 - `:wq` — save, then leave
-- `:wqa`（xa） — save every file that changed, then leave (`:wqa!` writes over files changed outside and leaves whatever cannot be saved)
+- `:wqa`（xa） — save every file that changed, then leave (`:wqa!` writes over files changed outside and leaves even if a file could not be saved, keeping its recovery copy)
 - `:recover` — ask whether to use the draft
 - `:reload` — read the file again; ! throws away what you changed here
 - `:reload-auto` ｜ `on` `off` — re-read by itself when the file changes outside — a warning, not a re-read, when you have changes of your own
@@ -5826,8 +5832,8 @@ line will tell you itself.
 - `:quit-all`（`:qa`） — leave everything, however many are open (`:quit-all!` ignores changes)
 - `:undo`（u） — undo the last change
 - `:redo`（red） — redo
-- `:word`（wd） — words: which list, the tint, the level
-  - `show` ｜ `on` `off` `ink` `color` `tint` `line` — the word tint
+- `:word`（wd） — words: which list, the mark, the level
+  - `mark` ｜ `off` `color` `ink` `tint` `line` — how word boundaries are marked
   - `list` ｜ `local` `global` `reload` — the word list: which one is used, edit it, reread it
   - `level` ｜ `off` `strict` `balanced` `full` — word level: how many characters make a word
   - `discover` — mine this book's own words: names of people and places no dictionary has
@@ -5930,7 +5936,8 @@ line will tell you itself.
   - `typst` <filename> — Typst source, horizontal, for setting a printed book
   - `csv` <filename> — the table under the cursor, comma separated
   - `tsv` <filename> — the table under the cursor, tab separated
-- `:search`（short `:s`, and a vim hand may write `:grep`）— open the search panel (`空格 /` does it too); `-buffers`/`-working`/`-project` say where to look
+- `:search`（short `:s`, and a vim hand may write `:grep`）— open the search panel (`空格 /` does it too); `-buffers`/`-working`/`-project` (`:sb`/`:sw`/`:sp`) say where to look
+- `:replace` — the same panel with a row for what to replace it with; `-buffers`/`-working`/`-project` (`:rb`/`:rw`/`:rp`) say where
 - `:diff` — what changed, by word rather than by line
 - `:git-diff` — the same, against what git has (`HEAD` unless a commit is named)
 - `:toc`（outline） — list the headings; `:toc 3` goes to the third
@@ -6135,7 +6142,7 @@ for**, so searching for the same thing again is `/` and a Tab.
 | `:readonly` `:ro` `on`｜`off` | Read-only: lock this one against editing |
 | `:wq` [*path*] | Save and leave; a path saves elsewhere |
 | `:exit` `:x` `:xit` [*path*] | **Save if changed**, then leave. With a path it always writes |
-| `:write-quit-all` `:wqa` `:xa` (`:wqa!`) | Save every file that changed, then leave; a file that cannot be saved keeps you here. `!` writes over files changed outside, as `:w!` does, and leaves whatever still cannot be saved |
+| `:write-quit-all` `:wqa` `:xa` (`:wqa!`) | Save every file that changed, then leave; a file that cannot be saved keeps you here. `!` writes over files changed outside, as `:w!` does, and leaves even if a file could not be saved; that file's recovery copy is kept for the next open. The size question still stops it |
 | `:update` `:up` | **Save if changed**, and stay |
 | `:count` `:wc` | Word count |
 | `:count-progress` | Progress: how much today, how far the book has got, how many days running |
@@ -6659,9 +6666,13 @@ step a name, add a line whenever you like.
 **Steps 73 and 63 are nailed down.** In a table three grounds stack up
 — the selection, the cursor's row, the column ground — and all three have to be
 distinguishable from each other (1.24:1). Move them two steps further toward the
-paper and morandi's light mode drops to 1.20, and then you cannot tell which row
-you are standing on. Morandi's light mode is the one that decides
-these two numbers.
+paper and Catppuccin's light mode (Latte) drops to 1.19, and then you cannot tell which
+row you are standing on. Latte is the one that decides these two numbers.
+
+**In a light mood the steps are spaced by equal contrast**, not by equal amounts of
+colour: every step is the same ratio darker than the one before, so the selection,
+the cursor's row and the column ground stand as far apart on a light page as on a dark
+one. Dark moods mix the two colours evenly, as they always have.
 
 From step 35 toward the ink is **ink you can read**; from step 73 toward the
 paper is **ground you can write on**; the stretch in between holds nothing but
@@ -6729,8 +6740,9 @@ piece of text carries:
 | Ranks 6–7 | green | quotations | somebody else's words |
 | Ranks 8–9 | blue | links, `[[章節]]` | just an address |
 
-**Bold, italic and headings get no hue** — they are the writing already, and
-colour on them is only noise. But code is not prose; it is a run of literal text
+**Bold, italic and headings get no hue** in the house themes — they are the writing
+already, and colour on them is only noise. (The borrowed themes colour them the way the
+theme they copy does.) But code is not prose; it is a run of literal text
 quoted out of another language, and marking it with nothing but "one step darker
 than the writing" says "this part does not matter", when it is often the most
 precise thing in the line — and **it is the first thing to disappear when the
@@ -6857,15 +6869,11 @@ would let the one word "theme" say two things.
 
 Said plainly, so you do not go looking for it:
 
-- **Multiple cursors.** Helix's `C`, `s` and `S` need the core to hold **a set**
-  of selections rather than one anchor/cursor pair. That is rebuilding the
-  editor rather than adding to it, so it is better left undone than half done.
 - **Reading marks** (圈點, the emphasis circles) — they can be drawn, in the ruby
   column; the markup syntax is not settled.
 - **Really rotating Latin runs.** A terminal cannot rotate glyphs, so a Latin
   run that is too long can only stack letter by letter down the column.
   Horizontal-in-vertical (`tatechuyoko`) holds eight halfwidth characters at
   most, not a sentence.
-- **Syntax highlighting for code, LSP, split windows.** See the feature table in
-  [development.md](development.md). (Colouring for Markdown and Typst does
-  exist, see "Markdown colouring"; so does the outline sidebar, `空格 s`.)
+- **Split windows.** (Code colouring, language
+  servers, several selections and the outline sidebar, `空格 s`, are all there.)
