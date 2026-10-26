@@ -4393,9 +4393,9 @@ look**, and what to look for is always typed in the box.
 | Where it looks | What that is | Command |
 | --- | --- | --- |
 | this file | the one buffer in front of you, unsaved changes included | `:search` (`空格 /`) |
-| open buffers | every one that is open, **drafts with no name included**, unsaved changes included the same way | `:search-buffers` |
-| working directory | the directory the shell was in when you typed `ye`; `:cd` moves it | `:search-working` |
-| the project | the **nearest** directory with a `.yumete` in it, walking up from the working directory, or else the nearest with a `.git`, `.jj` or `.svn` | `:search-project` |
+| open buffers | every one that is open, **drafts with no name included**, unsaved changes included the same way | `:search-buffers` (`:sb`) |
+| working directory | the directory the shell was in when you typed `ye`; `:cd` moves it | `:search-working` (`:sw`) |
+| the project | the **nearest** directory with a `.yumete` in it, walking up from the working directory, or else the nearest with a `.git`, `.jj` or `.svn` | `:search-project` (`:sp`) |
 | a folder… | the one you name | `:search 稿` |
 
 **The scope does not follow the cursor.** Jump into somebody else's
@@ -6115,13 +6115,13 @@ for**, so searching for the same thing again is `/` and a Tab.
 | `:buffer` | List the open files |
 | `:toc` (`:toc 3`) | List the headings / go to the third |
 | `:search` [*folder*] | The search panel (`空格 /` too). **It takes no search text** — that is typed in the panel |
-| `:search-buffers` | The same, across every open buffer |
-| `:search-working` | The same, across the working directory (subdirectories included) |
-| `:search-project` | The same, across the project directory (subdirectories included) |
+| `:search-buffers` `:sb` | The same, across every open buffer |
+| `:search-working` `:sw` | The same, across the working directory (subdirectories included) |
+| `:search-project` `:sp` | The same, across the project directory (subdirectories included) |
 | `:replace` [*folder*] | The same panel, with one more row: 「what to replace it with」 |
-| `:replace-buffers` | Search and replace: every open buffer |
-| `:replace-working` | Search and replace: the working directory |
-| `:replace-project` | Search and replace: the project directory |
+| `:replace-buffers` `:rb` | Search and replace: every open buffer |
+| `:replace-working` `:rw` | Search and replace: the working directory |
+| `:replace-project` `:rp` | Search and replace: the project directory |
 | `:export` `:ex` `html`｜`typst` [*path*] | Export; if the target already holds something it takes `:export!` |
 | `:write` `:w` [*path*] | Save; with a path it writes **a copy** there and you stay with the original. Quote a path that has spaces in it, or put a `\` before each one |
 | `:write-as` *path* | Save under a new name, and **edit that one** |
