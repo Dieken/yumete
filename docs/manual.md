@@ -5798,7 +5798,7 @@ line will tell you itself.
   - `all` — save every file that changed
   - `as` path — save under a new name and edit that one (`:w <文件名>` only copies, and you stay here)
 - `:wq` — save, then leave
-- `:wqa`（xa） — save every file that changed, then leave
+- `:wqa`（xa） — save every file that changed, then leave (`:wqa!` writes over files changed outside and leaves whatever cannot be saved)
 - `:recover` — ask whether to use the draft
 - `:reload` — read the file again; ! throws away what you changed here
 - `:reload-auto` ｜ `on` `off` — re-read by itself when the file changes outside — a warning, not a re-read, when you have changes of your own
@@ -6135,7 +6135,7 @@ for**, so searching for the same thing again is `/` and a Tab.
 | `:readonly` `:ro` `on`｜`off` | Read-only: lock this one against editing |
 | `:wq` [*path*] | Save and leave; a path saves elsewhere |
 | `:exit` `:x` `:xit` [*path*] | **Save if changed**, then leave. With a path it always writes |
-| `:write-quit-all` `:wqa` `:xa` | Save every file that changed, then leave; a file that cannot be saved keeps you here |
+| `:write-quit-all` `:wqa` `:xa` (`:wqa!`) | Save every file that changed, then leave; a file that cannot be saved keeps you here. `!` writes over files changed outside, as `:w!` does, and leaves whatever still cannot be saved |
 | `:update` `:up` | **Save if changed**, and stay |
 | `:count` `:wc` | Word count |
 | `:count-progress` | Progress: how much today, how far the book has got, how many days running |
