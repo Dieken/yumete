@@ -5853,7 +5853,7 @@ line will tell you itself.
   - `catppuccin` — catppuccin: pastels; Mocha dark, Latte light
   - `gruvbox` — gruvbox: retro colours on warm brown; light and dark
   - `bw` — heibai: black, white and grey only — weight says it, colour says nothing
-  - `morandi` — morandi: low text contrast
+  - `morandi` — morandi: muted, greyed colours; light and dark
 - `:shot` — a picture: the clipboard by default, or png/html/txt saved as a file (into the downloads folder)
   - `screen` — photograph the window onto the clipboard
   - `png` path — photograph the window into a PNG
