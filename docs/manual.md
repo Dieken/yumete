@@ -5838,7 +5838,7 @@ line will tell you itself.
 - `:theme` — theme: which set of inks (light or dark is `:theme-mode`)
   - `ink` — moxiang: black, white-gold, gold and red ink; every other shade computed
   - `one-dark` — one-dark: the scheme most VS Code users know; dark only
-  - `zed-one-dark` — zed-one-dark: Zed's default theme; dark only
+  - `github` — github: GitHub's own scheme, as on the site and in VS Code; light and dark
   - `monokai` — monokai: the classic Sublime Text scheme; dark only
   - `bw` — heibai: black, white and grey only — weight says it, colour says nothing
   - `cyanotype` — cyanotype: white lines on Prussian blue — the one theme of the ten whose ground truly carries colour
@@ -6199,7 +6199,7 @@ for**, so searching for the same thing again is `/` and a Tab.
 | `:word-discover-working` `-project` | The same, over the working directory / the project directory (the same two words as `:search`) |
 | `:theme` | Which theme this is, and dark or light |
 | `:theme ink` (moxiang)/`bw` (heibai) | Change the set of inks (dark or light is `:theme-mode`) |
-| `:theme one-dark`/`zed-one-dark` (`zed`)/`monokai` | Code and Markdown in One Dark Pro's / Zed's / VS Code's Monokai's own colours, value for value; the rest of the page is worked out from its ink and paper. Dark only: in a light mood it stays dark and says so |
+| `:theme one-dark`/`github`/`monokai` | Code and Markdown in One Dark Pro's / GitHub's / VS Code's Monokai's own colours, value for value; the rest of the page is worked out from its ink and paper. `github` has a light and a dark half; the other two are dark only, and in a light mood they stay dark and say so |
 | `:theme-mode dark`/`light`/`system` | Dark or light only; `system` goes back to the terminal's answer |
 | `:theme-fill` (`on`/`off`) | Whether code and quotations sit on a ground (they do not out of the box) |
 | `:view-numbers-fill on`/`off` | Whether the line-number band has a ground of its own (no by default) |
@@ -6756,7 +6756,7 @@ red is corrected to a true red (OKLCH hue 29–30°, exactly the hue of pure red
 screen). meridian (whose red is blue, for red-green colour blindness) and
 complement (whose red is purple) deliberately do not use red, and stay as they
 are; complement's "orange" is therefore given as a red, so that it does not
-collide with its own orange. `one-dark`, `zed-one-dark` and `monokai` take their colours,
+collide with its own orange. `one-dark`, `github` and `monokai` take their colours,
 red included, from the themes they copy.
 
 **No ground out of the box**: the `` ` `` and the `>` are drawn there already,
