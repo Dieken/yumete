@@ -4951,7 +4951,7 @@ the same spot, which is a way to lose a manuscript rather than a way to open a f
 in the second; only when one is left does it really quit. This is Vim's and helix's
 rule, and it is the one you want while writing: closing the one in your hands is not the
 same as calling it a day. To really leave, that is **`:qa`** (`:qa!` throws away the
-unsaved ones too).
+unsaved ones too, and `:wqa` saves them first).
 
 There is no `:Q`. It is one Shift away from `:q` and means something else, which is
 exactly where a hand slips; for a short form, use `:bc`.
@@ -5750,6 +5750,7 @@ word read as something the command takes.
 | `:qa` | `:quit-all` |
 | `:wa` | `:write-all` |
 | `:wq` | `:write-quit` |
+| `:wqa` `:xa` | `:write-quit-all` |
 | `:x` `:xit` | `:exit` |
 | `:up` | `:update` |
 | `:y` | `:yume` = Chinese on — the head of a family, two keys |
@@ -5797,6 +5798,7 @@ line will tell you itself.
   - `all` — save every file that changed
   - `as` path — save under a new name and edit that one (`:w <文件名>` only copies, and you stay here)
 - `:wq` — save, then leave
+- `:wqa`（xa） — save every file that changed, then leave
 - `:recover` — ask whether to use the draft
 - `:reload` — read the file again; ! throws away what you changed here
 - `:reload-auto` ｜ `on` `off` — re-read by itself when the file changes outside — a warning, not a re-read, when you have changes of your own
@@ -6133,6 +6135,7 @@ for**, so searching for the same thing again is `/` and a Tab.
 | `:readonly` `:ro` `on`｜`off` | Read-only: lock this one against editing |
 | `:wq` [*path*] | Save and leave; a path saves elsewhere |
 | `:exit` `:x` `:xit` [*path*] | **Save if changed**, then leave. With a path it always writes |
+| `:write-quit-all` `:wqa` `:xa` | Save every file that changed, then leave; a file that cannot be saved keeps you here |
 | `:update` `:up` | **Save if changed**, and stay |
 | `:count` `:wc` | Word count |
 | `:count-progress` | Progress: how much today, how far the book has got, how many days running |
