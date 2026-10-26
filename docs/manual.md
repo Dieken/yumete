@@ -5843,9 +5843,9 @@ line will tell you itself.
   - `dracula` — dracula: the purple-toned dark scheme; dark only
   - `tokyo-night` — tokyo-night: soft blue-purple tones; light and dark
   - `catppuccin` — catppuccin: pastels; Mocha dark, Latte light
+  - `gruvbox` — gruvbox: retro colours on warm brown; light and dark
   - `bw` — heibai: black, white and grey only — weight says it, colour says nothing
   - `morandi` — morandi: low text contrast
-  - `meridian` — meridian: the 朱 is not red but blue, so red-green blindness tells it apart too
 - `:shot` — a picture: the clipboard by default, or png/html/txt saved as a file (into the downloads folder)
   - `screen` — photograph the window onto the clipboard
   - `png` path — photograph the window into a PNG
@@ -6199,7 +6199,7 @@ for**, so searching for the same thing again is `/` and a Tab.
 | `:word-discover-working` `-project` | The same, over the working directory / the project directory (the same two words as `:search`) |
 | `:theme` | Which theme this is, and dark or light |
 | `:theme ink` (moxiang)/`bw` (heibai) | Change the set of inks (dark or light is `:theme-mode`) |
-| `:theme one-dark`/`github`/`monokai`/`dracula`/`tokyo-night`/`catppuccin` | Code and Markdown in One Dark Pro's / GitHub's / VS Code's Monokai's / Dracula's / Tokyo Night's / Catppuccin's own colours, value for value; the rest of the page is worked out from its ink and paper. `github`, `tokyo-night` and `catppuccin` have a light and a dark half; the other three are dark only, and in a light mood they stay dark and say so |
+| `:theme one-dark`/`github`/`monokai`/`dracula`/`tokyo-night`/`catppuccin`/`gruvbox` | Code and Markdown in One Dark Pro's / GitHub's / VS Code's Monokai's / Dracula's / Tokyo Night's / Catppuccin's / Gruvbox's own colours, value for value; the rest of the page is worked out from its ink and paper. `github`, `tokyo-night`, `catppuccin` and `gruvbox` have a light and a dark half; the other three are dark only, and in a light mood they stay dark and say so |
 | `:theme-mode dark`/`light`/`system` | Dark or light only; `system` goes back to the terminal's answer |
 | `:theme-fill` (`on`/`off`) | Whether code and quotations sit on a ground (they do not out of the box) |
 | `:view-numbers-fill on`/`off` | Whether the line-number band has a ground of its own (no by default) |
@@ -6753,10 +6753,9 @@ for now the variants are used only in code colouring:
 is wrong"; if code wants an orange for its numbers, it gets an orange of its
 own, not a loan from the red. In every theme that means its red to be red, the
 red is corrected to a true red (OKLCH hue 29–30°, exactly the hue of pure red on
-screen). meridian (whose red is blue, for red-green colour blindness)
-deliberately does not use red, and stays as it is. `one-dark`, `github`,
-`monokai`, `dracula`, `tokyo-night` and `catppuccin` take their colours, red
-included, from the themes they copy.
+screen). `one-dark`, `github`, `monokai`, `dracula`, `tokyo-night`,
+`catppuccin` and `gruvbox` take their colours, red included, from the themes
+they copy.
 
 **No ground out of the box**: the `` ` `` and the `>` are drawn there already,
 the boundary is on the page, and laying a ground under it answers a question
