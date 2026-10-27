@@ -461,6 +461,12 @@ sentence, it goes to the first sentence of the next one.
 | `"#p` | **paste an N into the Nth selection**. `#` is not a box that holds something, it is the answer to 「which selection is this」 — a run of list items to number is four cursors and one keypress |
 | `C-a` `C-x` (with several selections) | the number in each selection up / down by one |
 
+**With several selections every motion and every edit happens at each one**, as in
+Helix, insert mode's arrows and `C-w` included; `gg` and `ge` take them all to one place,
+where they merge into one. A copy keeps one piece per selection: pasted at as many
+selections, each gets its own; at more, the extra ones get the last piece; at one cursor,
+the first piece.
+
 ### Changing
 
 | | |
