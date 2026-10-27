@@ -71,11 +71,18 @@ Here are the features Yumete has for people writing in 漢字:
   all of them: `mi k` takes the text inside, `ma k` takes the markup with it (under the
   vim keymap preset, `dik`/`dak`). It follows the file's syntax, so in a
   `:syntax text` file it takes nothing.
-- **`mi c` takes the table cell the cursor is in.** Replacing a whole cell is the
-  commonest thing there is to do to a table, and `mi c c` is it; `mi c d` empties the
-  cell and `mi c y` copies it. It works at every level a table is being read at, and
-  an empty cell is a place too, so `mi c c` fills one in. In a code file the same keys
-  still take the comment, as they do in Helix.
+- **`mi u` takes the clause the cursor is in** (短句): the stretch between two
+  punctuation marks of any kind, brackets and quotes included. On
+  `他说：「今天（星期三）要下雨，记得带伞。」` with the cursor on 雨 it takes 要下雨.
+  A mark inside a word does not count, so `3.14`, `1,000` and `don't` stay whole.
+  `ma u` adds the marks that end it and the spaces after them (under the vim keymap
+  preset, `diu`/`dau`). `W` is not this: it stops only at a space, which in Chinese
+  is usually the whole paragraph.
+- **`mi l` takes the table cell the cursor is in** (cel*l*). Replacing a whole cell is
+  the commonest thing there is to do to a table, and `mi l c` is it; `mi l d` empties
+  the cell and `mi l y` copies it. It works at every level a table is being read at,
+  and an empty cell is a place too, so `mi l c` fills one in. `mi c` is the comment,
+  as in Helix.
 - Vertical layout is supported (see section 5), punctuation turns with it, and readings
   can be set beside the characters.
 - The IME is part of the editor, not a layer stacked on top of it. Yumete carries the
@@ -663,6 +670,8 @@ know, do it anyway」.
 | `mi k` / `ma k` | the **markdown marks** the cursor is in (`**粗**`, a link…) |
 | `mi g` / `ma g` | the **change** the cursor's line is in, whole lines — what the change bar marks, against git's `HEAD` |
 | `mi w` / `mi p` | select the **word** / the **paragraph** under the cursor |
+| `mi s` / `mi u` | the **sentence** / the **clause** (up to any punctuation) the cursor is in. Neither takes a line break; under the vim keymap `dis` still takes a sentence's whole lines where vim does |
+| `mi l` | the **table cell** the cursor is in |
 | `mi f` / `mi t` | select the **function** / the **class** the cursor is in (in a code file, or in the code fence of a Markdown file the cursor is in; the innermost one) |
 | `mi a` / `mi c` | select the **parameter** / the **comment** the cursor is in (same as above; eight languages: python rust go javascript c java r mojo) |
 | `mi T` | the **test function** the cursor is in: `#[test]` in rust, `def test_…` in python, `func Test…` in go, `it`/`test`/`describe` in javascript, `@Test` in java |
