@@ -448,11 +448,11 @@ sentence, it goes to the first sentence of the next one.
 | `X` | grow the selection out to the line boundaries |
 | `%` | select the whole file |
 | `A-;` | put the cursor at the other end of the selection |
-| `C` `A-C` | **one more selection below/above**: another cursor on the same column. A line too short to reach that column is skipped, and it keeps looking downwards |
+| `C` `A-C` | **one more selection below/above**: another cursor on the same column. A line too short to reach that column is skipped, and it keeps looking downwards. A selection over several lines is copied that many lines down |
 | `,` | back to one — keep only the primary selection |
 | `s` | **select every match inside each selection**. What it opens is **the search row**, so pinyin, simplified/traditional, fuzzy and regex — all four switches — are live: searching 「书斋」 finds 「書齋」 |
-| `S` | take the match as a **separator** and cut each selection apart on it |
-| `A-s` | cut on **lines**. This one needs no pattern typed |
+| `S` | take the match as a **separator** and cut each selection apart on it. Two separators side by side leave an empty piece, a cursor on the second, as in Helix |
+| `A-s` | cut on **lines**. This one needs no pattern typed. An empty line gets a cursor too, so `%` `A-s` `A` reaches every line |
 | `A-k` `A-K` | keep only / drop the selections that match |
 | `(` `)` | **make another selection the primary one**, backwards/forwards. No selection moves; what moves is which one the hardware cursor follows |
 | `A-(` `A-)` | **rotate the text held in the selections**, the boundaries staying put. Swapping two columns of a table and swapping what two people say in a dialogue are this one thing |
