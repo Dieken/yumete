@@ -682,6 +682,9 @@ only its `[` `]`. Each step of `m` lists what it takes as you type it.
 the way quotes are, so `ma$`, like `ma"`, takes the blank after it too. In `mi`/`ma` a
 letter or a digit is always the name of an object, never a pair.
 
+**`ms` then `Enter` puts the selection on lines of its own**, as in helix: a line break
+before it and one after, in the file's own line ending.
+
 **`mr` shows the pair before it changes it**, as helix's does: after `mr(` the selection
 is the two brackets it found, so you see which pair the next key will change, and the
 menu asks what to change it to. That key, or `Esc` to change nothing, gives your
