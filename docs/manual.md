@@ -117,6 +117,7 @@ yumete -r                      carry on from last time — the files that were o
       --readonly       lock every file this run opens against editing
   -r, --resume         carry on with the files that were open last time
       --new            start a blank one even when session = true
+      --private        remember nothing from this run, and read nothing from before it
       --preview        print the contents and do not enter the editor
       --shot[=WxH]     draw one frame as text, print it and exit (100x30 by default)
       --html           with --shot: colours and all, as one self-contained piece of HTML
@@ -4805,6 +4806,16 @@ putting an error on your screen every morning. It remembers **24** at most, the 
 are in first — one cross-file change opens every file, and with no ceiling tomorrow
 morning would be a hundred and twenty.
 
+The session holds only *which* files. The line each file was left on is kept once, in
+`places.txt` beside it, which is also what takes you back to that line whenever you open
+a file, and what `:recent-files` lists.
+
+**To keep no memory at all**, as with vim's `viminfo=` or Neovim's `shada=""`, write
+`[editor] remember = false`: yumete then neither writes nor reads `places.txt`,
+`projects.txt` or the sessions, so there is no line to go back to, no recent files or
+projects, and nothing for `--resume` to open. `--private` does the same for one run.
+Recovery copies of unsaved work are a different thing and are still kept.
+
 #### Marks
 
 `M` plus a letter writes this spot down, `'` plus the same letter goes back —
@@ -6347,7 +6358,7 @@ That sounds like meddling, and it is really a repair: a key `RawConfig` does not
 **voids the whole config**, and not one of the correct settings in the same file takes
 effect. Once it is commented out the file works again, and not a character is lost.
 
-**Eight groups, fifty-eight items**, one group to a page:
+**Eight groups, fifty-nine items**, one group to a page:
 
 | Group | What is in it |
 | --- | --- |
@@ -6426,6 +6437,7 @@ indent = 0                   # cells of first-line indent; the Chinese conventio
 bands = 1                    # bands: how many strips a set-down page is cut into across, 1–4
 margin = "dense"             # the interlinear lane: "never" | "dense" (default) | "loose" | "always"
 session = false              # started with no filename, open a blank document; true picks up last time's files (-c does it any time)
+remember = true              # false: keep no memory of files, lines, recent lists or sessions (--private for one run)
 language = "zh"              # which language the editor speaks: "zh" (traditional) | "zhs" (simplified)
                              # | "en"
                              # This one is the standing answer; `yumete --lang=en` changes
