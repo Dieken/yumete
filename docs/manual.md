@@ -675,6 +675,12 @@ and like helix's it means a bracket or quote pair only. Markdown's `**` `*` `~~`
 `` ` `` and links are `k`: `md k` takes them away whole, where `md m` on a link would take
 only its `[` `]`. Each step of `m` lists what it takes as you type it.
 
+**Any other character is a pair of itself**, as in helix: `ms*` wraps the selection in
+`*…*`, `md$` takes off the two `$` around the cursor, `mr$(` turns `$x$` into `(x)`, and
+`mi$` selects what is between them. Two of the same character are counted on their line
+the way quotes are, so `ma$`, like `ma"`, takes the blank after it too. In `mi`/`ma` a
+letter or a digit is always the name of an object, never a pair.
+
 `mi p` takes the whole paragraph (the trailing newline included), and `ma p` adds the
 blank lines below it — **with the cursor on a blank line, that paragraph is those blank
 lines**, so `ma p` pressed between two paragraphs clears away the extra gap.
