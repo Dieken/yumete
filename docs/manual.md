@@ -663,7 +663,7 @@ know, do it anyway」.
 | `mi k` / `ma k` | the **markdown marks** the cursor is in (`**粗**`, a link…) |
 | `mi g` / `ma g` | the **change** the cursor's line is in, whole lines — what the change bar marks, against git's `HEAD` |
 | `mi w` / `mi p` | select the **word** / the **paragraph** under the cursor |
-| `mi f` / `mi t` | select the **function** / the **class** the cursor is in (only in a file that is code all through; the innermost one) |
+| `mi f` / `mi t` | select the **function** / the **class** the cursor is in (in a code file, or in the code fence of a Markdown file the cursor is in; the innermost one) |
 | `mi a` / `mi c` | select the **parameter** / the **comment** the cursor is in (same as above; eight languages: python rust go javascript c java r mojo) |
 | `ms` *c* | wrap the selection in *c* |
 | `md` *c* | take the *c* pair away; `md m` is 「whichever pair it is, take the innermost one away」, `md k` takes away the markdown marks |
