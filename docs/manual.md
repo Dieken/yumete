@@ -682,6 +682,15 @@ only its `[` `]`. Each step of `m` lists what it takes as you type it.
 the way quotes are, so `ma$`, like `ma"`, takes the blank after it too. In `mi`/`ma` a
 letter or a digit is always the name of an object, never a pair.
 
+**A count is pairs out**, as in helix: on `f(a(b)c)` with the cursor on `b`, `2mi(`
+selects `a(b)c`, `2md(` takes off the outer pair and `2mr([` turns it into `[…]`. With
+`m` the count-th pair of any kind is taken: `2mim` on `f[a(b)c]` is inside the `[…]`.
+When there are fewer pairs than the count, nothing happens.
+
+**Outside any pair, `mi(` and `ma(` take nothing** under the helix keymap, as in helix.
+Under the vim keymap they reach ahead to the next pair (across lines for brackets, along
+the line for quotes), as vim's `di(` and `da"` do.
+
 **With several selections, every one takes its own pair**, as in helix: `C` then `ms(`
 wraps each of them, `mi(` selects inside each one's own brackets, and `md(` / `mr([`
 take off or change the pair around every cursor, as one undo step. `md` and `mr` do
