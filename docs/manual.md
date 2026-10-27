@@ -682,6 +682,13 @@ only its `[` `]`. Each step of `m` lists what it takes as you type it.
 the way quotes are, so `ma$`, like `ma"`, takes the blank after it too. In `mi`/`ma` a
 letter or a digit is always the name of an object, never a pair.
 
+**With several selections, every one takes its own pair**, as in helix: `C` then `ms(`
+wraps each of them, `mi(` selects inside each one's own brackets, and `md(` / `mr([`
+take off or change the pair around every cursor, as one undo step. `md` and `mr` do
+nothing at all rather than half the job when a cursor has no pair around it, or when
+two cursors share one pair — taking that pair off once per cursor would take off the
+pair outside it too.
+
 `mi p` takes the whole paragraph (the trailing newline included), and `ma p` adds the
 blank lines below it — **with the cursor on a blank line, that paragraph is those blank
 lines**, so `ma p` pressed between two paragraphs clears away the extra gap.
