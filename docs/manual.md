@@ -1480,36 +1480,49 @@ head of a paragraph, and it is the one thing still saying "new paragraph here"
 on a page with no margin — the blank line it stands in for would have cost a
 whole column.
 
-### Bands: cutting the page across into two
+### Pages: one text through two or more pages
 
 Fifty characters to a column is tiring to read — the trip your eye makes from
 the foot of one column to the head of the next is too long. The traditional
 Japanese answer in vertical setting is not to shrink the type, it is to **cut
 the page across**: the top half reads right to left, and when it is done you
 pick up again at the right of the bottom half. Newspapers and bunkobon are both
-set this way.
+set this way. A wide window does the same thing to horizontal text: a line the
+whole width of the screen is as tiring as a column the whole height of it, and
+the answer is pages side by side, the text running on from the left one to the
+right, as in a newspaper or Emacs's `follow-mode`.
 
-A terminal is a wide, short shape — which is exactly the shape bands are for.
+Each layout keeps its own number, 1 to 4:
 
 ```
-:view-bands 2      split into two bands, one above the other
-:view-bands off    one column, the full height of the page
-[editor] bands = 2
+:view-pages-vertical 2      two pages one above the other (段組)
+:view-pages-horizontal 2    two pages side by side
+:view-pages-horizontal 1    one page, the whole window
+[editor] pages_vertical = 2
+[editor] pages_horizontal = 2
 ```
 
-**Each band is an independent short page**: its own column length, its own
-paragraph-number row, filling from the right on its own. Bands are **the same
-height**, because the page is being divided and not filled — the lower band is
-never a row shorter than the upper one. The reading order is still that one
-string of columns; bands only decide where the columns are put, so `hjkl`,
-paging and clicking with the mouse all work exactly as before.
+The number is a count, not a switch: `on` and `off` are not taken, and a
+config value outside 1–4 is reported when the file is read. A bare
+`:view-pages-horizontal` says how many there are. Setting one layout's number
+leaves the other alone, and does not need that layout to be in use.
 
-When the window is too short for even one band to hold a column, it falls back
-to one band on its own.
+**Each page is an independent short page.** A vertical page has its own column
+length and its own paragraph-number row, filling from the right; a horizontal
+one has its own line-number gutter, which is what divides it from the page
+before, and wraps at its own width — even with `:view-wrap off`, since a line
+run past a page's edge would run into the next page. Pages are the same size,
+because the window is being divided and not filled.
 
-**Vertical layout only.** The horizontal counterpart is Emacs's `follow-mode`
-(one stream of text flowing through several side-by-side columns), which is
-another thing, and is not done.
+The reading order is still one string of rows or columns; pages only decide
+where they are put. `hjkl` walk from one page into the next, and paging,
+`zt` `zz` `zb` and the scrolling margin measure all the pages as one: a step
+off the last row or column scrolls the whole chain by one. Clicking with the
+mouse works on every page.
+
+When the window is too small, there are fewer pages: vertically, when a page
+cannot hold one column; horizontally, when a page would have fewer than 30
+cells of text (15 漢字).
 
 ### The margin: `:view-margin`
 
@@ -1978,7 +1991,7 @@ final `」` is not flung onto the next column.
 The sentence boundary is the one the `(` and `)` motions jump by — the head of every
 column you see is exactly where `)` would stop.
 
-It is only a way of looking at the vertical page, like `:view-margin` or `:view-bands`:
+It is only a way of looking at the vertical page, like `:view-margin` or `:view-pages-vertical`:
 the file has not changed, and `:w` writes the same paragraph you had.
 
 ### 6.9 平仄: `:view-meter`
@@ -5738,7 +5751,7 @@ outright** — keeping two spellings would mean this philosophy was only talk:
 | `:render off/basic/full` | `:markup` `:wysiwyg` `:source` |
 | `:buffer` `:buffer-next/previous/close` | `:buffers` `:ls` `:bd` |
 | `:clipboard-yank/paste` | `:cy` `:cp` |
-| `:view-wrap/bands/sentence/hanging/numbers/typewriter/focus/meter/punct/hud/preview` | `:wrap` `:bands` `:sentence` `:hanging` `:numbers` `:typewriter` `:focus` `:meter` `:note` `:hud` `:preview` |
+| `:view-wrap/pages-vertical/sentence/hanging/numbers/typewriter/focus/meter/punct/hud/preview` | `:wrap` `:bands` `:sentence` `:hanging` `:numbers` `:typewriter` `:focus` `:meter` `:note` `:hud` `:preview` |
 | `:count-progress` `:count-target 3000` | `:progress` `:prog` `:target` |
 | `:write-all` `:write-as 新名.md` | `:wall` `:saveas` `:sav` |
 | `:table-jump 木` `:table-find column 甲` | `:row` `:search`（`:search` came back to life later, see below） |
@@ -5773,12 +5786,12 @@ everything `:grep` just found", and now it is one more row in that panel.
 second is the thing you are doing. `:view note` is worse: it sounds like "look at the
 notes", while that command draws punctuation faint.
 
-**Type the old name and it tells you where the new one is.** `:bands` is no longer a
+**Type the old name and it tells you where the new one is.** `:hanging` is no longer a
 command, but typing it does not only say it is unknown:
 
 ```
-:bands
-no such command as 'bands' — you want `:view-bands`
+:hanging
+no such command as 'hanging' — you want `:view-hanging`
 ```
 
 That sentence is **computed** — walk the command tree and find the child whose name
@@ -5948,7 +5961,8 @@ line will tell you itself.
 - `:!command` — hand the terminal over and watch it run (vi's spelling)
 - `:view-wrap` ｜ `on` `off` `0` `<幾欄>` — wrap long paragraphs to the next row; `:view-wrap 50` sets the measure
 - `:view-margin` ｜ `never` `dense` `loose` `always` — margin: when the lane for readings, hung punctuation, emphasis dots and 平仄 is kept
-- `:view-bands` ｜ `on` `off` `<幾條，1–4>` — bands: divide the vertical page across — top right to top left, then bottom right to bottom left
+- `:view-pages-vertical` ｜ `<1–4>` — pages, vertical: divide the vertical page across — top right to top left, then bottom right to bottom left
+- `:view-pages-horizontal` ｜ `<1–4>` — pages, horizontal: side-by-side columns, the text running on from the left one to the right
 - `:view-sentence` ｜ `on` `off` — one sentence to a column: vertically, each sentence starts its own column — a view of the page, not an edit
 - `:view-hanging` ｜ `on` `off` — hung punctuation: 句讀 sit in the margin
 - `:view-numbers-fill` ｜ `on` `off` — the line-number band: whether it has a ground of its own
@@ -6160,7 +6174,7 @@ a subcommand writes the whole thing in.
 
 **A command with prerequisites says so first.** Hung punctuation wants vertical
 layout, and wants the margin to be something other than `never` before there is
-anywhere to hang; bands only mean anything vertical; `:table-jump`, `:table-check`
+anywhere to hang; `:table-jump`, `:table-check`
 and `:table-rules` want table mode first; `:yume-chaifen` wants a 碼表 loaded. Those
 conditions are **written next to the command**, so all three places can say them:
 
@@ -6299,7 +6313,8 @@ for**, so searching for the same thing again is `/` and a Tab.
 | `:ruby-render off`/`basic`/`full` | The source / readings read but not laid out / laid out beside the base (`:ruby` on its own edits the reading here) |
 | `:view-margin` *never*｜*dense*｜*loose*｜*always* | Where the margin is kept: nowhere / each column or row that carries something / a whole paragraph if any of it does / everywhere |
 | `:indent off`/`basic`/`full` (or a number) | The first-line indent; `full` folds the blank line between paragraphs in too (a Chinese paragraph indents two squares) |
-| `:view-bands` (`off`, or 1–4) | Bands: divide the vertical page across into so many strips |
+| `:view-pages-vertical` (1–4) | Pages, vertical: divide the vertical page across into so many pages |
+| `:view-pages-horizontal` (1–4) | Pages, horizontal: so many pages side by side, the text running through them |
 | `:view-sentence` (`off`) | One 句 to a column, for proofreading; a view only, the file does not move (see 5.8) |
 | `:yume-chaifen` | The 拆分 annotation beside the candidates (two layers: 拆分 + code) |
 | `:yume` `:yume-which` | Which scheme is in use, where its 碼表 came from (the full path), and whether 拆分 is on |
@@ -6334,7 +6349,7 @@ key is called, and you don't have to go looking up which keys exist.
   layout      │ layout                  [across]
   marks       │ column length           0
   interface   │ column gap              0
-  colours     │ bands                   1
+  colours     │ pages, vertical         1
   input       │ indent                  2
   editing     │ measure                 36
   files       │ ruler                   0
@@ -6402,7 +6417,7 @@ That sounds like meddling, and it is really a repair: a key `RawConfig` does not
 **voids the whole config**, and not one of the correct settings in the same file takes
 effect. Once it is commented out the file works again, and not a character is lost.
 
-**Eight groups, fifty-nine items**, one group to a page:
+**Eight groups, sixty items**, one group to a page:
 
 | Group | What is in it |
 | --- | --- |
@@ -6478,7 +6493,8 @@ language_key = "C-^"         # on terminals that cannot report a bare Shift, thi
 
 layout = "horizontal"        # "horizontal" | "vertical"
 indent = 0                   # cells of first-line indent; the Chinese convention for a paragraph is 2
-bands = 1                    # bands: how many strips a set-down page is cut into across, 1–4
+pages_vertical = 1           # pages, vertical: how many pages a set-down page is cut into across, 1–4
+pages_horizontal = 1         # pages, horizontal: how many pages side by side, the text running on, 1–4
 margin = "dense"             # the interlinear lane: "never" | "dense" (default) | "loose" | "always"
 session = false              # started with no filename, open a blank document; true picks up last time's files (-c does it any time)
 remember = true              # false: keep no memory of files, lines, recent lists or sessions (--private for one run)
