@@ -682,6 +682,11 @@ only its `[` `]`. Each step of `m` lists what it takes as you type it.
 the way quotes are, so `ma$`, like `ma"`, takes the blank after it too. In `mi`/`ma` a
 letter or a digit is always the name of an object, never a pair.
 
+**`mr` shows the pair before it changes it**, as helix's does: after `mr(` the selection
+is the two brackets it found, so you see which pair the next key will change, and the
+menu asks what to change it to. That key, or `Esc` to change nothing, gives your
+selection back.
+
 **A count is pairs out**, as in helix: on `f(a(b)c)` with the cursor on `b`, `2mi(`
 selects `a(b)c`, `2md(` takes off the outer pair and `2mr([` turns it into `[…]`. With
 `m` the count-th pair of any kind is taken: `2mim` on `f[a(b)c]` is inside the `[…]`.
