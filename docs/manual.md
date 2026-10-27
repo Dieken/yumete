@@ -1509,8 +1509,8 @@ leaves the other alone, and does not need that layout to be in use.
 
 **Each page is an independent short page.** A vertical page has its own column
 length and its own paragraph-number row, filling from the right; a horizontal
-one has its own line-number gutter, which is what divides it from the page
-before, and wraps at its own width — even with `:view-wrap off`, since a line
+one has its own line-number gutter, which with two blank cells before it is what
+divides it from the page before, and wraps at its own width — even with `:view-wrap off`, since a line
 run past a page's edge would run into the next page. Pages are the same size,
 because the window is being divided and not filled.
 
