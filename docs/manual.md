@@ -845,6 +845,7 @@ on its own says which set is in force.
 | `q` `Q` | swapped back | `q` starts recording a macro and a second press stops it; `Q` plays it once (the two are the other way round here) |
 | `R` | **new** | overwrite mode: each character you type covers one, `Esc` leaves, backspace gives back what was covered (the status bar says `REP`) |
 | `gv` | **new** | select that last stretch again |
+| `C-v` | **new** | **blockwise visual**, as in vim: the motions grow a rectangle, drawn as one selection a line. `I` and `A` write before / after it on every line (`I` skips a line too short to reach it, `A` pads one with spaces, `$A` writes at each line's end), and what you type is copied to the other lines on `Esc`, as vim does. `c` `d` `y` `r` `~` `u` `U` `>` `<` `J` act on the block, `o` `O` change corners, `p` puts a taken block back as a block, `.` repeats the change from the cursor. The status bar says `SEL` |
 | `g;` `g,` | **new** | walk the places you changed, older / newer (one entry per line, a hundred at most, as in vim) |
 | `C-o` in insert | **new** | run one Normal command and come straight back to insert (a several-key one like `gg` or `3j` is waited out) |
 | `(` `)` | **already there, spelled differently** | previous / next sentence (`(` `)` here normally rotate the primary selection) |
