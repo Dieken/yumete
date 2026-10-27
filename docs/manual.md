@@ -665,6 +665,9 @@ know, do it anyway」.
 | `mi w` / `mi p` | select the **word** / the **paragraph** under the cursor |
 | `mi f` / `mi t` | select the **function** / the **class** the cursor is in (in a code file, or in the code fence of a Markdown file the cursor is in; the innermost one) |
 | `mi a` / `mi c` | select the **parameter** / the **comment** the cursor is in (same as above; eight languages: python rust go javascript c java r mojo) |
+| `mi T` | the **test function** the cursor is in: `#[test]` in rust, `def test_…` in python, `func Test…` in go, `it`/`test`/`describe` in javascript, `@Test` in java |
+| `mi e` | the **key and value** (or field) the cursor is in: json, toml, yaml, a rust or go struct field, a python or javascript dictionary entry |
+| `mi x` | the **HTML element** the cursor is in, tags and all |
 | `ms` *c* | wrap the selection in *c* |
 | `md` *c* | take the *c* pair away; `md m` is 「whichever pair it is, take the innermost one away」, `md k` takes away the markdown marks |
 | `mr` *c* *d* | turn the *c* pair into the *d* pair; `mr m` *d* turns the innermost one |
