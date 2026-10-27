@@ -375,9 +375,9 @@ the rest is not done, and the status line says so.
 | `w` `b` `e` | next word start, previous word start, word end |
 | `W` `B` `E` | the same, but by "long words" split on spaces |
 | `f` `F` *c* | find character *c*, forward or backward. **Chinese can be typed too** (see `r`) |
-| `t` `T` *c* | the same, but stopping one cell **short** of it (as in vi; the table group moved to `空格 t`) |
+| `t` `T` *c* | the same, but stopping one cell **short** of it (as in vi; the table group moved to `空格 t`). Standing right before *c* already, `t` goes on to the next one, as Helix's does, so `t,` pressed again keeps going (under the vim keys it stays, as vim's does) |
 | `A-.` | repeat the last `f` |
-| `C-w` `C-u` `C-k` (Insert) | take back the word before / back to the start of the line / **delete to the end of the line**. `C-k` does nothing at the end of a line; it will not pull the next line up |
+| `C-w` `C-u` `C-k` (Insert) | take back the word before / back to the start of the line / **delete to the end of the line**, as Helix's do: `C-u` stops at the indent, and at the very start of a line it joins the line above; `C-k` at the end of a line pulls the next line up |
 | `C-r` *name* (Insert) | **insert a register** without leaving insert mode. `C-r "` is the unnamed one (what you just `y`'d), `C-r a` is `"a`. What it saves is an undo point: going out and back in with `Esc` `p` `i` records one more |
 | `C-a` `C-e` (Insert) | jump to the start / end of the line — **inside a table cell it jumps to the two ends of that cell**. The `:` and `/` lines know this pair too; all three behave the same |
 | `C-[` | this is `Esc`. It was the Esc byte all along; newer keyboard protocols report it as a chord, and this gives it back |
@@ -442,7 +442,7 @@ sentence, it goes to the first sentence of the next one.
 
 | | |
 | --- | --- |
-| `v` | extend mode — a motion grows the selection |
+| `v` | extend mode — a motion grows the selection. **`n` `N` and `/` add the match as another selection** instead, as in Helix: `e` `*` `v` `n` `n` selects three of the same word, ready for one `c` |
 | `;` | collapse the selection to the cursor |
 | `x` | select this line (press again to keep going down) |
 | `X` | grow the selection out to the line boundaries |
@@ -474,14 +474,14 @@ the first piece.
 | `d` `c` | cut / cut and write over the selection: into the register first, then deleted |
 | `A-d` `A-c` | the same, but **they leave the register alone** — the piece you just copied is still there |
 | `i` `a` | insert before / after the selection, as in Helix. **`a` keeps the selection and grows it**: what you type joins it, so on `Esc` the selection is the old one plus everything you just wrote, ready for the next action. **`i` keeps it too**, after what you type, so `w` `i` writes before the word and the word is still selected on `Esc`. Moving with the arrows while inserting drops either to a cursor. (Under the vim keys, `i` and `a` leave a one-character cursor, as they do there.) |
-| `I` `A` | insert at the start / end of the line |
+| `I` `A` | insert at the start (after the indent) / end of the line |
 | `o` `O` | open a new line below / above |
 | `y` `p` `P` | copy / paste after / paste before. **Where it lands depends on what you copied**: if what you copied **carries no newline** (half a sentence, one word), it lands after the character the cursor covers, or after the selection if you have one; if what you copied **carries a newline** (`xy` copies a whole line, so it does), it lands as a whole line below and is never pushed into the middle of another line. `P` is always the 「before」 end |
 | `R` | replace the selection with the register |
 | `r` *c* | write *c* over every character of the selection. **Chinese works too**: `r` opens the candidate panel, and whatever you pick is what it becomes; committing one character fills the selection character by character, committing a word replaces the whole thing |
 | `"` *a* | the next copy / delete / paste uses register *a* |
 | `Q` `q` | record a macro / replay the last one — the same direction as Helix |
-| `J` | join with the next line (no space added between two full-width characters) |
+| `J` | join with the next line (no space added between two full-width characters); the cursor stays on its text, as in Helix |
 | `` ` `` | Glyph group: write the selected characters **another way**. Case: `` `l `` to lower, `` `u `` to upper, `` `` `` swaps them (Helix spends three first-level keys on this, and on 漢字 they do nothing at all, so they are folded into one group; `~` swaps too, after vi and Helix, and ``A-` `` is not bound here). Simplified and traditional: `` `s `` traditional→simplified, `` `t `` simplified→traditional, `` `w `` Taiwan traditional, `` `k `` Hong Kong traditional, `` `c `` mainland traditional, `` `g `` classical traditional, `` `j `` traditional→the Japanese new forms — **only the selected piece** (with nothing selected, the character under the cursor); a whole book is `:convert`. Needs opencc. Width: `` `f `` to fullwidth, `` `h `` to halfwidth — **only the characters Unicode itself pairs up** (`FF01`–`FF5E` against `21`–`7E`, plus the fullwidth space), so a round trip gives the text back unchanged. 「」『』、。 have no halfwidth form and are left alone; turning 「」 into `""` is translation, not width, and nothing could turn it back |
 | `>` `<` | indent / unindent the selected lines |
 | `C-a` `C-x` | the number at the cursor up / down by one |
