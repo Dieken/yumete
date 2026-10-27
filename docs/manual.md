@@ -661,6 +661,7 @@ know, do it anyway」.
 | `ma` *c* | select the brackets along with it |
 | `mi m` / `ma m` | the **nearest pair**, whichever kind it is |
 | `mi k` / `ma k` | the **markdown marks** the cursor is in (`**粗**`, a link…) |
+| `mi g` / `ma g` | the **change** the cursor's line is in, whole lines — what the change bar marks, against git's `HEAD` |
 | `mi w` / `mi p` | select the **word** / the **paragraph** under the cursor |
 | `mi f` / `mi t` | select the **function** / the **class** the cursor is in (only in a file that is code all through; the innermost one) |
 | `mi a` / `mi c` | select the **parameter** / the **comment** the cursor is in (same as above; eight languages: python rust go javascript c java r mojo) |
