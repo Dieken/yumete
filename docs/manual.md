@@ -1149,6 +1149,24 @@ you have not finished typing), and neither is a table row that begins with `|`. 
 numbers already written above are not renumbered: renumbering a list is something
 somebody orders on purpose, not something done in passing on a carriage return.
 
+**Words you have already written are offered as you write.** After four Latin letters
+(`[editor] word_completion`, 0 to 20, `0` off), a list floats under the caret with the
+words of every open file that the letters can become, matched in order but not
+necessarily together, as helix's word completion is: `Ddsf` finds `Donaudampfschiff`.
+Words of three to fifty letters count. 漢字 come up after half as many characters,
+rounded up (two at the factory setting), and only words longer than what you typed,
+as the segmenter cuts them: `阿寧` offers `阿寧師兄` if the book has it, not one more
+character. 漢字 count only once committed, so the list never shares the screen with the
+IME's candidates. `C-n` (or `C-x`) lists them at any length, even with the setting at 0.
+`Tab` takes the one marked, `C-n` / `C-p` move, `Esc` puts the list away. In code the
+language server answers instead.
+
+**A path is completed where you type it.** Any word with a `/` in it (`./`, `../`,
+`~/`, `/`, `drafts/`), and anything right after `](`, lists the files and folders it can
+go on to, read from **this file's own folder** (the working directory for a file with no
+name yet), folders ending in `/`, hidden ones only once you type the `.`. This is
+helix's path completion, plus the Markdown link, and it works in code too.
+
 **Type half a reference and `Tab` finishes it.** Type `[^` in the text and the footnote
 marks this file already has are listed below, each with the first sentence of its note
 beside it; the last entry is **a number nobody has used yet**, and picking it opens a
@@ -6464,7 +6482,7 @@ That sounds like meddling, and it is really a repair: a key `RawConfig` does not
 **voids the whole config**, and not one of the correct settings in the same file takes
 effect. Once it is commented out the file works again, and not a character is lost.
 
-**Eight groups, sixty items**, one group to a page:
+**Eight groups, sixty-one items**, one group to a page:
 
 | Group | What is in it |
 | --- | --- |
@@ -6473,7 +6491,7 @@ effect. Once it is commented out the file works again, and not a character is lo
 | interface | the editor's own few edges: scrolloff, lane width, the tab bar, the candidate bar… |
 | colours | theme, dark or light, the paper, the ground of the status bar |
 | input | which 碼表 to use, whether to load it at startup, whether to let the system IME open |
-| editing | columns of indent, what Tab inserts, rescue copies, smart case… |
+| editing | word completion, columns of indent, what Tab inserts, rescue copies, smart case… |
 | files | interface language, ambiguous width, the key that switches 中/ABC |
 | keys | the helix set or the vim set |
 
@@ -6519,6 +6537,7 @@ no need to remember where they live.
 
 ```toml
 [editor]
+word_completion = 4          # Latin letters before the open files' words are listed (漢字: half, rounded up); 0 off, C-n still lists
 indent_width = 4             # columns `>` adds and `<` takes away, also the spaces Tab inserts
 tab_inserts = "spaces"       # Tab inserts spaces in insert mode (factory); "tab" inserts a tab character. Shift-Tab inserts the other one
 tab_width = 8                # what multiple a TAB advances to (what the 碼表 line up by)
