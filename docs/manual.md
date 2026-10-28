@@ -54,9 +54,11 @@ Here are the features Yumete has for people writing in 漢字:
 - **One bracket key covers a whole family of brackets.** Taking the inside (`mi(`, or
   `di(` under the vim keymap preset) does not care about full width or half width, and
   you need not remember which key a Chinese bracket sits on: `(` covers ( ) （ ）, `[`
-  covers [ ] ［ ］ 【 】〔 〕「 」, `{` covers { } ｛ ｝〖 〗『 』, `<` covers < > 〈
-  〉《 》, `"` covers " ＂ “ ”, `'` covers ' ＇ ‘ ’. **The single layer belongs to `[`,
-  and the layer nested inside it to `{`**. Both ends are recognised, so `di（` finds
+  covers [ ] ［ ］ 【 】〔 〕「 」｢ ｣, `{` covers { } ｛ ｝〖 〗『 』, `<` covers < > « »
+  〈 〉《 》, `"` covers " ＂ “ ” 〝 〞, `'` covers ' ＇ ‘ ’, and each family also
+  covers the vertical forms of its members (﹁ ﹂ for 「 」, ︽ ︾ for 《 》, and so on).
+  **The single layer belongs to `[`, and the layer nested inside it to `{`**. The menu
+  lists only the shapes you can tell apart, and its `…` stands for the rest. Both ends are recognised, so `di（` finds
   `()` just as well; when a family is nested in itself, the innermost pair is taken. For
   "whichever pair it is, take off the innermost one" use `md m`, and for markdown's
   marks `md k`.
@@ -730,8 +732,9 @@ blank lines below it — **with the cursor on a blank line, that paragraph is th
 lines**, so `ma p` pressed between two paragraphs clears away the extra gap.
 
 Either half of a pair stands for the whole pair, so `mi「` and `mi」` are the same. It
-knows the ASCII brackets `()` `[]` `{}` `<>`, the quotes `"` `'` and `` ` ``, and
-（）［］｛｝〈〉《》「」『』【】〔〕〖〗“”‘’.
+knows the ASCII brackets `()` `[]` `{}` `<>`, the quotes `"` `'` and `` ` ``,
+（）［］｛｝〈〉《》「」『』【】〔〕〖〗“”‘’, «» ｢｣ 〝〞, and the vertical forms
+︵︶ ﹇﹈ ﹁﹂ ︻︼ ︹︺ ︷︸ ﹃﹄ ︗︘ ︿﹀ ︽︾.
 
 **Every one of these *c* can be typed in Chinese**: `mi`, `ma`, `ms`, `md`, `mr` open
 the candidate panel, and the character you pick is the pair — `ms「` is 「put a pair of
