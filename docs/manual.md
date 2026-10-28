@@ -3103,7 +3103,7 @@ not the same.
 | `空格 k` / `空格 K` | what is this — floating / in the sidebar |
 | `空格 d` / `空格 D` | what is wrong on this line — floating / in the sidebar |
 | `C-n` | in Insert, the completion list; `C-p` back, `Tab` takes one, `Esc` puts it away |
-| `(` and `,` | in Insert, the call's signature beside the caret, the parameter you are filling in gold |
+| `(` and `,` | in Insert, the call's signature beside the caret, the parameter you are filling in gold; also on entering Insert inside a call, and on any other character the server names (rust-analyzer adds `<`) |
 | `PageUp` `PageDown` `C-u` `C-d` | page whatever is floating — key for key helix's `ui/popup.rs` |
 | `:diagnostics-all` | every word from every file in one `path:line:` list, `gf` to jump |
 | `:instant-info <name>` | which of the six comes up by itself; bare, it decides by the manuscript |
@@ -3137,6 +3137,11 @@ docs answer back.
 **Nothing floats in Insert except completion and the signature.** A line you are halfway
 through typing is broken by definition, so diagnostics wait for `Esc` (neovim ships this
 way too, `update_in_insert = false`), and the signature never collides with them.
+
+**The signature stays while you fill the call in**, as in helix: each edit or caret move
+asks the server again once you have paused for 120 ms, so the gold follows the
+parameter under the caret, and the signature closes when the server says the caret has
+left the call. `)` does not close it by itself: in `f(g(x)` you are still filling `f`.
 
 **Only the first letter waits for the server.** The list comes up once the server
 answers; after that each letter you type narrows the list already on screen, at once,
