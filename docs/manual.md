@@ -4870,6 +4870,22 @@ The session holds only *which* files. The line each file was left on is kept onc
 `places.txt` beside it, which is also what takes you back to that line whenever you open
 a file, and what `:recent-files` lists.
 
+**A run with no file open leaves the session alone.** Typing into the blank document
+and leaving with `:q!` does not wipe yesterday's files; the next `-r` still finds them.
+
+**The session also keeps how the page looked**: the layout (`:vertical`,
+`:horizontal`), the `:view-*` settings (all but `:view-preview`) and the theme
+(`:theme`, `:theme-mode`, `:theme-fill`), each only where it differs from your config.
+They are written beside the session as the commands that set them, such as
+`theme bw` or `view-pages-horizontal 2`, and `-r` and `:resume` run them before the
+files come back. When no file comes back, they are not run. To keep a look for good,
+save it in the project's `.yumete/config.toml` (the settings panel can).
+
+**`:reload-config` is the way back to your saved settings**: it reads the config
+files again and puts the layout, every `:view-*` setting and the theme back the way
+they say, whatever commands changed. Quit after it and the session keeps no look
+at all. Saving in the settings panel reloads too, but leaves what commands changed.
+
 **To keep no memory at all**, as with vim's `viminfo=` or Neovim's `shada=""`, write
 `[editor] remember = false`: yumete then neither writes nor reads `places.txt`,
 `projects.txt` or the sessions, so there is no line to go back to, no recent files or
