@@ -6131,8 +6131,8 @@ a line:
   first word (and the first after `|`, `;` or `&`), matched fuzzily as helix's are,
   so `gt` finds `git`; a file name after it, by prefix, read from
   the working directory, folders ending in `/`, hidden files only once you type the
-  `.`. The names float above the line, drawn the way code completion is, and Tab /
-  S-Tab walk them. While the last command is waiting in grey, Tab takes that first.
+  `.`. The names float above the line, drawn the way code completion is, over the
+  命令 panel, which keeps its place; Tab / S-Tab walk them. While the last command is waiting in grey, Tab takes that first.
 
 **`!` inside a `:!` line is the previous `:!` command**, as in vim: `:!!` runs it
 again, and `:!! | less` runs it again through `less`. Write `\!` for a `!` of your
