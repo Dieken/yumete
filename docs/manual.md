@@ -1163,7 +1163,8 @@ as the segmenter cuts them: `阿寧` offers `阿寧師兄` if the project has it
 character. 漢字 count only once committed, so the list never shares the screen with the
 IME's candidates. `C-n` (or `C-x`) lists them at any length, even with the setting at 0.
 `Tab` takes the one marked, `C-n` / `C-p` move, `Esc` puts the list away. In code the
-language server answers instead.
+language server answers first, and the words come up only when it has nothing to offer,
+as Zed does: in practice in comments and strings, or in a language with no server.
 
 **A path is completed where you type it.** Any word with a `/` in it (`./`, `../`,
 `~/`, `/`, `drafts/`), and anything right after `](`, lists the files and folders it can
