@@ -6128,7 +6128,8 @@ a line:
 - `C-p` / `C-n` walk only the shell lines in the history, as helix's shell prompts
   keep a history of their own; on any other line they walk every command, as before;
 - the word being typed can be finished with Tab: a program name from `$PATH` for the
-  first word (and the first after `|`, `;` or `&`), a file name after it, read from
+  first word (and the first after `|`, `;` or `&`), matched fuzzily as helix's are,
+  so `gt` finds `git`; a file name after it, by prefix, read from
   the working directory, folders ending in `/`, hidden files only once you type the
   `.`. The names float above the line, drawn the way code completion is, and Tab /
   S-Tab walk them. While the last command is waiting in grey, Tab takes that first.
