@@ -5839,6 +5839,7 @@ word read as something the command takes.
 | `:x` `:xit` | `:exit` |
 | `:up` | `:update` |
 | `:sb` `:sw` `:sp` | `:search-buffers` `:search-working` `:search-project` |
+| `:r` | `:replace` |
 | `:rb` `:rw` `:rp` | `:replace-buffers` `:replace-working` `:replace-project` |
 | `:y` | `:yume` = Chinese on — the head of a family, two keys |
 
