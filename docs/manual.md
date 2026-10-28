@@ -1151,11 +1151,15 @@ somebody orders on purpose, not something done in passing on a carriage return.
 
 **Words you have already written are offered as you write.** After four Latin letters
 (`[editor] word_completion`, 0 to 20, `0` off), a list floats under the caret with the
-words of every open file that the letters can become, matched in order but not
-necessarily together, as helix's word completion is: `Ddsf` finds `Donaudampfschiff`.
+words of every open file that the letters can become. Words that **start** with what
+you typed come first, **in the case you typed**, as vim's `'infercase'` does: `when`
+offers `whenever` even if the file only has `Whenever`, `When` offers `Whenever`,
+`WHEN` offers `WHENEVER`. A word with a capital after its first letter is a name and
+stays as written: `java` offers `JavaScript`. After them come words that only hold your
+letters in order, as helix's word completion matches: `Ddsf` finds `Donaudampfschiff`.
 Words of three to fifty letters count. 漢字 come up after half as many characters,
 rounded up (two at the factory setting), and only words longer than what you typed,
-as the segmenter cuts them: `阿寧` offers `阿寧師兄` if the book has it, not one more
+as the segmenter cuts them: `阿寧` offers `阿寧師兄` if the project has it, not one more
 character. 漢字 count only once committed, so the list never shares the screen with the
 IME's candidates. `C-n` (or `C-x`) lists them at any length, even with the setting at 0.
 `Tab` takes the one marked, `C-n` / `C-p` move, `Esc` puts the list away. In code the
@@ -3132,6 +3136,13 @@ docs answer back.
 **Nothing floats in Insert except completion and the signature.** A line you are halfway
 through typing is broken by definition, so diagnostics wait for `Esc` (neovim ships this
 way too, `update_in_insert = false`), and the signature never collides with them.
+
+**Only the first letter waits for the server.** The list comes up once the server
+answers; after that each letter you type narrows the list already on screen, at once,
+and Backspace widens it again, as in helix. Items that no longer hold your letters in
+order leave it; those that start with what you typed come first. The server is asked
+again only when it said its list was incomplete, and the narrowed list stays up until
+its new answer arrives.
 
 **Completion does not fight the IME.** While the code string is still in the IME's hands
 the editor does not know you are typing at all — the space bar and the number keys
