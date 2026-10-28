@@ -6117,6 +6117,21 @@ line, "press any key to return to yumete…".
 The command goes through your `$SHELL -c`, so pipes and globs count:
 `:sh wc -w *.md | sort -n` is one command, not a few words that got split apart.
 
+**A line for the terminal says so.** When the command line starts with `!`, `sh`,
+`pipe`, `pipe-before`, `pipe-after` or `pipe-to`, the `:` in front of it turns into
+a gold `Shell:`. The `!` itself is drawn inside that label, so `:!ls` reads
+`Shell: ls` and not like bash's own `!ls`; the other verbs stay on the line. On such
+a line:
+
+- the last shell command, whichever verb ran it, waits in grey after the caret, and
+  Tab takes it, as `/` does with the last search;
+- `C-p` / `C-n` walk only the shell lines in the history, as helix's shell prompts
+  keep a history of their own; on any other line they walk every command, as before.
+
+**`!` inside a `:!` line is the previous `:!` command**, as in vim: `:!!` runs it
+again, and `:!! | less` runs it again through `less`. Write `\!` for a `!` of your
+own. With no previous command it says so and runs nothing.
+
 **A third one: `|` — send the selected text out, and replace it with what comes
 back.**
 
