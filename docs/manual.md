@@ -6149,6 +6149,12 @@ and it is also what vi's "read a command's output in here" meant: "run a
 command, put the answer here" — which paragraph the cursor is in has nothing to
 do with it. To send the selected text in, use `\|` or `A-\|`.
 
+**`:read <file>` puts a file in without a shell**, what `:pipe-after cat <file>` did.
+It follows helix's `:read`: the file goes in as it is, after every selection. Under
+the vim keymap it follows vim's `:r`: the file goes on new lines below the cursor
+line, and the cursor moves to the first of them. A relative path is read from the
+working directory. `:r` is not `:read` here; it is short for `:replace`.
+
 **A command that fails does not touch your text.** Mistyping a flag (`tr -D ' '`
 instead of `-d`) happens all the time, and what that command spits out is an
 error message — replacing a paragraph with an error message is an edit nobody
