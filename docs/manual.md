@@ -693,7 +693,10 @@ know, do it anyway」.
 only: the cursor is already sitting on the near one. No setting turns it off.
 
 The `m` in `md m` and `mr m` is helix's spelling (its `surround_delete` takes it too),
-and like helix's it means a bracket or quote pair only. Markdown's `**` `*` `~~` `==`
+and like helix's it means the nearest pair whose two halves differ: brackets, and quotes
+such as `“”` and `「」`. A straight `"` or `'` is not taken by `m`, since in prose it is
+as often an apostrophe; `md"` names it. With the cursor on a quote mark, `md"` and `mr"`
+take the pair `mi"` would select, counting the line's quotes from its start. Markdown's `**` `*` `~~` `==`
 `` ` `` and links are `k`: `md k` takes them away whole, where `md m` on a link would take
 only its `[` `]`. Each step of `m` lists what it takes as you type it.
 
