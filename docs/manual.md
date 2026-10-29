@@ -1177,7 +1177,9 @@ the files and folders it can go on to, read from **this file's own folder** (the
 directory for a file with no name yet), folders ending in `/`, hidden ones only once you
 type the `.`. This is helix's path completion, plus the Markdown link, and it works in
 code too. Unlike helix, a slash on its own is not a path: `//` opening a comment, `</`
-closing a tag and ` / ` between two words list nothing (`C-n` still asks).
+closing a tag and ` / ` between two words list nothing (`C-n` still asks). In a link a
+name is written as a link's path is, as VS Code writes it: a space as `%20` and `%` as
+`%25`, so `my notes.md` goes in as `my%20notes.md` and `gL` still opens it.
 
 **Type half a reference and `Tab` finishes it.** Type `[^` in the text and the footnote
 marks this file already has are listed below, each with the first sentence of its note
@@ -6233,10 +6235,11 @@ command, put the answer here" — which paragraph the cursor is in has nothing t
 do with it. To send the selected text in, use `\|` or `A-\|`.
 
 **`:read <file>` puts a file in without a shell**, what `:pipe-after cat <file>` did.
-It follows helix's `:read`: the file goes in as it is, after every selection. Under
-the vim keymap it follows vim's `:r`: the file goes on new lines below the cursor
-line, and the cursor moves to the first of them. A relative path is read from the
-working directory. `:r` is not `:read` here; it is short for `:replace`.
+It follows helix's `:read`: the file goes in after every selection. Under the vim
+keymap it follows vim's `:r`: the file goes on new lines below the cursor line, and
+the cursor moves to the first of them. As in vim, its lines take this file's line
+ending, its byte-order mark is left out, and an empty file puts nothing in. A
+relative path is read from the working directory. `:r` is not `:read` here; it is short for `:replace`.
 
 **A command that fails does not touch your text.** Mistyping a flag (`tr -D ' '`
 instead of `-d`) happens all the time, and what that command spits out is an
