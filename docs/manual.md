@@ -702,9 +702,12 @@ only its `[` `]`. Each step of `m` lists what it takes as you type it.
 
 **Any other character is a pair of itself**, as in helix: `ms*` wraps the selection in
 `*…*`, `md$` takes off the two `$` around the cursor, `mr$(` turns `$x$` into `(x)`, and
-`mi$` selects what is between them. Two of the same character are counted on their line
-the way quotes are, so `ma$`, like `ma"`, takes the blank after it too. In `mi`/`ma` a
-letter or a digit is always the name of an object, never a pair.
+`mi$` selects what is between them. Two of the same character are found the way quotes
+are, and `ma$`, like `ma"`, takes the two marks and no blank, as in helix. A count goes
+out mark by mark, as helix counts: on the `b` of `x "a "b" c" y`, `2mi"` selects
+`a "b" c` and `2md"` takes off the outer two. Under the vim keymap `a"` takes the blank
+after it too, and a count of two takes the quotes in, as in vim. In `mi`/`ma` a letter
+or a digit is always the name of an object, never a pair.
 
 **`ms` then `Enter` puts the selection on lines of its own**, as in helix: a line break
 before it and one after, in the file's own line ending.
