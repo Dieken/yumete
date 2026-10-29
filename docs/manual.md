@@ -1165,7 +1165,9 @@ rounded up (two at the factory setting), and only words longer than what you typ
 as the segmenter cuts them: `阿寧` offers `阿寧師兄` if the project has it, not one more
 character. 漢字 count only once committed, so the list never shares the screen with the
 IME's candidates. `C-n` (or `C-x`) lists them at any length, even with the setting at 0.
-`Tab` takes the one marked, `C-n` / `C-p` move, `Esc` puts the list away. In code the
+`Tab` takes the one marked, `C-n` / `C-p` move, `Esc` puts the list away. The list shows
+six at a time (`[editor] completion_page_size`, also for code and shell completion), and
+it steps aside while the input method is composing the next character. In code the
 language server answers first, and the words come up only when it has nothing to offer,
 as Zed does: in practice in comments and strings, or in a language with no server.
 
@@ -6508,7 +6510,7 @@ That sounds like meddling, and it is really a repair: a key `RawConfig` does not
 **voids the whole config**, and not one of the correct settings in the same file takes
 effect. Once it is commented out the file works again, and not a character is lost.
 
-**Eight groups, sixty-one items**, one group to a page:
+**Eight groups, sixty-two items**, one group to a page:
 
 | Group | What is in it |
 | --- | --- |
@@ -6564,6 +6566,7 @@ no need to remember where they live.
 ```toml
 [editor]
 word_completion = 4          # Latin letters before the open files' words are listed (漢字: half, rounded up); 0 off, C-n still lists
+completion_page_size = 6     # how many items the word, code and shell completion lists show at once (1 to 20)
 indent_width = 4             # columns `>` adds and `<` takes away, also the spaces Tab inserts
 tab_inserts = "spaces"       # Tab inserts spaces in insert mode (factory); "tab" inserts a tab character. Shift-Tab inserts the other one
 tab_width = 8                # what multiple a TAB advances to (what the 碼表 line up by)
