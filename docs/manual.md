@@ -1169,11 +1169,13 @@ IME's candidates. `C-n` (or `C-x`) lists them at any length, even with the setti
 language server answers first, and the words come up only when it has nothing to offer,
 as Zed does: in practice in comments and strings, or in a language with no server.
 
-**A path is completed where you type it.** Any word with a `/` in it (`./`, `../`,
-`~/`, `/`, `drafts/`), and anything right after `](`, lists the files and folders it can
-go on to, read from **this file's own folder** (the working directory for a file with no
-name yet), folders ending in `/`, hidden ones only once you type the `.`. This is
-helix's path completion, plus the Markdown link, and it works in code too.
+**A path is completed where you type it.** Any word with a `/` in it that names
+something (`./`, `../`, `~/`, `/usr/l`, `drafts/`), and anything right after `](`, lists
+the files and folders it can go on to, read from **this file's own folder** (the working
+directory for a file with no name yet), folders ending in `/`, hidden ones only once you
+type the `.`. This is helix's path completion, plus the Markdown link, and it works in
+code too. Unlike helix, a slash on its own is not a path: `//` opening a comment, `</`
+closing a tag and ` / ` between two words list nothing (`C-n` still asks).
 
 **Type half a reference and `Tab` finishes it.** Type `[^` in the text and the footnote
 marks this file already has are listed below, each with the first sentence of its note
@@ -6161,18 +6163,22 @@ a gold `Shell:`. The `!` itself is drawn inside that label, so `:!ls` reads
 `Shell: ls` and not like bash's own `!ls`; the other verbs stay on the line. On such
 a line:
 
-- the last shell command, whichever verb ran it, waits in grey after the caret, and
-  Tab takes it, as `/` does with the last search;
+- the last shell command, whichever verb ran it and with its `!` already replaced,
+  waits in grey after the caret, and Tab takes it, as `/` does with the last search;
 - `C-p` / `C-n` walk only the shell lines in the history, as helix's shell prompts
-  keep a history of their own; on any other line they walk every command, as before;
+  keep a history of their own, and bring back the command alone: the verb you
+  started on stays, so `:!` never turns into a `:pipe`; on any other line they walk
+  every command, as before;
 - the word being typed can be finished with Tab: a program name from `$PATH` for the
   first word (and the first after `|`, `;` or `&`), matched fuzzily as helix's are,
   so `gt` finds `git`; a file name after it, by prefix, read from
   the working directory, folders ending in `/`, hidden files only once you type the
-  `.`. The names float above the line, drawn the way code completion is, over the
+  `.`. A name with a space or another character the shell reads goes in with a
+  backslash before it (`my\ file.txt`). The names float above the line, drawn the way code completion is, over the
   命令 panel, which keeps its place; Tab / S-Tab walk them. While the last command is waiting in grey, Tab takes that first.
 
-**`!` inside a `:!` line is the previous `:!` command**, as in vim: `:!!` runs it
+**`!` inside a `:!` line is the previous shell command**, as in vim, whichever verb
+ran it: `:!!` runs it
 again, and `:!! | less` runs it again through `less`. Write `\!` for a `!` of your
 own. With no previous command it says so and runs nothing.
 
