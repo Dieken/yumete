@@ -1543,7 +1543,7 @@ leaves the other alone, and does not need that layout to be in use.
 **Each page is an independent short page.** A vertical page has its own column
 length and its own paragraph-number row, filling from the right; a horizontal
 one has its own line-number gutter, which with two blank cells before it is what
-divides it from the page before, and wraps at its own width — even with `:view-wrap off`, since a line
+divides it from the page before, and wraps at the pages' width — even with `:view-wrap off`, since a line
 run past a page's edge would run into the next page. Pages are the same size,
 because the window is being divided and not filled.
 
@@ -6023,8 +6023,8 @@ line will tell you itself.
 - `:!command` — hand the terminal over and watch it run (vi's spelling)
 - `:view-wrap` ｜ `on` `off` `0` `<幾欄>` — wrap long paragraphs to the next row; `:view-wrap 50` sets the measure
 - `:view-margin` ｜ `never` `dense` `loose` `always` — margin: when the lane for readings, hung punctuation, emphasis dots and 平仄 is kept
-- `:view-pages-vertical` ｜ `<1–4>` — pages, vertical: divide the vertical page across — top right to top left, then bottom right to bottom left
 - `:view-pages-horizontal` ｜ `<1–4>` — pages, horizontal: side-by-side columns, the text running on from the left one to the right
+- `:view-pages-vertical` ｜ `<1–4>` — pages, vertical: divide the vertical page across — top right to top left, then bottom right to bottom left
 - `:view-sentence` ｜ `on` `off` — one sentence to a column: vertically, each sentence starts its own column — a view of the page, not an edit
 - `:view-hanging` ｜ `on` `off` — hung punctuation: 句讀 sit in the margin
 - `:view-numbers-fill` ｜ `on` `off` — the line-number band: whether it has a ground of its own
@@ -6406,8 +6406,8 @@ for**, so searching for the same thing again is `/` and a Tab.
 | `:ruby-render off`/`basic`/`full` | The source / readings read but not laid out / laid out beside the base (`:ruby` on its own edits the reading here) |
 | `:view-margin` *never*｜*dense*｜*loose*｜*always* | Where the margin is kept: nowhere / each column or row that carries something / a whole paragraph if any of it does / everywhere |
 | `:indent off`/`basic`/`full` (or a number) | The first-line indent; `full` folds the blank line between paragraphs in too (a Chinese paragraph indents two squares) |
-| `:view-pages-vertical` (1–4) | Pages, vertical: divide the vertical page across into so many pages |
 | `:view-pages-horizontal` (1–4) | Pages, horizontal: so many pages side by side, the text running through them |
+| `:view-pages-vertical` (1–4) | Pages, vertical: divide the vertical page across into so many pages |
 | `:view-sentence` (`off`) | One 句 to a column, for proofreading; a view only, the file does not move (see 5.8) |
 | `:yume-chaifen` | The 拆分 annotation beside the candidates (two layers: 拆分 + code) |
 | `:yume` `:yume-which` | Which scheme is in use, where its 碼表 came from (the full path), and whether 拆分 is on |
